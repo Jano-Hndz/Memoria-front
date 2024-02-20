@@ -9,6 +9,9 @@ import HistoryIcon from '@mui/icons-material/History';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 
+
+
+
 export const HomeEstudiante = () => {
     const navigate = useNavigate();
 
@@ -32,7 +35,7 @@ export const HomeEstudiante = () => {
                             variant="contained"
                             sx={{ mt: 1, height: "80px" }}
                             onClick={() => {
-                                navigate("/municipalidad/historialegresos");
+                                navigate("/estudiante/consulta");
                             }}
                         >
                             <QuestionAnswerIcon
