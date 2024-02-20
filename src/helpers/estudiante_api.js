@@ -1,9 +1,10 @@
 import {AppAPI} from "../api"
 import Swal from 'sweetalert2';
 
-export const GetDataIngresosEgresos = async()=>{
+export const Consulta_ChatGPT = async(data)=>{
     try {
-        const res = await AppAPI.get(`/municipalidad/dataIngreEgre`)
+        console.log(data);
+        const res = await AppAPI.post(`/estudiante/consulta`,data)
 
         if(res.data.ok){
             return res.data
