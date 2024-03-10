@@ -1,19 +1,24 @@
-import {useState } from 'react';
+import {useState,useRef } from 'react';
 import { Box, Typography, Button,Paper,TextField} from "@mui/material";
 import { AppLayout } from "../../layout/AppLayout";
 import {Consulta_ChatGPT} from "../../../helpers/estudiante_api"
-
+import { useNavigate } from 'react-router-dom';
 
 export const Consulta = () => {
     const [inputValue, setInputValue] = useState("");
+    const [isEnabled, setIsEnabled] = useState(true);
+    const navigate = useNavigate();
+
 
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
     };
 
     const handleSubmit = async(event) => {
-        console.log("Valor del campo de texto:", inputValue);
-        const resp= await Consulta_ChatGPT({consulta:inputValue})
+        setIsEnabled(false)
+        const respuesta= await Consulta_ChatGPT({consulta:inputValue})
+        navigate('/estudiante/resolucion', {state: {lista:respuesta.resp,problema:inputValue,id_consulta:respuesta.id_consulta}});
+
     };
 
     return (
@@ -42,6 +47,7 @@ export const Consulta = () => {
                     alignItems: "center",
                 }}
             >
+                
 
                 <Box width={"70%"} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <TextField
@@ -49,7 +55,7 @@ export const Consulta = () => {
                         label="Escriba el problema a enseñar"
                         multiline
                         rows={12}
-                        sx={{ width: "90%", marginBottom: '1rem' }}
+                        sx={{ width: "100%", marginBottom: '1rem' }}
                         value={inputValue}
                         onChange={handleInputChange}
                         />
@@ -60,10 +66,11 @@ export const Consulta = () => {
                         color="primary"
                         onClick={handleSubmit}
                         sx={{ width: "100%" }}
+                        disabled={!isEnabled} 
                     >
                         Enviar
                     </Button>
-                </Box>
+                </Box >
                 
 
             </Paper>

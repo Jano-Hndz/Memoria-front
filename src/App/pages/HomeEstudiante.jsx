@@ -3,17 +3,34 @@ import { Box, Typography, Button } from "@mui/material";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import { AppLayout } from "../layout/AppLayout";
 import { useNavigate } from "react-router-dom";
-import BarChartIcon from '@mui/icons-material/BarChart';
-import ForumIcon from '@mui/icons-material/Forum';
-import HistoryIcon from '@mui/icons-material/History';
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
-import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-
-
-
+import BarChartIcon from "@mui/icons-material/BarChart";
+import ForumIcon from "@mui/icons-material/Forum";
+import HistoryIcon from "@mui/icons-material/History";
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
+import {GetHistorial} from "../../helpers/estudiante_api"
+import {Get_Foro} from "../../helpers/foro_api"
 
 export const HomeEstudiante = () => {
     const navigate = useNavigate();
+
+    const handleHistorial = async () => {
+        const resp = await GetHistorial ()
+        navigate("/estudiante/historial",{
+            state: {
+                data: resp
+            },
+        });
+    };
+
+    const handleForo = async () => {
+        const resp = await Get_Foro ()
+        navigate("/estudiante/Foro",{
+            state: {
+                Data: resp
+            },
+        });
+    };
 
     return (
         <AppLayout>
@@ -46,19 +63,15 @@ export const HomeEstudiante = () => {
                             </Typography>
                         </Button>
                     </Box>
-                    
+
                     <Box width={"60%"} mb={6}>
                         <Button
                             fullWidth
                             variant="contained"
                             sx={{ mt: 1, height: "80px" }}
-                            onClick={() => {
-                                navigate("/municipalidad/historialegresos");
-                            }}
+                            onClick={handleHistorial}
                         >
-                            <HistoryIcon
-                                sx={{ color: "white", mr: "5px" }}
-                            />
+                            <HistoryIcon sx={{ color: "white", mr: "5px" }} />
                             <Typography color="white" fontSize={22}>
                                 Historial Consultas
                             </Typography>
@@ -74,9 +87,7 @@ export const HomeEstudiante = () => {
                                 navigate("/municipalidad/graficas");
                             }}
                         >
-                            <BarChartIcon
-                                sx={{ color: "white", mr: "5px" }}
-                            />
+                            <BarChartIcon sx={{ color: "white", mr: "5px" }} />
                             <Typography color="white" fontSize={22}>
                                 Ver mi rendimiento
                             </Typography>
@@ -115,20 +126,14 @@ export const HomeEstudiante = () => {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 1, height: "80px" }}
-                            onClick={() => {
-                                navigate("/municipalidad/historialplancompra");
-                            }}
+                            onClick={handleForo}
                         >
-                            <ForumIcon
-                                sx={{ color: "white", mr: "5px" }}
-                            />
+                            <ForumIcon sx={{ color: "white", mr: "5px" }} />
                             <Typography color="white" fontSize={22}>
                                 Foro
                             </Typography>
                         </Button>
                     </Box>
-
-                    
 
                     <Box width={"60%"} mb={6}>
                         <Button
