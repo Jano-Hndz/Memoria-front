@@ -1,14 +1,35 @@
 import { Box, Typography, Button } from "@mui/material";
-
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import { AppLayout } from "../layout/AppLayout";
 import { useNavigate } from "react-router-dom";
-import RateReviewIcon from '@mui/icons-material/RateReview';
-import ForumIcon from '@mui/icons-material/Forum';
+import BarChartIcon from "@mui/icons-material/BarChart";
+import ForumIcon from "@mui/icons-material/Forum";
+import HistoryIcon from "@mui/icons-material/History";
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
+import {Get_Foro} from "../../helpers/foro_api"
+
 
 
 export const HomeProfesor = () => {
     const navigate = useNavigate();
+
+    const handleEjerciciosPropuestos = async () => {
+        navigate("/profesor/EjerciciosPropuestos",{
+            state: {
+                data: "Data"
+            },
+        });
+    };
+
+    const handleForo = async () => {
+        const resp = await Get_Foro ()
+        navigate("/estudiante/Foro",{
+            state: {
+                Data: resp
+            },
+        });
+    };
 
     return (
         <AppLayout>
@@ -29,15 +50,26 @@ export const HomeProfesor = () => {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 1, height: "80px" }}
-                            onClick={() => {
-                                navigate("/quimfarm/IngresarPlanCompra");
-                            }}
+
                         >
-                            <RateReviewIcon
+                            <QuestionAnswerIcon
                                 sx={{ color: "white", mr: "5px" }}
                             />
                             <Typography color="white" fontSize={22}>
-                                Revisar rendimientos
+                                ??????????????
+                            </Typography>
+                        </Button>
+                    </Box>
+
+                    <Box width={"60%"} mb={6}>
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 1, height: "80px" }}
+                        >
+                            <HistoryIcon sx={{ color: "white", mr: "5px" }} />
+                            <Typography color="white" fontSize={22}>
+                                Rendimiento
                             </Typography>
                         </Button>
                     </Box>
@@ -47,15 +79,11 @@ export const HomeProfesor = () => {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 1, height: "80px" }}
-                            onClick={() => {
-                                navigate("/quimfarm/historial");
-                            }}
+
                         >
-                            <ForumIcon
-                                sx={{ color: "white", mr: "5px" }}
-                            />
+                            <BarChartIcon sx={{ color: "white", mr: "5px" }} />
                             <Typography color="white" fontSize={22}>
-                                Foro
+                                ??????????????????
                             </Typography>
                         </Button>
                     </Box>
@@ -74,12 +102,27 @@ export const HomeProfesor = () => {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 1, height: "80px" }}
-                            onClick={() => {
-                                navigate("/quimfarm/IngresarEgresos");
-                            }}
+                            onClick={handleEjerciciosPropuestos}
                         >
+                            <LibraryBooksIcon
+                                sx={{ color: "white", mr: "5px" }}
+                            />
                             <Typography color="white" fontSize={22}>
-                                Boton
+                                Ejercicios propuestos
+                            </Typography>
+                        </Button>
+                    </Box>
+
+                    <Box width={"60%"} mb={6}>
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 1, height: "80px" }}
+                            onClick={handleForo}
+                        >
+                            <ForumIcon sx={{ color: "white", mr: "5px" }} />
+                            <Typography color="white" fontSize={22}>
+                                Foro
                             </Typography>
                         </Button>
                     </Box>
@@ -94,7 +137,7 @@ export const HomeProfesor = () => {
                             sx={{ mt: 1, height: "80px" }}
                         >
                             <ReportProblemIcon
-                                sx={{ color: "white", mr: "3px" }}
+                                sx={{ color: "white", mr: "5px" }}
                             />
                             <Typography color="white" fontSize={22}>
                                 Notificar Problema

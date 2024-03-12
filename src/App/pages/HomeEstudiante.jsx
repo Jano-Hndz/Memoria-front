@@ -116,7 +116,7 @@ export const HomeEstudiante = () => {
                                 sx={{ color: "white", mr: "5px" }}
                             />
                             <Typography color="white" fontSize={22}>
-                                Visitar Material
+                                Ejercicios propuestos
                             </Typography>
                         </Button>
                     </Box>

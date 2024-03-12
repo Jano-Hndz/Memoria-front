@@ -3,7 +3,6 @@ import Swal from 'sweetalert2';
 
 export const Publicar_Foro = async(data)=>{
     try {
-        // console.log(data);
         const res = await AppAPI.post(`/estudiante/Foro/publicar`,data)
 
 
@@ -22,7 +21,6 @@ export const Publicar_Foro = async(data)=>{
 
 export const Get_Foro = async()=>{
     try {
-        // console.log(data);
         const res = await AppAPI.get(`/estudiante/Foro/get`)
 
 
@@ -41,7 +39,6 @@ export const Get_Foro = async()=>{
 
 export const Get_Retroalimentacion = async(data)=>{
     try {
-        console.log(data);
 
         const res = await AppAPI.post(`/estudiante/foro/retroalimentacion`,data)
 
@@ -61,13 +58,12 @@ export const Get_Retroalimentacion = async(data)=>{
 
 export const ComentarForo = async(data)=>{
     try {
-        console.log(data);
 
         const res = await AppAPI.post(`/estudiante/foro/comentar`,data)
 
 
         if(res.data.ok){
-            return res.data.data
+            return res.data.id_comentario
         }else{
             return "Error en peticion"
         }
@@ -80,7 +76,6 @@ export const ComentarForo = async(data)=>{
 
 export const PostForo = async(data)=>{
     try {
-        console.log(data);
 
         const res = await AppAPI.post(`/estudiante/foro/get`,data)
 

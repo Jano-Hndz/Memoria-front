@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { getData } from "../../../../helpers/funciones";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {Publicar_Foro} from "../../../../helpers/foro_api";
+import { useAuthStore } from "../../../../hooks/useAuthStore";
 
 
 
@@ -14,6 +15,7 @@ export const PublicarForo = () => {
     const [isEnabled, setIsEnabled] = useState(true);
     const navigate = useNavigate();
     const { Data } = getData();
+    const {user} = useAuthStore();
 
     const handleVerRetoalimentacion = async () => {
         navigate("/estudiante/retroalimentacion", {
@@ -36,8 +38,18 @@ export const PublicarForo = () => {
             Comentario:inputValue,
             RetroalimentacionID:Data.id_retroalimento
         });
+        console.log(respu);
         setIsEnabled(true);
-        
+        navigate("/estudiante/Post_Foro", {
+            state: 
+                {
+                    _id: respu.id,
+                    Usuario: user.name,
+                    RetroalimentacionID: Data.id_retroalimento,
+                    Comentario: inputValue
+                }
+            ,
+        });
     };
 
     return (

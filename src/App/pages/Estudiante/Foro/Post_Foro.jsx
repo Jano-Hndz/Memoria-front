@@ -1,19 +1,17 @@
-import { useState, useRef } from "react";
-import { Box, Typography, Button, Grid, Paper, TextField } from "@mui/material";
+import { useState, useEffect } from "react";
+import { Box, Typography, Button,CircularProgress, Grid, Paper, TextField } from "@mui/material";
 import { AppLayout } from "../../../layout/AppLayout";
 import { Consulta_ChatGPT } from "../../../../helpers/estudiante_api";
 import { useNavigate } from "react-router-dom";
 import { getData } from "../../../../helpers/funciones";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { ComentarForo } from "../../../../helpers/foro_api";
+import { ComentarForo,Get_Retroalimentacion,PostForo} from "../../../../helpers/foro_api";
 import ChatIcon from "@mui/icons-material/Chat";
-
+import {useAuthStore} from "../../../../hooks/useAuthStore"
 
 const ComentarioItem = ({ Data }) => {
     const navigate = useNavigate();
-    console.log(Data);
-
-
+    
     return (
 
         <Paper
@@ -31,9 +29,6 @@ const ComentarioItem = ({ Data }) => {
                                 <Typography sx={{ ml: 6, fontSize: 18 }}>
                                     {Data.Usuario}: {Data.Comentario}
                                 </Typography>
-                                <Typography sx={{ ml: 6, fontSize: 18 }}>
-                                    {Data.Usuario}: {Data.Comentario}
-                                </Typography>
 
                     </Paper>
     );
@@ -42,9 +37,29 @@ const ComentarioItem = ({ Data }) => {
 
 export const Post_Foro = () => {
     const Data = getData();
-    console.log(Data);
+    const {user } = useAuthStore();
     const [inputValue, setInputValue] = useState("");
     const [isEnabled, setIsEnabled] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
+    const [ComentariosForo, setComentariosForo] = useState([])
+
+    useEffect(() => {
+        async function handleBuscarPromptsID() {
+          try {
+            const respu = await PostForo({
+                id_foro:Data._id
+            });
+            setComentariosForo(respu);
+            setIsLoading(false);
+          } catch (error) {
+            console.error(error);
+            setIsLoading(false);
+          }
+        }
+        handleBuscarPromptsID();
+
+        
+      }, []);
 
 
     const navigate = useNavigate();
@@ -60,7 +75,15 @@ export const Post_Foro = () => {
             Comentario:inputValue
         });
         setIsEnabled(true);
-        
+        let jsonAgregar={
+            _id: respu,
+            Usuario: user.name,
+            ForoID: Data._id,
+            Comentario: inputValue
+        }
+        const nuevaLista=[...ComentariosForo, jsonAgregar]
+        setComentariosForo(nuevaLista)
+        setInputValue("")
     };
 
     const handleVer_ejercicio = async (event) => {
@@ -134,11 +157,21 @@ export const Post_Foro = () => {
                         </Grid>
                     </Paper>
 
-                    {(Data.comentarios).map((jsonItem, index) => (
+                    {isLoading ? (
+                    <Box sx = {{display:"flex", flexDirection:'column' ,alignItems: "center", justifyContent: "center", width: "100%"}} >
+                        <CircularProgress />
+                    </Box>
+                    ) : (
+                    <div>
+                        {ComentariosForo.map((jsonItem, index) => (
                         <Box key={index} mb={1}>
                             <ComentarioItem Data={jsonItem} />
                         </Box>
                     ))}
+                    </div>
+                    )}
+
+                    
 
 
 

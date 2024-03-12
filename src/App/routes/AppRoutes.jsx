@@ -10,7 +10,7 @@ import {Historial} from "../pages/Estudiante/Historial"
 import {PublicarForo} from "../pages/Estudiante/Foro/PublicarForo"
 import {Foro} from "../pages/Estudiante/Foro/Foro"
 import {Post_Foro} from "../pages/Estudiante/Foro/Post_Foro"
-
+import {EjerciciosPropuestos} from "../pages/Profesor/EjerciciosPropuestos"
 
 
 export const AppRoutes = () => {
@@ -26,7 +26,7 @@ export const AppRoutes = () => {
       <Route path="/estudiante/Post_Foro" element={ <Post_Foro/> } />
 
 
-
+      <Route path="/profesor/EjerciciosPropuestos" element={ <EjerciciosPropuestos/> } />
 
       
       <Route path="/admin/AddUser" element={ <AddUser/> } />

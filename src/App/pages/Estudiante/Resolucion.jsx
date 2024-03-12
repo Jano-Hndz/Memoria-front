@@ -102,7 +102,7 @@ export const Resolucion = () => {
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
-                                <Tooltip title="Este titulo sera util para poder identificar cada consulta en la sección de historial.">
+                                <Tooltip title="Este titulo sera util para poder identificar cada consulta en la sección del historial.">
                                     <InfoIcon />
                                 </Tooltip>
                             </InputAdornment>

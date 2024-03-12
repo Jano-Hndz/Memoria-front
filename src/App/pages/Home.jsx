@@ -9,8 +9,8 @@ import {HomeProfesor} from "./HomeProfesor"
 
 export const Home = () => {
 
-  const {user } = useAuthStore();
-  const rol="estudiante"
+  const {user} = useAuthStore();
+  const rol=user.rol
   if(rol=="admin"){ 
     return (
       <HomeAdmin/>

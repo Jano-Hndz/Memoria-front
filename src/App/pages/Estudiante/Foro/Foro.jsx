@@ -22,15 +22,14 @@ const ForoItem = ({ Data }) => {
         });
     };
 
+    console.log(Data);
+
 
     const handleComentar = async (event) => {
-        const respu = await PostForo({
-            id_foro:Data._id
-        });
+
         navigate("/estudiante/Post_Foro", {
             state: {
-                ...Data,
-                comentarios:respu
+                ...Data
             },
         });
     };
