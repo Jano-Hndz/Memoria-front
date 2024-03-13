@@ -18,7 +18,8 @@ import {calcularPromedio} from "../../../helpers/funciones"
 export const Retroalimentacion = () => {
     const data_get = getData();
     const inputs = data_get.inputs;
-    const retroalimentaciones = JSON.parse(data_get.retroalimentacion);
+    console.log(data_get.retroalimentacion);
+    const retroalimentaciones = JSON.parse(`[${data_get.retroalimentacion}]`);
     const lista_funciones = data_get.lista_funciones;
     let json_retro = null;
     

@@ -17,7 +17,7 @@ export const HomeProfesor = () => {
     const handleEjerciciosPropuestos = async () => {
         navigate("/profesor/EjerciciosPropuestos",{
             state: {
-                data: "Data"
+                mostrar: false
             },
         });
     };

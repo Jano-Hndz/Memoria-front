@@ -109,7 +109,7 @@ export const HomeEstudiante = () => {
                             variant="contained"
                             sx={{ mt: 1, height: "80px" }}
                             onClick={() => {
-                                navigate("/municipalidad/historialplancompra");
+                                navigate("/estudiante/EjerciciosPropuestos");
                             }}
                         >
                             <LibraryBooksIcon

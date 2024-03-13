@@ -24,7 +24,8 @@ import ShareIcon from "@mui/icons-material/Share";
 const AccordionItem = ({ Data }) => {
     const navigate = useNavigate();
 
-    const retroalimentaciones = JSON.parse(Data.Retroalimentacion);
+    const retroalimentaciones = JSON.parse(`[${Data.Retroalimentacion}]`)
+    
 
     const JSON_Calificaciones = calcularPromedio(retroalimentaciones);
 

@@ -37,15 +37,14 @@ return (
           </Button>
 
           <Button
-            onClick={startLogout}
-            sx={{ color: 'white',  marginLeft: 'auto'}}
-          >
-            <Typography variant="button" fontSize={16} marginRight={1} >
-              Cerrar sesión
-            </Typography>
-            <ExitToAppIcon />
-
-          </Button>
+    onClick={startLogout}
+    sx={{ color: 'white',  marginLeft: 'auto'}}
+>
+    <Typography variant="button" fontSize={16} marginRight={1} >
+        Cerrar sesión
+    </Typography>
+    <ExitToAppIcon />
+</Button>
         </Box>
 
       </Container>

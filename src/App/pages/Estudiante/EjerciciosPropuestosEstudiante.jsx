@@ -1,6 +1,17 @@
 import { useState, useEffect } from "react";
-import { Box, Typography, Button, Grid,CircularProgress, Paper, TextField,    AccordionDetails,
-    AccordionSummary, Accordion ,Divider} from "@mui/material";
+import {
+    Box,
+    Typography,
+    Button,
+    Grid,
+    CircularProgress,
+    Paper,
+    TextField,
+    AccordionDetails,
+    AccordionSummary,
+    Accordion,
+    Divider,
+} from "@mui/material";
 import { AppLayout } from "../../layout/AppLayout";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
@@ -8,14 +19,20 @@ import { getData } from "../../../helpers/funciones";
 import Swal from "sweetalert2";
 import { ObtenerEjerciciosPropuestos } from "../../../helpers/profesor_api";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import PreviewIcon from '@mui/icons-material/Preview';
-import DeleteIcon from '@mui/icons-material/Delete';
+import CreateIcon from "@mui/icons-material/Create";
 
 const EjercicioItem = ({ Data }) => {
-
     const navigate = useNavigate();
+    const handleResolver = async () => {
 
-
+        navigate("/estudiante/resolucion", {
+            state: {
+                lista: Data.Respuesta,
+                problema: Data.Problema,
+                id_consulta: Data._id,
+            },
+        });
+    };
 
     return (
         <Accordion key={Data._id} style={{ border: "1px solid #ef7fa0" }}>
@@ -57,7 +74,6 @@ const EjercicioItem = ({ Data }) => {
 
                         <Divider />
                     </Box>
-                    
 
                     <Box
                         sx={{
@@ -72,30 +88,15 @@ const EjercicioItem = ({ Data }) => {
                             color="primary"
                             sx={{
                                 width: "70%",
-                                m: 3,
-                                height: "50px",
-                                color: "white",
-                            }}
-                            startIcon={
-                                <PreviewIcon style={{ color: "white" }} />
-                            }
-
-                        >
-                            Ver rendimiento
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            sx={{
-                                width: "70%",
                                 height: "50px",
                                 m: 3,
                             }}
+                            onClick={handleResolver}
                             startIcon={
-                                <DeleteIcon style={{ color: "white" }} />
+                                <CreateIcon style={{ color: "white" }} />
                             }
                         >
-                            Eliminar
+                            Resolver el Problema
                         </Button>
                     </Box>
                 </Box>
@@ -104,8 +105,7 @@ const EjercicioItem = ({ Data }) => {
     );
 };
 
-export const EjerciciosPropuestos = () => {
-    const navigate = useNavigate();
+export const EjerciciosPropuestosEstudiante = () => {
     const [Ejercicios, setEjercicios] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -128,17 +128,6 @@ export const EjerciciosPropuestos = () => {
         navigate("/profesor/AgregarEjercicio");
     };
 
-    const { mostrar } = getData();
-
-    if (mostrar) {
-        Swal.fire({
-            icon: "success",
-            title: "Éxito!",
-            text: "El ejercicio se ha agregado correctamente.",
-            confirmButtonText: "Aceptar",
-        });
-    }
-
     return (
         <AppLayout>
             <Box
@@ -154,18 +143,6 @@ export const EjerciciosPropuestos = () => {
                 >
                     Ejercicios Propuestos
                 </Typography>
-            </Box>
-            <Box>
-                <Button
-                    variant="contained"
-                    sx={{ mt: 1 }}
-                    onClick={handleAgregar}
-                >
-                    <AddIcon sx={{ color: "white", mr: "5px" }} />
-                    <Typography color="white" fontSize={22}>
-                        Agregar ejercicio
-                    </Typography>
-                </Button>
             </Box>
 
             {isLoading ? (
