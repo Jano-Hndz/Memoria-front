@@ -1,39 +1,52 @@
-import {useState,useRef } from 'react';
-import { Box, Typography, Button,Paper,TextField} from "@mui/material";
+import { useState, useRef } from "react";
+import { Box, Typography, Button, Paper, TextField, Chip } from "@mui/material";
 import { AppLayout } from "../../layout/AppLayout";
-import {Agregar_Ejercicio} from "../../../helpers/profesor_api"
-import { useNavigate } from 'react-router-dom';
-
-
+import { Agregar_Ejercicio } from "../../../helpers/profesor_api";
+import { useNavigate } from "react-router-dom";
 
 export const AgregarEjercicio = () => {
     const [inputValue, setInputValue] = useState("");
-    const [Titulo, setTitulo] = useState("")
+    const [Titulo, setTitulo] = useState("");
     const [isEnabled, setIsEnabled] = useState(true);
+    const [tags, setTags] = useState([]);
+    const [tagInput, setTagInput] = useState("");
+
     const navigate = useNavigate();
 
+    const handleTagInputChange = (event) => {
+        setTagInput(event.target.value);
+    };
 
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
     };
 
+    const handleDelete = (index) => {
+        setTags(tags.filter((_, i) => i !== index));
+      };
+
     const handleTituloChange = (event) => {
         setTitulo(event.target.value);
     };
 
-    const handleSubmit = async(event) => {
-        setIsEnabled(false)
-        const respuesta= await Agregar_Ejercicio({
-            Titulo:Titulo,
-            Problema:inputValue
-        })
-        navigate("/profesor/EjerciciosPropuestos",{
+    const handleSubmit = async (event) => {
+        setIsEnabled(false);
+        const respuesta = await Agregar_Ejercicio({
+            Titulo: Titulo,
+            Problema: inputValue,
+        });
+        navigate("/profesor/EjerciciosPropuestos", {
             state: {
-                mostrar: true
+                mostrar: true,
             },
         });
+    };
 
-
+    const handleTagInputKeyPress = (event) => {
+        if (event.key === "Enter" && tagInput.trim() !== "") {
+            setTags([...tags, tagInput.trim()]);
+            setTagInput("");
+        }
     };
 
     return (
@@ -62,26 +75,53 @@ export const AgregarEjercicio = () => {
                     alignItems: "center",
                 }}
             >
-                
-
-                <Box width={"70%"} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <Box
+                    width={"70%"}
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
                     <TextField
                         id="outlined-multiline-static"
                         label="Escriba un titulo para el problema"
                         rows={1}
-                        sx={{ width: "100%", marginBottom: '1rem' }}
+                        sx={{ width: "100%", marginBottom: "1rem" }}
                         value={Titulo}
                         onChange={handleTituloChange}
-                        />
+                    />
                     <TextField
                         id="outlined-multiline-static"
                         label="Escriba el problema"
                         multiline
                         rows={12}
-                        sx={{ width: "100%", marginBottom: '1rem' }}
+                        sx={{ width: "100%", marginBottom: "1rem" }}
                         value={inputValue}
                         onChange={handleInputChange}
-                        />
+                    />
+                    <Box sx={{ width: "100%", marginBottom: "1rem" }}>
+                        {tags.map((tag, index) => (
+                            <Chip
+                                key={index}
+                                label={tag}
+                                style={{ marginRight: "0.5rem", marginTop:"0.5rem"}}
+                                variant="outlined" 
+                                onDelete={() => handleDelete(index)}
+                            />
+                        ))}
+                    </Box>
+
+                    <TextField
+                        id="outlined-multiline-static"
+                        label="Agregar etiquetas (presiona Enter para agregar)"
+                        sx={{ width: "100%", marginBottom: "1rem"}}
+                        value={tagInput}
+
+                        onChange={handleTagInputChange}
+                        onKeyPress={handleTagInputKeyPress}
+                    />
 
                     <Button
                         type="submit"
@@ -89,13 +129,11 @@ export const AgregarEjercicio = () => {
                         color="primary"
                         onClick={handleSubmit}
                         sx={{ width: "100%" }}
-                        disabled={!isEnabled} 
+                        disabled={!isEnabled}
                     >
                         Enviar
                     </Button>
-                </Box >
-                
-
+                </Box>
             </Paper>
         </AppLayout>
     );
