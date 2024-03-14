@@ -1,4 +1,3 @@
-import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PreviewIcon from '@mui/icons-material/Preview';
@@ -15,21 +14,17 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import { getData } from "../../../helpers/funciones";
-import { ObtenerEjerciciosPropuestos } from "../../../helpers/profesor_api";
+import { ObtenerEjerciciosPropuestosTag } from "../../../helpers/profesor_api";
 import { AppLayout } from "../../layout/AppLayout";
 
 const EjercicioItem = ({ Data }) => {
 
     const navigate = useNavigate();
 
-    console.log(Data);
 
     const handleChip = (tag) => {
-        navigate("/profesor/EjerciciosTag",{state: {
-            data: tag
-        }});
+        console.log(tag);
     };
 
     return (
@@ -134,15 +129,17 @@ const EjercicioItem = ({ Data }) => {
     );
 };
 
-export const EjerciciosPropuestos = () => {
+export const EjerciciosTag = () => {
     const navigate = useNavigate();
     const [Ejercicios, setEjercicios] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const data = getData();
+
 
     useEffect(() => {
         async function handleBuscarEjerciciosPropuestos() {
             try {
-                const respu = await ObtenerEjerciciosPropuestos({});
+                const respu = await ObtenerEjerciciosPropuestosTag({Tag:data.data});
                 setEjercicios(respu);
                 setIsLoading(false);
                 console.log(respu);
@@ -154,20 +151,6 @@ export const EjerciciosPropuestos = () => {
         handleBuscarEjerciciosPropuestos();
     }, []);
 
-    const handleAgregar = async () => {
-        navigate("/profesor/AgregarEjercicio");
-    };
-
-    const { mostrar } = getData();
-
-    if (mostrar) {
-        Swal.fire({
-            icon: "success",
-            title: "Éxito!",
-            text: "El ejercicio se ha agregado correctamente.",
-            confirmButtonText: "Aceptar",
-        });
-    }
 
     return (
         <AppLayout>
@@ -175,6 +158,7 @@ export const EjerciciosPropuestos = () => {
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
+                flexDirection="column"
                 my={5}
             >
                 <Typography
@@ -184,18 +168,14 @@ export const EjerciciosPropuestos = () => {
                 >
                     Ejercicios Propuestos
                 </Typography>
-            </Box>
-            <Box>
-                <Button
-                    variant="contained"
-                    sx={{ mt: 1 }}
-                    onClick={handleAgregar}
+
+                <Typography
+                    variant="h4"
+                    fontWeight={500}
+                    fontSize={{ xs: 30, md: 50 }}
                 >
-                    <AddIcon sx={{ color: "white", mr: "5px" }} />
-                    <Typography color="white" fontSize={22}>
-                        Agregar ejercicio
-                    </Typography>
-                </Button>
+                    ({data.data})
+                </Typography>
             </Box>
 
             {isLoading ? (

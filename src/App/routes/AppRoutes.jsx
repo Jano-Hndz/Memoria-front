@@ -1,19 +1,21 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import {Home} from "../pages/Home"
-import {Contacto} from "../pages/Contacto"
-import {AdminUsers} from "../pages/Admin/AdminUsers"
-import {AddUser} from "../pages/Admin/AddUser"
-import {Consulta} from "../pages/Estudiante/Consulta"
+import { AddUser } from "../pages/Admin/AddUser"
+import { AdminUsers } from "../pages/Admin/AdminUsers"
+import { Contacto } from "../pages/Contacto"
+import { Consulta } from "../pages/Estudiante/Consulta"
+import { EjerciciosPropuestosEstudiante } from "../pages/Estudiante/EjerciciosPropuestosEstudiante"
+import { EjerciciosTagEstudiante } from "../pages/Estudiante/EjerciciosTagEstudiante"
+import { Foro } from "../pages/Estudiante/Foro/Foro"
+import { Post_Foro } from "../pages/Estudiante/Foro/Post_Foro"
+import { PublicarForo } from "../pages/Estudiante/Foro/PublicarForo"
+import { Historial } from "../pages/Estudiante/Historial"
 import { Resolucion } from "../pages/Estudiante/Resolucion"
-import {Retroalimentacion} from "../pages/Estudiante/Retroalimentacion"
-import {Historial} from "../pages/Estudiante/Historial"
-import {EjerciciosPropuestosEstudiante} from "../pages/Estudiante/EjerciciosPropuestosEstudiante"
+import { Retroalimentacion } from "../pages/Estudiante/Retroalimentacion"
+import { Home } from "../pages/Home"
+import { AgregarEjercicio } from "../pages/Profesor/AgregarEjercicio"
+import { EjerciciosPropuestos } from "../pages/Profesor/EjerciciosPropuestos"
+import { EjerciciosTag } from "../pages/Profesor/EjerciciosTag"
 
-import {PublicarForo} from "../pages/Estudiante/Foro/PublicarForo"
-import {Foro} from "../pages/Estudiante/Foro/Foro"
-import {Post_Foro} from "../pages/Estudiante/Foro/Post_Foro"
-import {EjerciciosPropuestos} from "../pages/Profesor/EjerciciosPropuestos"
-import {AgregarEjercicio} from "../pages/Profesor/AgregarEjercicio"
 
 
 export const AppRoutes = () => {
@@ -28,11 +30,15 @@ export const AppRoutes = () => {
       <Route path="/estudiante/Foro" element={ <Foro/> } />
       <Route path="/estudiante/Post_Foro" element={ <Post_Foro/> } />
       <Route path="/estudiante/EjerciciosPropuestos" element={ <EjerciciosPropuestosEstudiante/> } />
+      <Route path="/estudiante/EjerciciosPropuestos/tag" element={ <EjerciciosTagEstudiante/> } />
+
 
 
 
       <Route path="/profesor/EjerciciosPropuestos" element={ <EjerciciosPropuestos/> } />
       <Route path="/profesor/AgregarEjercicio" element={ <AgregarEjercicio/> } />
+      <Route path="/profesor/EjerciciosTag" element={ <EjerciciosTag/> } />
+
 
 
       

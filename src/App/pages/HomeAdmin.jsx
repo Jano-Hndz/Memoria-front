@@ -1,7 +1,7 @@
 import {
   Box,
-  Typography,
-  Button
+  Button,
+  Typography
 } from '@mui/material';
 import { AppLayout } from '../layout/AppLayout';
 

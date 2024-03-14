@@ -1,21 +1,21 @@
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import Editor from "@monaco-editor/react";
+import InfoIcon from "@mui/icons-material/Info";
 import {
     Box,
-    Typography,
     Button,
-    TextField,
-    Paper,
-    Grid,
     Container,
+    Grid,
+    InputAdornment,
+    Paper,
+    TextField,
     Tooltip,
-    InputAdornment
+    Typography
 } from "@mui/material";
-import { AppLayout } from "../../layout/AppLayout";
-import Editor from "@monaco-editor/react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Revision_ChatGPT } from "../../../helpers/estudiante_api";
 import { getData } from "../../../helpers/funciones";
-import InfoIcon from "@mui/icons-material/Info";
+import { AppLayout } from "../../layout/AppLayout";
 
 export const Resolucion = () => {
     const [inputs, setInputs] = useState({});

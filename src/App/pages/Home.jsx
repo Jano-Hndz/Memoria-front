@@ -1,9 +1,9 @@
 import { Typography } from '@mui/material';
 import { useAuthStore } from "../../hooks/useAuthStore";
-import {HomeAdmin} from "./HomeAdmin"
 import { AppLayout } from '../layout/AppLayout';
-import {HomeEstudiante} from "./HomeEstudiante"
-import {HomeProfesor} from "./HomeProfesor"
+import { HomeAdmin } from "./HomeAdmin";
+import { HomeEstudiante } from "./HomeEstudiante";
+import { HomeProfesor } from "./HomeProfesor";
 
 
 

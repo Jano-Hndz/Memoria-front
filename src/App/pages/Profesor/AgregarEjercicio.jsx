@@ -1,8 +1,8 @@
-import { useState, useRef } from "react";
-import { Box, Typography, Button, Paper, TextField, Chip } from "@mui/material";
-import { AppLayout } from "../../layout/AppLayout";
-import { Agregar_Ejercicio } from "../../../helpers/profesor_api";
+import { Box, Button, Chip, Paper, TextField, Typography } from "@mui/material";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Agregar_Ejercicio } from "../../../helpers/profesor_api";
+import { AppLayout } from "../../layout/AppLayout";
 
 export const AgregarEjercicio = () => {
     const [inputValue, setInputValue] = useState("");
@@ -34,6 +34,7 @@ export const AgregarEjercicio = () => {
         const respuesta = await Agregar_Ejercicio({
             Titulo: Titulo,
             Problema: inputValue,
+            Tags:tags
         });
         navigate("/profesor/EjerciciosPropuestos", {
             state: {

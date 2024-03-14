@@ -1,5 +1,5 @@
-import {AppAPI} from "../api"
 import Swal from 'sweetalert2';
+import { AppAPI } from "../api";
 
 export const Publicar_Foro = async(data)=>{
     try {

@@ -1,18 +1,14 @@
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import Editor from "@monaco-editor/react";
 import {
     Box,
-    Typography,
-    Button,
+    Container,
+    Grid,
     Paper,
     Rating,
-    Grid,
-    Container,
+    Typography
 } from "@mui/material";
+import { calcularPromedio, getData } from "../../../helpers/funciones";
 import { AppLayout } from "../../layout/AppLayout";
-import Editor from "@monaco-editor/react";
-import {getData} from "../../../helpers/funciones"
-import {calcularPromedio} from "../../../helpers/funciones"
 
 
 export const Retroalimentacion = () => {

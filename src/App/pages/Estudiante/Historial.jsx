@@ -1,25 +1,22 @@
-import { useState, useRef } from "react";
+import CreateIcon from "@mui/icons-material/Create";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ShareIcon from "@mui/icons-material/Share";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
-    Box,
-    Typography,
-    IconButton,
-    Button,
-    Paper,
-    TextField,
     Accordion,
-    Divider,
-    Grid,
-    Rating,
     AccordionDetails,
     AccordionSummary,
+    Box,
+    Button,
+    Divider,
+    Grid,
+    Paper,
+    Rating,
+    Typography
 } from "@mui/material";
-import { AppLayout } from "../../layout/AppLayout";
 import { useNavigate } from "react-router-dom";
-import { getData, calcularPromedio } from "../../../helpers/funciones";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import CreateIcon from "@mui/icons-material/Create";
-import ShareIcon from "@mui/icons-material/Share";
+import { calcularPromedio, getData } from "../../../helpers/funciones";
+import { AppLayout } from "../../layout/AppLayout";
 
 const AccordionItem = ({ Data }) => {
     const navigate = useNavigate();

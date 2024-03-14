@@ -1,13 +1,13 @@
-import { Box, Typography, Button } from "@mui/material";
-import ReportProblemIcon from "@mui/icons-material/ReportProblem";
-import { AppLayout } from "../layout/AppLayout";
-import { useNavigate } from "react-router-dom";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import ForumIcon from "@mui/icons-material/Forum";
 import HistoryIcon from "@mui/icons-material/History";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
-import {Get_Foro} from "../../helpers/foro_api"
+import ReportProblemIcon from "@mui/icons-material/ReportProblem";
+import { Box, Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Get_Foro } from "../../helpers/foro_api";
+import { AppLayout } from "../layout/AppLayout";
 
 
 

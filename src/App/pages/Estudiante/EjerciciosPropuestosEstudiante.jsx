@@ -1,25 +1,20 @@
-import { useState, useEffect } from "react";
+import CreateIcon from "@mui/icons-material/Create";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
-    Box,
-    Typography,
-    Button,
-    Grid,
-    CircularProgress,
-    Paper,
-    TextField,
+    Accordion,
     AccordionDetails,
     AccordionSummary,
-    Accordion,
+    Box,
+    Button,
+    Chip,
+    CircularProgress,
     Divider,
+    Typography
 } from "@mui/material";
-import { AppLayout } from "../../layout/AppLayout";
-import AddIcon from "@mui/icons-material/Add";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getData } from "../../../helpers/funciones";
-import Swal from "sweetalert2";
 import { ObtenerEjerciciosPropuestos } from "../../../helpers/profesor_api";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import CreateIcon from "@mui/icons-material/Create";
+import { AppLayout } from "../../layout/AppLayout";
 
 const EjercicioItem = ({ Data }) => {
     const navigate = useNavigate();
@@ -33,6 +28,13 @@ const EjercicioItem = ({ Data }) => {
             },
         });
     };
+
+    const handleChip = (tag) => {
+        navigate("/estudiante/EjerciciosPropuestos/tag",{state: {
+            data: tag
+        }});
+    };
+
 
     return (
         <Accordion key={Data._id} style={{ border: "1px solid #ef7fa0" }}>
@@ -58,6 +60,21 @@ const EjercicioItem = ({ Data }) => {
                 }}
             >
                 <Box flexDirection={"column"}>
+                <Box mb={3} sx={{
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                        }}>
+                    {(Data.Tags).map((tag, index) => (
+                            <Chip
+                                key={index}
+                                label={tag}
+                                style={{ marginRight: "0.5rem", marginTop:"0.5rem"}}
+                                variant="outlined" 
+                                onClick={() => handleChip(tag)}
+                            />
+                        ))}
+                    </Box>
                     <Box
                         sx={{
                             width: "100%",
