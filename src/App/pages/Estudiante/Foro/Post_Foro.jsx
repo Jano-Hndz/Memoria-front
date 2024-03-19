@@ -5,9 +5,12 @@ import { Consulta_ChatGPT } from "../../../../helpers/estudiante_api";
 import { useNavigate } from "react-router-dom";
 import { getData } from "../../../../helpers/funciones";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { ComentarForo,Get_Retroalimentacion,PostForo} from "../../../../helpers/foro_api";
+import { ComentarForo,Get_Retroalimentacion,PostForo,GetEjercicio} from "../../../../helpers/foro_api";
 import ChatIcon from "@mui/icons-material/Chat";
 import {useAuthStore} from "../../../../hooks/useAuthStore"
+import CreateIcon from "@mui/icons-material/Create";
+
+
 
 const ComentarioItem = ({ Data }) => {
     const navigate = useNavigate();
@@ -42,7 +45,23 @@ export const Post_Foro = () => {
     const [isEnabled, setIsEnabled] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
     const [ComentariosForo, setComentariosForo] = useState([])
+    
+    const handleRehacer = async (input) => {
+        const respu= await GetEjercicio({
+            id_consulta:Data.RetroalimentacionID
+        })
 
+        navigate("/estudiante/resolucion", {
+            state: {
+                lista: respu.Respuesta,
+                problema: respu.Problema,
+                id_consulta: respu._id,
+            },
+        });
+    };
+
+    
+    
     useEffect(() => {
         async function handleBuscarPromptsID() {
           try {
@@ -143,6 +162,7 @@ export const Post_Foro = () => {
                                         width: "70%",
                                         m: 3,
                                         color: "white",
+                                        display: Data.verRetroalimentacion ? '' : 'none'
                                     }}
                                     onClick={handleVer_ejercicio}
                                     startIcon={
@@ -151,11 +171,47 @@ export const Post_Foro = () => {
                                         />
                                     }
                                 >
-                                    Ver ejercicio
+                                    Ver retroalimentación
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    sx={{
+                                        width: "70%",
+                                        m: 3,
+                                        color: "white",
+                                    }}
+                                    onClick={handleRehacer}
+                                    startIcon={
+                                        <CreateIcon style={{ color: "white" }} />
+                                    }
+                                >
+                                    Resolver ejercicio
                                 </Button>
                             </Grid>
                         </Grid>
                     </Paper>
+
+
+                    <TextField
+                        id="outlined-multiline-static"
+                        multiline
+                        rows={5}
+                        sx={{ width: "100%" }}
+                        value={inputValue}
+                        onChange={handleInputChange}
+                    />
+
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSubmit}
+                        sx={{ width: "100%", height: "50px" }}
+                        disabled={!isEnabled}
+                    >
+                        Comentar
+                    </Button>
 
                     {isLoading ? (
                     <Box sx = {{display:"flex", flexDirection:'column' ,alignItems: "center", justifyContent: "center", width: "100%"}} >
@@ -173,28 +229,6 @@ export const Post_Foro = () => {
 
                     
 
-
-
-
-                    <TextField
-                        id="outlined-multiline-static"
-                        multiline
-                        rows={8}
-                        sx={{ width: "100%" }}
-                        value={inputValue}
-                        onChange={handleInputChange}
-                    />
-
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        onClick={handleSubmit}
-                        sx={{ width: "100%", height: "50px" }}
-                        disabled={!isEnabled}
-                    >
-                        Comentar
-                    </Button>
 
 
         </AppLayout>

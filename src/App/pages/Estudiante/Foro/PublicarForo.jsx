@@ -1,21 +1,34 @@
 import { useState, useRef } from "react";
-import { Box, Typography, Button, Grid, Paper, TextField } from "@mui/material";
+import {
+    Box,
+    Typography,
+    Button,
+    Grid,
+    Paper,
+    TextField,
+    FormControlLabel,
+    Checkbox,
+} from "@mui/material";
 import { AppLayout } from "../../../layout/AppLayout";
 import { Consulta_ChatGPT } from "../../../../helpers/estudiante_api";
 import { useNavigate } from "react-router-dom";
 import { getData } from "../../../../helpers/funciones";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import {Publicar_Foro} from "../../../../helpers/foro_api";
+import { Publicar_Foro } from "../../../../helpers/foro_api";
 import { useAuthStore } from "../../../../hooks/useAuthStore";
-
-
 
 export const PublicarForo = () => {
     const [inputValue, setInputValue] = useState("");
     const [isEnabled, setIsEnabled] = useState(true);
     const navigate = useNavigate();
     const { Data } = getData();
-    const {user} = useAuthStore();
+    const { user } = useAuthStore();
+
+    const [option1Checked, setOption1Checked] = useState(false);
+
+    const handleOption1Change = (event) => {
+        setOption1Checked(event.target.checked);
+      };
 
     const handleVerRetoalimentacion = async () => {
         navigate("/estudiante/retroalimentacion", {
@@ -23,7 +36,7 @@ export const PublicarForo = () => {
                 inputs: Data.Respuesta_Estudiante,
                 retroalimentacion: Data.Retroalimentacion,
                 lista_funciones: JSON.parse(Data.RespuestaSubojetivos),
-                problema: Data.Problema,
+                problema: Data.Problema
             },
         });
     };
@@ -35,20 +48,19 @@ export const PublicarForo = () => {
     const handleSubmit = async (event) => {
         setIsEnabled(false);
         const respu = await Publicar_Foro({
-            Comentario:inputValue,
-            RetroalimentacionID:Data.id_retroalimento
+            Comentario: inputValue,
+            RetroalimentacionID: Data.id_retroalimento,
+            verRetroalimentacion:option1Checked
         });
-        console.log(respu);
         setIsEnabled(true);
         navigate("/estudiante/Post_Foro", {
-            state: 
-                {
-                    _id: respu.id,
-                    Usuario: user.name,
-                    RetroalimentacionID: Data.id_retroalimento,
-                    Comentario: inputValue
-                }
-            ,
+            state: {
+                _id: respu.id,
+                Usuario: user.name,
+                RetroalimentacionID: Data.id_retroalimento,
+                Comentario: inputValue,
+                verRetroalimentacion:option1Checked
+            },
         });
     };
 
@@ -137,6 +149,17 @@ export const PublicarForo = () => {
                         </Grid>
                     </Paper>
 
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={option1Checked}
+                                onChange={handleOption1Change}
+                                color="primary"
+                            />
+                        }
+                        label="Permitir ver retroalimentacion"
+                    />
+                    
                     <Button
                         type="submit"
                         variant="contained"

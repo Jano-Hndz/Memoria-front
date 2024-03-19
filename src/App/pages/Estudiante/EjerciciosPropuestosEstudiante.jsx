@@ -9,7 +9,7 @@ import {
     Chip,
     CircularProgress,
     Divider,
-    Typography
+    Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +19,6 @@ import { AppLayout } from "../../layout/AppLayout";
 const EjercicioItem = ({ Data }) => {
     const navigate = useNavigate();
     const handleResolver = async () => {
-
         navigate("/estudiante/resolucion", {
             state: {
                 lista: Data.Respuesta,
@@ -30,11 +29,12 @@ const EjercicioItem = ({ Data }) => {
     };
 
     const handleChip = (tag) => {
-        navigate("/estudiante/EjerciciosPropuestos/tag",{state: {
-            data: tag
-        }});
+        navigate("/estudiante/EjerciciosPropuestos/tag", {
+            state: {
+                data: tag,
+            },
+        });
     };
-
 
     return (
         <Accordion key={Data._id} style={{ border: "1px solid #ef7fa0" }}>
@@ -44,11 +44,33 @@ const EjercicioItem = ({ Data }) => {
                 id={`panel-${Data.id_retroalimento}-header`}
             >
                 <Box
-                    sx={{ display: "flex", alignItems: "center", my: 2, ml: 3 }}
+                    flexDirection={"column"}
+                    sx={{ display: "flex", alignItems: "center", mt: 2, ml: 3 }}
                 >
                     <Typography sx={{ ml: 6, fontSize: 23 }}>
                         {Data.Titulo}
                     </Typography>
+
+                    <Box
+                        sx={{
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                        }}
+                    >
+                        {Data.Tags.map((tag, index) => (
+                            <Chip
+                                key={index}
+                                label={tag}
+                                style={{
+                                    marginRight: "0.5rem",
+                                    marginTop: "0.5rem",
+                                }}
+                                variant="outlined"
+                                onClick={() => handleChip(tag)}
+                            />
+                        ))}
+                    </Box>
                 </Box>
             </AccordionSummary>
 
@@ -60,21 +82,6 @@ const EjercicioItem = ({ Data }) => {
                 }}
             >
                 <Box flexDirection={"column"}>
-                <Box mb={3} sx={{
-                            width: "100%",
-                            display: "flex",
-                            justifyContent: "center",
-                        }}>
-                    {(Data.Tags).map((tag, index) => (
-                            <Chip
-                                key={index}
-                                label={tag}
-                                style={{ marginRight: "0.5rem", marginTop:"0.5rem"}}
-                                variant="outlined" 
-                                onClick={() => handleChip(tag)}
-                            />
-                        ))}
-                    </Box>
                     <Box
                         sx={{
                             width: "100%",

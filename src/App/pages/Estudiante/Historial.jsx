@@ -38,6 +38,11 @@ const AccordionItem = ({ Data }) => {
     };
 
     const handleRehacer = async (input) => {
+        console.log({
+            lista: Data.RespuestaSubojetivos,
+            problema: Data.Problema,
+            id_consulta: Data.id_consulta,
+        });
         navigate("/estudiante/resolucion", {
             state: {
                 lista: Data.RespuestaSubojetivos,

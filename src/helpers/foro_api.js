@@ -91,3 +91,22 @@ export const PostForo = async(data)=>{
         Swal.fire('Error al buscar', error.response.data.msg, 'error');
     }
 }
+
+
+export const GetEjercicio = async(data)=>{
+    try {
+
+        const res = await AppAPI.post(`/estudiante/foro/ejercicio`,data)
+
+
+        if(res.data.ok){
+            return res.data.data
+        }else{
+            return "Error en peticion"
+        }
+        
+    } catch (error) {
+        console.log(error);
+        Swal.fire('Error al buscar', error.response.data.msg, 'error');
+    }
+}

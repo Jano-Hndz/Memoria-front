@@ -18,13 +18,15 @@ import { ObtenerEjerciciosPropuestosTag } from "../../../helpers/profesor_api";
 import { AppLayout } from "../../layout/AppLayout";
 
 
-const EjercicioItem = ({ Data }) => {
+const EjercicioItem = ({ Data, onFetchExercises }) => {
+
+
 
     const navigate = useNavigate();
 
 
-    const handleChip = (tag) => {
-        console.log(tag);
+    const handleChip = async (tag) => {
+        await onFetchExercises(tag);
     };
 
     
@@ -47,12 +49,32 @@ const EjercicioItem = ({ Data }) => {
                 aria-controls={`panel-${Data.id_retroalimento}-content`}
                 id={`panel-${Data.id_retroalimento}-header`}
             >
-                <Box
+                <Box flexDirection={"column"}
                     sx={{ display: "flex", alignItems: "center", my: 2, ml: 3 }}
                 >
                     <Typography sx={{ ml: 6, fontSize: 23 }}>
                         {Data.Titulo}
                     </Typography>
+                    <Box
+                        sx={{
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                        }}
+                    >
+                        {Data.Tags.map((tag, index) => (
+                            <Chip
+                                key={index}
+                                label={tag}
+                                style={{
+                                    marginRight: "0.5rem",
+                                    marginTop: "0.5rem",
+                                }}
+                                variant="outlined"
+                                onClick={() => handleChip(tag)}
+                            />
+                        ))}
+                    </Box>
                 </Box>
             </AccordionSummary>
 
@@ -64,21 +86,7 @@ const EjercicioItem = ({ Data }) => {
                 }}
             >
                 <Box flexDirection={"column"}>
-                    <Box mb={3} sx={{
-                            width: "100%",
-                            display: "flex",
-                            justifyContent: "center",
-                        }}>
-                    {(Data.Tags).map((tag, index) => (
-                            <Chip
-                                key={index}
-                                label={tag}
-                                style={{ marginRight: "0.5rem", marginTop:"0.5rem"}}
-                                variant="outlined" 
-                                onClick={() => handleChip(tag)}
-                            />
-                        ))}
-                    </Box>
+                    
                     <Box
                         sx={{
                             width: "100%",
@@ -132,22 +140,28 @@ export const EjerciciosTagEstudiante = () => {
     const [Ejercicios, setEjercicios] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const data = getData();
+    const [Titulo, setTitulo] = useState(data.data)
+
+    async function handleBuscarEjerciciosPropuestos(tag) {
+        try {
+            console.log("se ejecuto");
+            setTitulo(tag);
+            const respu = await ObtenerEjerciciosPropuestosTag({Tag:tag});
+            setEjercicios(respu);
+            setIsLoading(false);
+            console.log(respu);
+        } catch (error) {
+            console.error(error);
+            setIsLoading(false);
+        }
+    }
 
 
     useEffect(() => {
-        async function handleBuscarEjerciciosPropuestos() {
-            try {
-                const respu = await ObtenerEjerciciosPropuestosTag({Tag:data.data});
-                setEjercicios(respu);
-                setIsLoading(false);
-                console.log(respu);
-            } catch (error) {
-                console.error(error);
-                setIsLoading(false);
-            }
-        }
-        handleBuscarEjerciciosPropuestos();
+        
+        handleBuscarEjerciciosPropuestos(data.data);
     }, []);
+
 
 
     return (
@@ -172,7 +186,7 @@ export const EjerciciosTagEstudiante = () => {
                     fontWeight={500}
                     fontSize={{ xs: 30, md: 50 }}
                 >
-                    ({data.data})
+                    ({Titulo})
                 </Typography>
             </Box>
 
@@ -192,7 +206,7 @@ export const EjerciciosTagEstudiante = () => {
                 <div>
                     {Ejercicios.map((jsonItem, index) => (
                         <Box key={index} mb={1}>
-                            <EjercicioItem Data={jsonItem} />
+                            <EjercicioItem Data={jsonItem} onFetchExercises={handleBuscarEjerciciosPropuestos} />
                         </Box>
                     ))}
                 </div>

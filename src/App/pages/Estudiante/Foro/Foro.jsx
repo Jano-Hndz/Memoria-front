@@ -5,10 +5,14 @@ import { Consulta_ChatGPT } from "../../../../helpers/estudiante_api";
 import { useNavigate } from "react-router-dom";
 import { getData } from "../../../../helpers/funciones";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { Get_Retroalimentacion,PostForo } from "../../../../helpers/foro_api";
+import { Get_Retroalimentacion,PostForo,GetEjercicio} from "../../../../helpers/foro_api";
 import ChatIcon from '@mui/icons-material/Chat';
+import CreateIcon from "@mui/icons-material/Create";
+
+
 
 const ForoItem = ({ Data }) => {
+    console.log(Data.verRetroalimentacion);
     const navigate = useNavigate();
 
     const handleVer_ejercicio = async (event) => {
@@ -22,7 +26,6 @@ const ForoItem = ({ Data }) => {
         });
     };
 
-    console.log(Data);
 
 
     const handleComentar = async (event) => {
@@ -30,6 +33,20 @@ const ForoItem = ({ Data }) => {
         navigate("/estudiante/Post_Foro", {
             state: {
                 ...Data
+            },
+        });
+    };
+
+    const handleRehacer = async (input) => {
+        const respu= await GetEjercicio({
+            id_consulta:Data.RetroalimentacionID
+        })
+
+        navigate("/estudiante/resolucion", {
+            state: {
+                lista: respu.Respuesta,
+                problema: respu.Problema,
+                id_consulta: respu._id,
             },
         });
     };
@@ -66,6 +83,7 @@ const ForoItem = ({ Data }) => {
                                         width: "70%",
                                         m: 3,
                                         color: "white",
+                                        display: Data.verRetroalimentacion ? '' : 'none'
                                     }}
                                     onClick={handleVer_ejercicio}
                                     startIcon={
@@ -74,7 +92,23 @@ const ForoItem = ({ Data }) => {
                                         />
                                     }
                                 >
-                                    Ver ejercicio
+                                    Ver retroalimentación
+                                </Button>
+
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    sx={{
+                                        width: "70%",
+                                        m: 3,
+                                        color: "white",
+                                    }}
+                                    onClick={handleRehacer}
+                                    startIcon={
+                                        <CreateIcon style={{ color: "white" }} />
+                                    }
+                                >
+                                    Resolver ejercicio
                                 </Button>
 
                                 <Button
