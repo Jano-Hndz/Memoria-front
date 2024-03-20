@@ -50,9 +50,16 @@ export const Resolucion = () => {
             requested: data_get.lista,
             responded: inputs,
             id_consulta: data_get.id_consulta,
-            titulo:Titulo
+            titulo:Titulo,
+            EJ:data_get.EJ
         });
         setIsEnabled(true);
+        console.log({
+            inputs: inputs,
+            retroalimentacion: respuesta,
+            lista_funciones: lista_funciones,
+            problema: data_get.problema,
+        });
         navigate("/estudiante/retroalimentacion", {
             state: {
                 inputs: inputs,

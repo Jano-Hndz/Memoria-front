@@ -9,16 +9,17 @@ import {
 } from "@mui/material";
 import { calcularPromedio, getData } from "../../../helpers/funciones";
 import { AppLayout } from "../../layout/AppLayout";
+import {CircularWithValueLabel} from "../../../helpers/CircularWithValueLabel"
 
 
 export const Retroalimentacion = () => {
     const data_get = getData();
     const inputs = data_get.inputs;
-    console.log(data_get.retroalimentacion);
     const retroalimentaciones = JSON.parse(`[${data_get.retroalimentacion}]`);
     const lista_funciones = data_get.lista_funciones;
     let json_retro = null;
     
+    console.log(retroalimentaciones);
 
     function buscarPorNombre(nombre) {
         for (let i = 0; i < retroalimentaciones.length; i++) {
@@ -30,6 +31,7 @@ export const Retroalimentacion = () => {
     }
 
     const JSON_Calificaciones = calcularPromedio(retroalimentaciones);
+
 
     return (
         <AppLayout>
@@ -63,7 +65,7 @@ export const Retroalimentacion = () => {
                 </Box>
                 {lista_funciones.map((jsonItem, index) => {
                     json_retro = buscarPorNombre(jsonItem.Nombre);
-
+                    console.log(1);
                     return (
                         <Container
                             key={jsonItem.Nombre}
@@ -165,80 +167,67 @@ export const Retroalimentacion = () => {
                                     options={{ readOnly: true }}
                                 />
                             </Box>
-                            <Box width={"90%"} my={"3%"}>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12}>
-                                        <Grid
-                                            container
-                                            alignItems="center"
-                                            spacing={2}
-                                        >
-                                            <Grid item xs={12} sm={2}>
-                                                <Typography variant="body1">
-                                                    Funcionalidad:
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xs={12} sm={10}>
-                                                <Rating
-                                                    name="half-rating-read"
-                                                    defaultValue={
-                                                        json_retro.Funcionalidad /
-                                                        2
-                                                    }
-                                                    precision={0.5}
-                                                    readOnly
-                                                />
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Grid
-                                            container
-                                            alignItems="center"
-                                            spacing={2}
-                                        >
-                                            <Grid item xs={12} sm={2}>
-                                                <Typography variant="body1">
-                                                    Legibilidad:
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xs={12} sm={10}>
-                                                <Rating
-                                                    name="half-rating-read"
-                                                    defaultValue={
-                                                        json_retro.Legibilidad /
-                                                        2
-                                                    }
-                                                    precision={0.5}
-                                                    readOnly
-                                                />
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Grid
-                                            container
-                                            alignItems="center"
-                                            spacing={2}
-                                        >
-                                            <Grid item xs={12} sm={2}>
-                                                <Typography variant="body1">
-                                                    Eficiencia:
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xs={12} sm={10}>
-                                                <Rating
-                                                    name="half-rating-read"
-                                                    defaultValue={
-                                                        json_retro.Eficiencia /
-                                                        2
-                                                    }
-                                                    precision={0.5}
-                                                    readOnly
-                                                />
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
+                            <Box width={"100%"} my={"3%"}>
+                            <Grid item xs={12}>
+                        <Grid container alignItems="center" spacing={3}>
+                            <Grid
+                                item
+                                xs={12}
+                                sm={4}
+                                sx={{ textAlign: "center" }}
+                            >
+                                <Typography
+                                    sx={{ fontSize: 20 }}
+                                    variant="body1"
+                                >
+                                    Funcionalidad
+                                </Typography>
+
+                                <Box mt={2}>
+                                <CircularWithValueLabel value={json_retro.Funcionalidad*10} size={70}/>
+          
+                                </Box>
+                                
+                            </Grid>
+                            <Grid
+                                item
+                                xs={12}
+                                sm={4}
+                                sx={{ textAlign: "center" }}
+                            >
+                                <Typography
+                                    sx={{ fontSize: 20 }}
+                                    variant="body1"
+                                >
+                                    Legibilidad
+                                </Typography>
+                                <Box mt={2}>
+                                <CircularWithValueLabel value={json_retro.Legibilidad*10} size={70}/>
+
+                                </Box>
+                            </Grid>
+                            <Grid
+                                item
+                                xs={12}
+                                sm={4}
+                                sx={{ textAlign: "center" }}
+                            >
+                                <Typography
+                                    sx={{ fontSize: 20 }}
+                                    variant="body1"
+                                >
+                                    Eficiencia
+                                </Typography>
+                                <Box mt={2}>
+                                    <CircularWithValueLabel value={json_retro.Eficiencia*10} size={70}/>
+                                </Box>
+
+                            </Grid>
+                        </Grid>
+                    </Grid>
+
+
+                                <Grid container spacing={2} mt={2}>
                                     <Grid item xs={12}>
                                         <Grid
                                             container
@@ -264,7 +253,7 @@ export const Retroalimentacion = () => {
                         </Container>
                     );
                 })}
-            <Box mb={10}> 
+                
             <Box my={10} mb={5} sx={{textAlign:"center"}}>
             <Typography
                     variant="h2"
@@ -275,49 +264,71 @@ export const Retroalimentacion = () => {
                 </Typography>
             </Box>
             
-                <Grid item xs={12} >
-                    <Grid container alignItems="center" spacing={3}>
-                        <Grid item xs={12} sm={4} sx={{textAlign:"center"}}>
-                            <Typography sx={{ fontSize: 25 }} variant="body1">
-                                Funcionalidad
-                            </Typography>
-                            <Rating
-                                name="half-rating-read"
-                                defaultValue={
-                                    JSON_Calificaciones.Funcionalidad / 2
-                                }
-                                precision={0.5}
-                                readOnly
-                                sx={{ fontSize: 50 }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4} sx={{textAlign:"center"}}>
-                            <Typography sx={{ fontSize: 25 }} variant="body1">Legibilidad</Typography>
-                            <Rating
-                                name="half-rating-read"
-                                defaultValue={
-                                    JSON_Calificaciones.Legibilidad / 2
-                                }
-                                precision={0.5}
-                                readOnly
-                                sx={{ fontSize: 50 }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4} sx={{textAlign:"center"}}>
-                            <Typography sx={{ fontSize: 25 }} variant="body1">Eficiencia</Typography>
-                            <Rating
-                                name="half-rating-read"
-                                defaultValue={
-                                    JSON_Calificaciones.Eficiencia / 2
-                                }
-                                precision={0.5}
-                                readOnly
-                                sx={{ fontSize: 50 }}
-                            />
-                        </Grid>
+            <Grid container alignItems="center" spacing={3}>
+            <Grid
+                                item
+                                xs={12}
+                                sm={4}
+                                sx={{ textAlign: "center" }}
+                            >
+                                <Typography
+                                    sx={{ fontSize: 20 }}
+                                    variant="body1"
+                                >
+                                    Funcionalidad
+                                </Typography>
+                                <Box mt={2}>
+                                    <CircularWithValueLabel value={JSON_Calificaciones.Funcionalidad*10} size={80}/>
+                                </Box>
+
+                            </Grid>
+                            <Grid
+                                item
+                                xs={12}
+                                sm={4}
+                                sx={{ textAlign: "center" }}
+
+                            >
+                                <Typography
+                                    sx={{ fontSize: 20 }}
+                                    variant="body1"
+                                >
+                                    Legibilidad
+                                </Typography>
+
+                                <Box mt={2}>
+                                <CircularWithValueLabel value={JSON_Calificaciones.Legibilidad*10} size={80}/>
+          
+                                </Box>
+                                
+                            </Grid>
+                            <Grid
+                                item
+                                xs={12}
+                                sm={4}
+                                sx={{ textAlign: "center" }}
+                                
+>
+                                <Typography
+                                    sx={{ fontSize: 20 }}
+                                    variant="body1"
+                                >
+                                    Eficiencia
+                                </Typography>
+
+                                <Box mt={2}>
+                                <CircularWithValueLabel value={JSON_Calificaciones.Eficiencia*10} size={80}/>
+          
+                                </Box>
+                                
+                            </Grid>
+                            
                     </Grid>
-                </Grid>
-            </Box>
+
+                
+
+
+                
             
             </Paper>
         </AppLayout>

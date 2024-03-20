@@ -47,6 +47,7 @@ const ForoItem = ({ Data }) => {
                 lista: respu.Respuesta,
                 problema: respu.Problema,
                 id_consulta: respu._id,
+                
             },
         });
     };

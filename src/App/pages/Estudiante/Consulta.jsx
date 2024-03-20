@@ -17,7 +17,7 @@ export const Consulta = () => {
     const handleSubmit = async(event) => {
         setIsEnabled(false)
         const respuesta= await Consulta_ChatGPT({consulta:inputValue})
-        navigate('/estudiante/resolucion', {state: {lista:respuesta.resp,problema:inputValue,id_consulta:respuesta.id_consulta}});
+        navigate('/estudiante/resolucion', {state: {lista:respuesta.resp,problema:inputValue,id_consulta:respuesta.id_consulta,EJ:false}});
 
     };
 

@@ -12,11 +12,12 @@ import {
     Grid,
     Paper,
     Rating,
-    Typography
+    Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { calcularPromedio, getData } from "../../../helpers/funciones";
 import { AppLayout } from "../../layout/AppLayout";
+import {CircularWithValueLabel} from "../../../helpers/CircularWithValueLabel"
 
 const AccordionItem = ({ Data }) => {
     const navigate = useNavigate();
@@ -27,6 +28,12 @@ const AccordionItem = ({ Data }) => {
     const JSON_Calificaciones = calcularPromedio(retroalimentaciones);
 
     const handleVerRetoalimentacion = async () => {
+        console.log({
+            inputs: Data.Respuesta_Estudiante,
+            retroalimentacion: Data.Retroalimentacion,
+            lista_funciones: JSON.parse(Data.RespuestaSubojetivos),
+            problema: Data.Problema,
+        });
         navigate("/estudiante/retroalimentacion", {
             state: {
                 inputs: Data.Respuesta_Estudiante,
@@ -34,20 +41,17 @@ const AccordionItem = ({ Data }) => {
                 lista_funciones: JSON.parse(Data.RespuestaSubojetivos),
                 problema: Data.Problema,
             },
+
         });
     };
 
     const handleRehacer = async (input) => {
-        console.log({
-            lista: Data.RespuestaSubojetivos,
-            problema: Data.Problema,
-            id_consulta: Data.id_consulta,
-        });
         navigate("/estudiante/resolucion", {
             state: {
                 lista: Data.RespuestaSubojetivos,
                 problema: Data.Problema,
                 id_consulta: Data.id_consulta,
+                EJ:false
             },
         });
     };
@@ -123,15 +127,12 @@ const AccordionItem = ({ Data }) => {
                                 >
                                     Funcionalidad
                                 </Typography>
-                                <Rating
-                                    name="half-rating-read"
-                                    defaultValue={
-                                        JSON_Calificaciones.Funcionalidad / 2
-                                    }
-                                    precision={0.5}
-                                    readOnly
-                                    sx={{ fontSize: 25 }}
-                                />
+
+                                <Box mt={2}>
+                                <CircularWithValueLabel value={JSON_Calificaciones.Funcionalidad*10} size={50}/>
+          
+                                </Box>
+                                
                             </Grid>
                             <Grid
                                 item
@@ -145,15 +146,10 @@ const AccordionItem = ({ Data }) => {
                                 >
                                     Legibilidad
                                 </Typography>
-                                <Rating
-                                    name="half-rating-read"
-                                    defaultValue={
-                                        JSON_Calificaciones.Legibilidad / 2
-                                    }
-                                    precision={0.5}
-                                    readOnly
-                                    sx={{ fontSize: 25 }}
-                                />
+                                <Box mt={2}>
+                                <CircularWithValueLabel value={JSON_Calificaciones.Legibilidad*10} size={50}/>
+
+                                </Box>
                             </Grid>
                             <Grid
                                 item
@@ -167,15 +163,10 @@ const AccordionItem = ({ Data }) => {
                                 >
                                     Eficiencia
                                 </Typography>
-                                <Rating
-                                    name="half-rating-read"
-                                    defaultValue={
-                                        JSON_Calificaciones.Eficiencia / 2
-                                    }
-                                    precision={0.5}
-                                    readOnly
-                                    sx={{ fontSize: 25 }}
-                                />
+                                <Box mt={2}>
+                                    <CircularWithValueLabel value={JSON_Calificaciones.Eficiencia*10} size={50}/>
+                                </Box>
+
                             </Grid>
                         </Grid>
                     </Grid>

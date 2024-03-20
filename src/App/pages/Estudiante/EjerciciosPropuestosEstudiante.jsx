@@ -24,6 +24,7 @@ const EjercicioItem = ({ Data }) => {
                 lista: Data.Respuesta,
                 problema: Data.Problema,
                 id_consulta: Data._id,
+                EJ:true
             },
         });
     };
