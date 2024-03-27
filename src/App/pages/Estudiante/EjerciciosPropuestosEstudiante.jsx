@@ -44,19 +44,21 @@ const EjercicioItem = ({ Data }) => {
                 aria-controls={`panel-${Data.id_retroalimento}-content`}
                 id={`panel-${Data.id_retroalimento}-header`}
             >
+                <Box flexDirection={"column"}>
                 <Box
-                    flexDirection={"column"}
-                    sx={{ display: "flex", alignItems: "center", mt: 2, ml: 3 }}
+                    sx={{ display: "flex", width: "100%", alignItems: "center", mt: 2 }}
                 >
-                    <Typography sx={{ ml: 6, fontSize: 23 }}>
+                    <Typography sx={{ ml: 7, fontSize: 23 }}>
                         {Data.Titulo}
                     </Typography>
-
-                    <Box
+                </Box>
+                <Box
                         sx={{
-                            width: "100%",
                             display: "flex",
+                            alignItems: "center",
                             justifyContent: "center",
+                            width: "100%",
+                            ml:5
                         }}
                     >
                         {Data.Tags.map((tag, index) => (
@@ -73,6 +75,7 @@ const EjercicioItem = ({ Data }) => {
                         ))}
                     </Box>
                 </Box>
+                
             </AccordionSummary>
 
             <AccordionDetails
