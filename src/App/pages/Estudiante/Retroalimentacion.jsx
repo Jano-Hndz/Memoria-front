@@ -15,11 +15,10 @@ import {CircularWithValueLabel} from "../../../helpers/CircularWithValueLabel"
 export const Retroalimentacion = () => {
     const data_get = getData();
     const inputs = data_get.inputs;
-    const retroalimentaciones = JSON.parse(`[${data_get.retroalimentacion}]`);
+    const retroalimentaciones = data_get.retroalimentacion;
     const lista_funciones = data_get.lista_funciones;
     let json_retro = null;
     
-    console.log(retroalimentaciones);
 
     function buscarPorNombre(nombre) {
         for (let i = 0; i < retroalimentaciones.length; i++) {
@@ -65,7 +64,7 @@ export const Retroalimentacion = () => {
                 </Box>
                 {lista_funciones.map((jsonItem, index) => {
                     json_retro = buscarPorNombre(jsonItem.Nombre);
-                    console.log(1);
+                    console.log(json_retro);
                     return (
                         <Container
                             key={jsonItem.Nombre}

@@ -52,3 +52,19 @@ export const GetHistorial = async()=>{
         Swal.fire('Error al buscar', error.response.data.msg, 'error');
     }
 }
+
+export const CrearProblema = async()=>{
+    try {
+        const res = await AppAPI.post(`/estudiante/crear`)
+
+        if(res.data.ok){
+            return res.data.resp
+        }else{
+            return "Error en peticion"
+        }
+        
+    } catch (error) {
+        console.log(error);
+        Swal.fire('Error al buscar', error.response.data.msg, 'error');
+    }
+}

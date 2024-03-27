@@ -36,16 +36,12 @@ export const Resolucion = () => {
     };
 
     const data_get = getData();
-    const lista_funciones = JSON.parse(data_get.lista);
+    const lista_funciones =data_get.lista;
     console.log(data_get.id_consulta);
 
 
     const handleSubmit = async (event) => {
         setIsEnabled(false);
-        const inputs_string = JSON.stringify(inputs);
-        const input_formateo = inputs_string
-            .replace(/,/g, ",\n")
-            .replace(/\\r\\n/g, "\n");
         const respuesta = await Revision_ChatGPT({
             requested: data_get.lista,
             responded: inputs,
@@ -54,12 +50,7 @@ export const Resolucion = () => {
             EJ:data_get.EJ
         });
         setIsEnabled(true);
-        console.log({
-            inputs: inputs,
-            retroalimentacion: respuesta,
-            lista_funciones: lista_funciones,
-            problema: data_get.problema,
-        });
+        
         navigate("/estudiante/retroalimentacion", {
             state: {
                 inputs: inputs,

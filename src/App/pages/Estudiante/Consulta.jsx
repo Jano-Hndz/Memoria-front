@@ -1,7 +1,7 @@
 import {useState,useRef } from 'react';
 import { Box, Typography, Button,Paper,TextField} from "@mui/material";
 import { AppLayout } from "../../layout/AppLayout";
-import {Consulta_ChatGPT} from "../../../helpers/estudiante_api"
+import {Consulta_ChatGPT,CrearProblema} from "../../../helpers/estudiante_api"
 import { useNavigate } from 'react-router-dom';
 
 export const Consulta = () => {
@@ -17,7 +17,16 @@ export const Consulta = () => {
     const handleSubmit = async(event) => {
         setIsEnabled(false)
         const respuesta= await Consulta_ChatGPT({consulta:inputValue})
-        navigate('/estudiante/resolucion', {state: {lista:respuesta.resp,problema:inputValue,id_consulta:respuesta.id_consulta,EJ:false}});
+        navigate('/estudiante/resolucion', {state: {lista:respuesta.resp,problema:inputValue,id_consulta:respuesta.id_consulta,Propuesto:false}});
+
+    };
+
+
+    const handleCrearProblema = async(event) => {
+        setIsEnabled(false)
+        const respuesta= await CrearProblema()
+        console.log(respuesta);
+        setIsEnabled(true)
 
     };
 
@@ -47,6 +56,18 @@ export const Consulta = () => {
                     alignItems: "center",
                 }}
             >
+                <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        onClick={handleCrearProblema}
+                        sx={{ width: "20%" , marginBottom:"1%"}}
+                        disabled={!isEnabled} 
+                    >
+                        Crear Problema con IA
+                    </Button>
+
+
                 
 
                 <Box width={"70%"} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
