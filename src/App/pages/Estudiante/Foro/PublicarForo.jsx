@@ -23,6 +23,7 @@ export const PublicarForo = () => {
     const navigate = useNavigate();
     const { Data } = getData();
     const { user } = useAuthStore();
+    console.log(Data);
 
     const [option1Checked, setOption1Checked] = useState(false);
 
@@ -35,7 +36,7 @@ export const PublicarForo = () => {
             state: {
                 inputs: Data.Respuesta_Estudiante,
                 retroalimentacion: Data.Retroalimentacion,
-                lista_funciones: JSON.parse(Data.RespuestaSubojetivos),
+                lista_funciones: Data.RespuestaSubojetivos,
                 problema: Data.Problema
             },
         });
@@ -49,7 +50,7 @@ export const PublicarForo = () => {
         setIsEnabled(false);
         const respu = await Publicar_Foro({
             Comentario: inputValue,
-            RetroalimentacionID: Data.id_retroalimento,
+            RetroalimentacionID: Data.id_Retroalimentacion,
             verRetroalimentacion:option1Checked
         });
         setIsEnabled(true);
@@ -57,7 +58,7 @@ export const PublicarForo = () => {
             state: {
                 _id: respu.id,
                 Usuario: user.name,
-                RetroalimentacionID: Data.id_retroalimento,
+                RetroalimentacionID: Data.id_Retroalimentacion,
                 Comentario: inputValue,
                 verRetroalimentacion:option1Checked
             },

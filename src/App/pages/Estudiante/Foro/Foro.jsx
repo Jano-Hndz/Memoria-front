@@ -12,7 +12,6 @@ import CreateIcon from "@mui/icons-material/Create";
 
 
 const ForoItem = ({ Data }) => {
-    console.log(Data.verRetroalimentacion);
     const navigate = useNavigate();
 
     const handleVer_ejercicio = async (event) => {
@@ -42,14 +41,28 @@ const ForoItem = ({ Data }) => {
             id_consulta:Data.RetroalimentacionID
         })
 
-        navigate("/estudiante/resolucion", {
-            state: {
-                lista: respu.Respuesta,
-                problema: respu.Problema,
-                id_consulta: respu._id,
-                
-            },
-        });
+        if (respu.Propuesto) {
+            navigate("/estudiante/EjerciciosPropuestos/Resolucion", {
+                state: {
+                    lista: respu.Respuesta,
+                    problema: respu.Problema,
+                    id_consulta: respu._id,
+                    EJ: true
+                },
+            });
+        } else {
+               
+            navigate("/estudiante/resolucion", {
+                state: {
+                    lista: respu.Respuesta,
+                    problema: respu.Problema,
+                    id_consulta: respu._id,
+                    EJ: false                    
+                },
+            });
+        }
+
+
     };
 
 
@@ -137,6 +150,7 @@ const ForoItem = ({ Data }) => {
 
 export const Foro = () => {
     const { Data } = getData();
+    console.log(Data);
 
     return (
         <AppLayout>

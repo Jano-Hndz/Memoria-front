@@ -11,56 +11,57 @@ import {
     Divider,
     Grid,
     Paper,
-    Rating,
     Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { calcularPromedio, getData } from "../../../helpers/funciones";
 import { AppLayout } from "../../layout/AppLayout";
-import {CircularWithValueLabel} from "../../../helpers/CircularWithValueLabel"
+import { CircularWithValueLabel } from "../../../helpers/CircularWithValueLabel";
 
 const AccordionItem = ({ Data }) => {
     const navigate = useNavigate();
+    console.log(Data);
 
-    const retroalimentaciones = JSON.parse(`[${Data.Retroalimentacion}]`)
-    
-
-    const JSON_Calificaciones = calcularPromedio(retroalimentaciones);
+    const JSON_Calificaciones = calcularPromedio(Data.Retroalimentacion);
 
     const handleVerRetoalimentacion = async () => {
-        console.log({
-            inputs: Data.Respuesta_Estudiante,
-            retroalimentacion: Data.Retroalimentacion,
-            lista_funciones: JSON.parse(Data.RespuestaSubojetivos),
-            problema: Data.Problema,
-        });
         navigate("/estudiante/retroalimentacion", {
             state: {
                 inputs: Data.Respuesta_Estudiante,
                 retroalimentacion: Data.Retroalimentacion,
-                lista_funciones: JSON.parse(Data.RespuestaSubojetivos),
+                lista_funciones: Data.RespuestaSubojetivos,
                 problema: Data.Problema,
             },
-
         });
     };
 
     const handleRehacer = async (input) => {
-        navigate("/estudiante/resolucion", {
-            state: {
-                lista: Data.RespuestaSubojetivos,
-                problema: Data.Problema,
-                id_consulta: Data.id_consulta,
-                EJ:false
-            },
-        });
+        if (Data.Propuesto) {
+            navigate("/estudiante/EjerciciosPropuestos/Resolucion", {
+                state: {
+                    lista: Data.RespuestaSubojetivos,
+                    problema: Data.Problema,
+                    id_consulta: Data.id_EjercicioPropuesto,
+                    EJ: true,
+                },
+            });
+        } else {
+            navigate("/estudiante/resolucion", {
+                state: {
+                    lista: Data.RespuestaSubojetivos,
+                    problema: Data.Problema,
+                    id_consulta: Data.id_consulta,
+                    EJ: false,
+                },
+            });
+        }
     };
 
     const handleCompartir = async (input) => {
         navigate("/estudiante/Foro/publicar", {
             state: {
-                Data
-            }
+                Data,
+            },
         });
     };
 
@@ -129,10 +130,14 @@ const AccordionItem = ({ Data }) => {
                                 </Typography>
 
                                 <Box mt={2}>
-                                <CircularWithValueLabel value={JSON_Calificaciones.Funcionalidad*10} size={50}/>
-          
+                                    <CircularWithValueLabel
+                                        value={
+                                            JSON_Calificaciones.Funcionalidad *
+                                            10
+                                        }
+                                        size={50}
+                                    />
                                 </Box>
-                                
                             </Grid>
                             <Grid
                                 item
@@ -147,8 +152,12 @@ const AccordionItem = ({ Data }) => {
                                     Legibilidad
                                 </Typography>
                                 <Box mt={2}>
-                                <CircularWithValueLabel value={JSON_Calificaciones.Legibilidad*10} size={50}/>
-
+                                    <CircularWithValueLabel
+                                        value={
+                                            JSON_Calificaciones.Legibilidad * 10
+                                        }
+                                        size={50}
+                                    />
                                 </Box>
                             </Grid>
                             <Grid
@@ -164,9 +173,13 @@ const AccordionItem = ({ Data }) => {
                                     Eficiencia
                                 </Typography>
                                 <Box mt={2}>
-                                    <CircularWithValueLabel value={JSON_Calificaciones.Eficiencia*10} size={50}/>
+                                    <CircularWithValueLabel
+                                        value={
+                                            JSON_Calificaciones.Eficiencia * 10
+                                        }
+                                        size={50}
+                                    />
                                 </Box>
-
                             </Grid>
                         </Grid>
                     </Grid>

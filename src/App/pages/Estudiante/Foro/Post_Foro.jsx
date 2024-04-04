@@ -45,19 +45,34 @@ export const Post_Foro = () => {
     const [isEnabled, setIsEnabled] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
     const [ComentariosForo, setComentariosForo] = useState([])
+    console.log(Data);
     
     const handleRehacer = async (input) => {
         const respu= await GetEjercicio({
             id_consulta:Data.RetroalimentacionID
         })
+        console.log(respu);
 
-        navigate("/estudiante/resolucion", {
-            state: {
-                lista: respu.Respuesta,
-                problema: respu.Problema,
-                id_consulta: respu._id,
-            },
-        });
+        if (respu.Propuesto) {
+            navigate("/estudiante/EjerciciosPropuestos/Resolucion", {
+                state: {
+                    lista: respu.Respuesta,
+                    problema: respu.Problema,
+                    id_consulta: respu._id,
+                    EJ: true,
+                },
+            });
+        } else {
+            navigate("/estudiante/resolucion", {
+                state: {
+                    lista: respu.Respuesta,
+                    problema: respu.Problema,
+                    id_consulta: respu._id,
+                    EJ: false,
+                },
+            });
+        }
+
     };
 
     

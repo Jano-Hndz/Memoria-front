@@ -19,7 +19,7 @@ import { AppLayout } from "../../layout/AppLayout";
 const EjercicioItem = ({ Data }) => {
     const navigate = useNavigate();
     const handleResolver = async () => {
-        navigate("/estudiante/resolucion", {
+        navigate("/estudiante/EjerciciosPropuestos/Resolucion", {
             state: {
                 lista: Data.Respuesta,
                 problema: Data.Problema,

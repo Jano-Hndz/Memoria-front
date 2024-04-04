@@ -10,6 +10,7 @@ import { Post_Foro } from "../pages/Estudiante/Foro/Post_Foro"
 import { PublicarForo } from "../pages/Estudiante/Foro/PublicarForo"
 import { Historial } from "../pages/Estudiante/Historial"
 import { Resolucion } from "../pages/Estudiante/Resolucion"
+import { ResolucionEP } from "../pages/Estudiante/ResolucionEP"
 import { Retroalimentacion } from "../pages/Estudiante/Retroalimentacion"
 import { Home } from "../pages/Home"
 import { AgregarEjercicio } from "../pages/Profesor/AgregarEjercicio"
@@ -30,6 +31,7 @@ export const AppRoutes = () => {
       <Route path="/estudiante/Foro" element={ <Foro/> } />
       <Route path="/estudiante/Post_Foro" element={ <Post_Foro/> } />
       <Route path="/estudiante/EjerciciosPropuestos" element={ <EjerciciosPropuestosEstudiante/> } />
+      <Route path="/estudiante/EjerciciosPropuestos/Resolucion" element={ <ResolucionEP/> } />
       <Route path="/estudiante/EjerciciosPropuestos/tag" element={ <EjerciciosTagEstudiante/> } />
 
 
