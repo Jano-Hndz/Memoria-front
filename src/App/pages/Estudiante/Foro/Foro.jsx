@@ -50,8 +50,7 @@ const ForoItem = ({ Data }) => {
                     EJ: true
                 },
             });
-        } else {
-               
+        } else {    
             navigate("/estudiante/resolucion", {
                 state: {
                     lista: respu.Respuesta,
