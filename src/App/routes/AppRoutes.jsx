@@ -19,9 +19,13 @@ import { EjerciciosTag } from "../pages/Profesor/EjerciciosTag"
 
 
 
+import {Test} from "../pages/Test"
+
 export const AppRoutes = () => {
   return (
     <Routes>
+      <Route path="/Test" element={ <Test/> } />
+
       
       <Route path="/estudiante/Consulta" element={ <Consulta/> } />
       <Route path="/estudiante/Resolucion" element={ <Resolucion/> } />

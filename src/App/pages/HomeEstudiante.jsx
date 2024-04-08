@@ -7,7 +7,6 @@ import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import { useNavigate } from "react-router-dom";
-import { GetHistorial } from "../../helpers/estudiante_api";
 import { Get_Foro } from "../../helpers/foro_api";
 import { AppLayout } from "../layout/AppLayout";
 
@@ -15,12 +14,7 @@ export const HomeEstudiante = () => {
     const navigate = useNavigate();
 
     const handleHistorial = async () => {
-        const resp = await GetHistorial ()
-        navigate("/estudiante/historial",{
-            state: {
-                data: resp
-            },
-        });
+        navigate("/estudiante/historial");
     };
 
     const handleForo = async () => {

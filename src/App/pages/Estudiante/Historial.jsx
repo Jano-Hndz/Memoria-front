@@ -8,19 +8,20 @@ import {
     AccordionSummary,
     Box,
     Button,
+    CircularProgress,
     Divider,
     Grid,
-    Paper,
     Typography,
 } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { calcularPromedio, getData } from "../../../helpers/funciones";
-import { AppLayout } from "../../layout/AppLayout";
 import { CircularWithValueLabel } from "../../../helpers/CircularWithValueLabel";
+import { GetHistorial } from "../../../helpers/estudiante_api";
+import { calcularPromedio } from "../../../helpers/funciones";
+import { AppLayout } from "../../layout/AppLayout";
 
 const AccordionItem = ({ Data }) => {
     const navigate = useNavigate();
-    console.log(Data);
 
     const JSON_Calificaciones = calcularPromedio(Data.Retroalimentacion);
 
@@ -73,7 +74,7 @@ const AccordionItem = ({ Data }) => {
                 id={`panel-${Data.id_retroalimento}-header`}
             >
                 <Box
-                    sx={{ display: "flex", alignItems: "center", my: 2, ml: 3 }}
+                    sx={{ display: "flex", alignItems: "center", my: 3, ml: 3 }}
                 >
                     <Typography sx={{ ml: 6, fontSize: 23 }}>
                         {Data.Titulo}
@@ -109,7 +110,7 @@ const AccordionItem = ({ Data }) => {
                         <Typography
                             sx={{ fontSize: 28, textAlign: "center" }}
                             mt={5}
-                            mb={2}
+                            mb={4}
                         >
                             Calificación
                         </Typography>
@@ -245,8 +246,23 @@ const AccordionItem = ({ Data }) => {
 };
 
 export const Historial = () => {
-    const { data } = getData();
-    console.log(data);
+    const [isLoading, setIsLoading] = useState(true);
+    const [DataHistorial, setDataHistorial] = useState([]);
+
+    useEffect(() => {
+        async function handleHistorial() {
+            try {
+                const respu = await GetHistorial();
+                setDataHistorial(respu);
+                setIsLoading(false);
+            } catch (error) {
+                console.error(error);
+                setIsLoading(false);
+            }
+        }
+        handleHistorial();
+    }, []);
+
     return (
         <AppLayout>
             <Box
@@ -264,11 +280,27 @@ export const Historial = () => {
                 </Typography>
             </Box>
 
-            {data.map((jsonItem, index) => (
-                <Paper key={index}>
-                    <AccordionItem Data={jsonItem} />
-                </Paper>
-            ))}
+            {isLoading ? (
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "100%",
+                    }}
+                >
+                    <CircularProgress />
+                </Box>
+            ) : (
+                <div>
+                    {DataHistorial.map((jsonItem, index) => (
+                        <Box key={index} mt={1}>
+                            <AccordionItem Data={jsonItem} />
+                        </Box>
+                    ))}
+                </div>
+            )}
         </AppLayout>
     );
 };

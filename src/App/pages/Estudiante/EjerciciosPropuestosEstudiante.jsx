@@ -44,21 +44,24 @@ const EjercicioItem = ({ Data }) => {
                 aria-controls={`panel-${Data.id_retroalimento}-content`}
                 id={`panel-${Data.id_retroalimento}-header`}
             >
-                <Box flexDirection={"column"}>
+                <Box flexDirection={"column"} sx={{
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                            mx:5
+                        }}>
                 <Box
                     sx={{ display: "flex", width: "100%", alignItems: "center", mt: 2 }}
                 >
-                    <Typography sx={{ ml: 7, fontSize: 23 }}>
+                    <Typography sx={{ fontSize: 23 }}>
                         {Data.Titulo}
                     </Typography>
                 </Box>
                 <Box
                         sx={{
                             display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
                             width: "100%",
-                            ml:5
+                            
                         }}
                     >
                         {Data.Tags.map((tag, index) => (
@@ -85,7 +88,11 @@ const EjercicioItem = ({ Data }) => {
                     alignItems: "center",
                 }}
             >
-                <Box flexDirection={"column"}>
+                <Box flexDirection={"column"} sx={{
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                        }}>
                     <Box
                         sx={{
                             width: "100%",
@@ -151,10 +158,6 @@ export const EjerciciosPropuestosEstudiante = () => {
         }
         handleBuscarEjerciciosPropuestos();
     }, []);
-
-    const handleAgregar = async () => {
-        navigate("/profesor/AgregarEjercicio");
-    };
 
     return (
         <AppLayout>
