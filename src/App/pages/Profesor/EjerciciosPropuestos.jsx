@@ -17,20 +17,27 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { getData } from "../../../helpers/funciones";
-import { ObtenerEjerciciosPropuestos } from "../../../helpers/profesor_api";
+import { ObtenerEjerciciosPropuestos,ObtenerRendimientoEjercicios} from "../../../helpers/profesor_api";
 import { AppLayout } from "../../layout/AppLayout";
 
 const EjercicioItem = ({ Data }) => {
 
     const navigate = useNavigate();
 
-    console.log(Data);
 
     const handleChip = (tag) => {
         navigate("/profesor/EjerciciosTag",{state: {
             data: tag
         }});
     };
+
+    const handleRendimiento = async () => {
+        navigate("/profesor/Ejercicios/Rendimiento",{state: {
+            id:Data._id
+        }});
+        
+    };
+
 
     return (
         <Accordion key={Data._id} style={{ border: "1px solid #ef7fa0" }}>
@@ -106,6 +113,7 @@ const EjercicioItem = ({ Data }) => {
                                 height: "50px",
                                 color: "white",
                             }}
+                            onClick={handleRendimiento}
                             startIcon={
                                 <PreviewIcon style={{ color: "white" }} />
                             }

@@ -55,3 +55,21 @@ export const ObtenerEjerciciosPropuestosTag = async(data)=>{
         Swal.fire('Error al buscar', error.response.data.msg, 'error');
     }
 }
+
+
+export const ObtenerRendimientoEjercicios = async(data)=>{
+    try {
+        const res = await AppAPI.post(`/profesor/ejercicios/rendimiento`,data)
+
+
+        if(res.data.ok){
+            return res.data.lista
+        }else{
+            return "Error en peticion"
+        }
+        
+    } catch (error) {
+        console.log(error);
+        Swal.fire('Error al buscar', error.response.data.msg, 'error');
+    }
+}
