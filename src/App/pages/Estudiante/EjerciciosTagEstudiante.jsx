@@ -9,12 +9,13 @@ import {
     Chip,
     CircularProgress,
     Divider,
+    Pagination,
     Typography
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getData } from "../../../helpers/funciones";
-import { ObtenerEjerciciosPropuestosTag } from "../../../helpers/profesor_api";
+import { ObtenerEjerciciosPropuestosTagEstudiante } from "../../../helpers/estudiante_api";
 import { AppLayout } from "../../layout/AppLayout";
 
 
@@ -27,6 +28,7 @@ const EjercicioItem = ({ Data, onFetchExercises }) => {
 
     const handleChip = async (tag) => {
         await onFetchExercises(tag);
+
     };
 
     
@@ -49,17 +51,24 @@ const EjercicioItem = ({ Data, onFetchExercises }) => {
                 aria-controls={`panel-${Data.id_retroalimento}-content`}
                 id={`panel-${Data.id_retroalimento}-header`}
             >
-                <Box flexDirection={"column"}
-                    sx={{ display: "flex", alignItems: "center", my: 2, ml: 3 }}
-                >
-                    <Typography sx={{ ml: 6, fontSize: 23 }}>
-                        {Data.Titulo}
-                    </Typography>
-                    <Box
-                        sx={{
+                <Box flexDirection={"column"} sx={{
                             width: "100%",
                             display: "flex",
                             justifyContent: "center",
+                            mx:5
+                        }}>
+                    <Box
+                    sx={{ display: "flex", width: "100%", alignItems: "center", mt: 2 }}
+                >
+                    <Typography sx={{ fontSize: 23 }}>
+                        {Data.Titulo}
+                    </Typography>
+                </Box>
+                <Box
+                        sx={{
+                            display: "flex",
+                            width: "100%",
+                            
                         }}
                     >
                         {Data.Tags.map((tag, index) => (
@@ -141,15 +150,33 @@ export const EjerciciosTagEstudiante = () => {
     const [isLoading, setIsLoading] = useState(true);
     const data = getData();
     const [Titulo, setTitulo] = useState(data.data)
+    const [isLoading2, setIsLoading2] = useState(false);
+    const [PaginasTotales, setPaginasTotales] = useState(1)
+    const [currentPage, setCurrentPage] = useState(1);
+
+
+    const handlePageChange = async(event, value) => {
+        setCurrentPage(value);
+        setIsLoading(true);
+        const respu = await ObtenerEjerciciosPropuestosTagEstudiante({Tag:data.data,pag:1});
+        setEjercicios(respu.lista);
+        setIsLoading(false);
+      };
+
 
     async function handleBuscarEjerciciosPropuestos(tag) {
         try {
-            console.log("se ejecuto");
+            setIsLoading(true);
             setTitulo(tag);
-            const respu = await ObtenerEjerciciosPropuestosTag({Tag:tag});
-            setEjercicios(respu);
-            setIsLoading(false);
+            const respu = await ObtenerEjerciciosPropuestosTagEstudiante({Tag:tag,pag:1});
             console.log(respu);
+            const division = respu.cantidad / 5;
+            const resultadoRedondeado = Math.ceil(division);
+            setPaginasTotales(resultadoRedondeado);
+            setEjercicios(respu.lista);
+            setIsLoading(false);
+            setIsLoading2(true)
+
         } catch (error) {
             console.error(error);
             setIsLoading(false);
@@ -211,6 +238,15 @@ export const EjerciciosTagEstudiante = () => {
                     ))}
                 </div>
             )}
+
+        {isLoading2 && 
+            
+            (<Pagination 
+                count={PaginasTotales}         
+                page={currentPage}
+                onChange={handlePageChange}
+                size="large"
+            />)}
         </AppLayout>
     );
 };

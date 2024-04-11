@@ -17,6 +17,7 @@ export const Test = () => {
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
+    console.log(value);
   };
 
   return (

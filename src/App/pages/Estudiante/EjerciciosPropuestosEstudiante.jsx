@@ -9,11 +9,12 @@ import {
     Chip,
     CircularProgress,
     Divider,
+    Pagination,
     Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ObtenerEjerciciosPropuestos } from "../../../helpers/profesor_api";
+import { ObtenerEjerciciosPropuestosEstudiante } from "../../../helpers/estudiante_api";
 import { AppLayout } from "../../layout/AppLayout";
 
 const EjercicioItem = ({ Data }) => {
@@ -143,14 +144,30 @@ const EjercicioItem = ({ Data }) => {
 export const EjerciciosPropuestosEstudiante = () => {
     const [Ejercicios, setEjercicios] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isLoading2, setIsLoading2] = useState(false);
+    const [PaginasTotales, setPaginasTotales] = useState(1)
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const handlePageChange = async(event, value) => {
+        setCurrentPage(value);
+        setIsLoading(true);
+        const respu = await ObtenerEjerciciosPropuestosEstudiante({pag:value});
+        setEjercicios(respu.lista);
+        setIsLoading(false);
+      };
+
+
 
     useEffect(() => {
         async function handleBuscarEjerciciosPropuestos() {
             try {
-                const respu = await ObtenerEjerciciosPropuestos({});
-                setEjercicios(respu);
+                const respu = await ObtenerEjerciciosPropuestosEstudiante({pag:1});
+                setEjercicios(respu.lista);
+                const division = respu.cantidad / 5;
+                const resultadoRedondeado = Math.ceil(division);
+                setPaginasTotales(resultadoRedondeado);
                 setIsLoading(false);
-                console.log(respu);
+                setIsLoading2(true)
             } catch (error) {
                 console.error(error);
                 setIsLoading(false);
@@ -197,6 +214,15 @@ export const EjerciciosPropuestosEstudiante = () => {
                     ))}
                 </div>
             )}
+
+        {isLoading2 && 
+            
+            (<Pagination 
+                count={PaginasTotales}         
+                page={currentPage}
+                onChange={handlePageChange}
+                size="large"
+            />)}
         </AppLayout>
     );
 };

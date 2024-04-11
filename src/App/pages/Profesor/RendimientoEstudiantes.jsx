@@ -26,40 +26,54 @@ import { CircularWithValueLabel } from "../../../helpers/CircularWithValueLabel"
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
 
-const RendimientoItem = ({ Data, Problema }) => {
+const RendimientoItem = ({ Data, Estudiante }) => {
 
     const navigate = useNavigate();
 
+    let funcionalidad = 0
+    let legibilidad = 0
+    let eficiencia = 0
 
-    const JSON_Calificaciones = calcularPromedio(Data.RespuestaLLM);
+    for (const calificacion of Data) {
+        let JSON_Calificaciones = calcularPromedio(calificacion.RespuestaLLM);
+        funcionalidad =  funcionalidad + JSON_Calificaciones.Funcionalidad
+        legibilidad = legibilidad + JSON_Calificaciones.Legibilidad
+        eficiencia = eficiencia + JSON_Calificaciones.Eficiencia
+    }
+
+    funcionalidad =  funcionalidad / Data.length
+    legibilidad = legibilidad / Data.length
+    eficiencia = eficiencia / Data.length
+
+    let Promedio_Estudiante = (funcionalidad + legibilidad + eficiencia)*10/3
 
 
-    const handleVerRetoalimentacion = async () => {
-        console.log(Problema);
-        navigate("/estudiante/retroalimentacion", {
-            state: {
-                inputs: Data.RespuestaEstudiante,
-                retroalimentacion: Data.RespuestaLLM,
-                lista_funciones: Problema.Respuesta,
-                problema: Problema.Problema,
-            },
-        });
-    };
+    let color_circulo
+    
+    if(Promedio_Estudiante < 55){
+        color_circulo = "rojo"
+    }
+    if (55<Promedio_Estudiante && Promedio_Estudiante<80){
+        color_circulo = "amarillo"    
+    }
+    if(Promedio_Estudiante>80){
+        color_circulo = "verde"
+    }
 
 
     return (
-        <Accordion key={Data._id} style={{ border: "1px solid #ef7fa0" }}>
+        <Accordion key={Estudiante._id} style={{ border: "1px solid #ef7fa0" }}>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls={`panel-${Data.id_retroalimento}-content`}
-                id={`panel-${Data.id_retroalimento}-header`}
+                aria-controls={`panel-${Estudiante._id}-content`}
+                id={`panel-${Estudiante._id}-header`}
             >
                 <Box
                     sx={{ display: "flex", alignItems: "center", my: 2, ml: 3 }}
                 >
-                    <Circulo color="verde" />
+                    <Circulo color={color_circulo} />
                     <Typography sx={{ ml: 6, fontSize: 23 }}>
-                        {Data.Nombre}
+                        {Estudiante.name}
                     </Typography>
                 </Box>
             </AccordionSummary>
@@ -90,7 +104,7 @@ const RendimientoItem = ({ Data, Problema }) => {
                                 <Box mt={2}>
                                     <CircularWithValueLabel
                                         value={
-                                            JSON_Calificaciones.Funcionalidad *
+                                            funcionalidad*
                                             10
                                         }
                                         size={50}
@@ -112,7 +126,7 @@ const RendimientoItem = ({ Data, Problema }) => {
                                 <Box mt={2}>
                                     <CircularWithValueLabel
                                         value={
-                                            JSON_Calificaciones.Legibilidad * 10
+                                            legibilidad * 10
                                         }
                                         size={50}
                                     />
@@ -133,7 +147,7 @@ const RendimientoItem = ({ Data, Problema }) => {
                                 <Box mt={2}>
                                     <CircularWithValueLabel
                                         value={
-                                            JSON_Calificaciones.Eficiencia * 10
+                                            eficiencia * 10
                                         }
                                         size={50}
                                     />
@@ -142,31 +156,6 @@ const RendimientoItem = ({ Data, Problema }) => {
                         </Grid>
                     </Grid>
 
-                    <Box
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            width: "100%",
-                        }}
-                    >
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            sx={{
-                                width: "70%",
-                                m: 3,
-                                height: "50px",
-                                color: "white",
-                            }}
-                            onClick={handleVerRetoalimentacion}
-                            startIcon={
-                                <VisibilityIcon style={{ color: "white" }} />
-                            }
-                        >
-                            Ver retroalimentación
-                        </Button>
-                    </Box>
                 </Box>
             </AccordionDetails>
         </Accordion>
@@ -184,6 +173,7 @@ export const RendimientoEstudiantes = () => {
             try {
                 const respu = await ObtenerRendimientoAlmunos()
                 setData(respu);
+
                 setIsLoading(false);
             } catch (error) {
                 console.error(error);
@@ -225,11 +215,11 @@ export const RendimientoEstudiantes = () => {
                 </Box>
             ) : (
                 <div>
-                    {/* {Data.map((jsonItem, index) => (
+                    {(Data.lista).map((jsonItem, index) => (
                         <Box key={index} mb={1}>
-                            <RendimientoItem Data={jsonItem} Problema={data} />
+                            <RendimientoItem Data={jsonItem} Estudiante={Data.estudiantes[index]} />
                         </Box>
-                    ))} */}
+                    ))}
                 </div>
             )}
         </AppLayout>

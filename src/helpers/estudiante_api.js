@@ -37,12 +37,12 @@ export const Revision_ChatGPT = async(data)=>{
     }
 }
 
-export const GetHistorial = async()=>{
+export const GetHistorial = async(data)=>{
     try {
-        const res = await AppAPI.get(`/estudiante/historial`)
+        const res = await AppAPI.post(`/estudiante/historial`,data)
 
         if(res.data.ok){
-            return res.data.historial
+            return res.data
         }else{
             return "Error en peticion"
         }
@@ -59,6 +59,44 @@ export const CrearProblema = async()=>{
 
         if(res.data.ok){
             return res.data.resp
+        }else{
+            return "Error en peticion"
+        }
+        
+    } catch (error) {
+        console.log(error);
+        Swal.fire('Error al buscar', error.response.data.msg, 'error');
+    }
+}
+
+
+
+
+export const ObtenerEjerciciosPropuestosEstudiante = async(data)=>{
+    try {
+        console.log("entro");
+        const res = await AppAPI.post(`/estudiante/ejerciciospropuestos`,data)
+
+        if(res.data.ok){
+            return res.data
+        }else{
+            return "Error en peticion"
+        }
+        
+    } catch (error) {
+        console.log(error);
+        Swal.fire('Error al buscar', error.response.data.msg, 'error');
+    }
+}
+
+
+export const ObtenerEjerciciosPropuestosTagEstudiante = async(data)=>{
+    try {
+        const res = await AppAPI.post(`/estudiante/ejerciciospropuestos/tag`,data)
+
+
+        if(res.data.ok){
+            return res.data
         }else{
             return "Error en peticion"
         }

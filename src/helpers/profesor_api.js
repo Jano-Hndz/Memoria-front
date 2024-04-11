@@ -80,7 +80,7 @@ export const ObtenerRendimientoAlmunos = async()=>{
 
 
         if(res.data.ok){
-            return res.data.lista
+            return res.data
         }else{
             return "Error en peticion"
         }

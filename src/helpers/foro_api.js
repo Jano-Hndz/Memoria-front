@@ -19,13 +19,13 @@ export const Publicar_Foro = async(data)=>{
 }
 
 
-export const Get_Foro = async()=>{
+export const Get_Foro = async(data)=>{
     try {
-        const res = await AppAPI.get(`/estudiante/Foro/get`)
+        const res = await AppAPI.post(`/estudiante/Foro/get`,data)
 
 
         if(res.data.ok){
-            return res.data.data
+            return res.data
         }else{
             return "Error en peticion"
         }

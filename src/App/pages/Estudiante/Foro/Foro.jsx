@@ -8,6 +8,7 @@ import {
     Grid,
     Paper,
     Typography,
+    Pagination
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -141,14 +142,29 @@ const ForoItem = ({ Data }) => {
 export const Foro = () => {
     const [Data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [isLoading2, setIsLoading2] = useState(false);
+    const [PaginasTotales, setPaginasTotales] = useState(1)
+
+    const handlePageChange = async(event, value) => {
+        setCurrentPage(value);
+        setIsLoading(true);
+        const respu = await Get_Foro({pag:value});
+        setData(respu.lista);
+        setIsLoading(false);
+      };
 
     useEffect(() => {
         async function handleBuscarForo() {
             try {
-                const respu = await Get_Foro();
-                setData(respu);
+                const respu = await Get_Foro({pag:1});
+                setData(respu.lista);
+                const division = respu.cantidad / 5;
+                const resultadoRedondeado = Math.ceil(division);
+                setPaginasTotales(resultadoRedondeado);
                 setIsLoading(false);
-                console.log(respu);
+                setIsLoading2(true)
+
             } catch (error) {
                 console.error(error);
                 setIsLoading(false);
@@ -195,6 +211,15 @@ export const Foro = () => {
                     ))}
                 </div>
             )}
+
+            {isLoading2 && 
+            
+            (<Pagination 
+                count={PaginasTotales}         
+                page={currentPage}
+                onChange={handlePageChange}
+                size="large"
+            />)}
         </AppLayout>
     );
 };
