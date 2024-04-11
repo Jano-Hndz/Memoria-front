@@ -33,7 +33,8 @@ const EjercicioItem = ({ Data }) => {
 
     const handleRendimiento = async () => {
         navigate("/profesor/Ejercicios/Rendimiento",{state: {
-            id:Data._id
+            id:Data._id,
+            data:Data
         }});
         
     };

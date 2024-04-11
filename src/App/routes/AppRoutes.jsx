@@ -17,7 +17,7 @@ import { AgregarEjercicio } from "../pages/Profesor/AgregarEjercicio"
 import { EjerciciosPropuestos } from "../pages/Profesor/EjerciciosPropuestos"
 import { EjerciciosTag } from "../pages/Profesor/EjerciciosTag"
 import {RendimientoEP} from "../pages/Profesor/RendimientoEP"
-
+import {RendimientoEstudiantes} from "../pages/Profesor/RendimientoEstudiantes"
 
 
 import {Test} from "../pages/Test"
@@ -46,6 +46,8 @@ export const AppRoutes = () => {
       <Route path="/profesor/AgregarEjercicio" element={ <AgregarEjercicio/> } />
       <Route path="/profesor/EjerciciosTag" element={ <EjerciciosTag/> } />
       <Route path="/profesor/Ejercicios/Rendimiento" element={ <RendimientoEP/> } />
+      <Route path="/profesor/Rendimiento" element={ <RendimientoEstudiantes/> } />
+
 
 
 

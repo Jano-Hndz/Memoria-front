@@ -65,6 +65,9 @@ export const HomeProfesor = () => {
                         <Button
                             fullWidth
                             variant="contained"
+                            onClick={() => {
+                                navigate("/profesor/Rendimiento");
+                            }}
                             sx={{ mt: 1, height: "80px" }}
                         >
                             <HistoryIcon sx={{ color: "white", mr: "5px" }} />

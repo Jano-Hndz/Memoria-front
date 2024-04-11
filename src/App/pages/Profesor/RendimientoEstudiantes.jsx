@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { getData } from "../../../helpers/funciones";
-import {ObtenerRendimientoEjercicios} from "../../../helpers/profesor_api";
+import {ObtenerRendimientoAlmunos} from "../../../helpers/profesor_api";
 import { AppLayout } from "../../layout/AppLayout";
 import Circulo from '../../../helpers/Circulo';
 import { calcularPromedio } from "../../../helpers/funciones";
@@ -173,17 +173,16 @@ const RendimientoItem = ({ Data, Problema }) => {
     );
 };
 
-export const RendimientoEP = () => {
+export const RendimientoEstudiantes = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
     const [Data, setData] = useState([])
-    const { id,data } = getData();
 
 
     useEffect(() => {
-        async function handleRendimientoEjerciciosPropuestos() {
+        async function handleRendimiento() {
             try {
-                const respu = await ObtenerRendimientoEjercicios({EjercicioPropuestoID:id})
+                const respu = await ObtenerRendimientoAlmunos()
                 setData(respu);
                 setIsLoading(false);
             } catch (error) {
@@ -191,7 +190,7 @@ export const RendimientoEP = () => {
                 setIsLoading(false);
             }
         }
-        handleRendimientoEjerciciosPropuestos();
+        handleRendimiento();
     }, []);
 
 
@@ -226,11 +225,11 @@ export const RendimientoEP = () => {
                 </Box>
             ) : (
                 <div>
-                    {Data.map((jsonItem, index) => (
+                    {/* {Data.map((jsonItem, index) => (
                         <Box key={index} mb={1}>
                             <RendimientoItem Data={jsonItem} Problema={data} />
                         </Box>
-                    ))}
+                    ))} */}
                 </div>
             )}
         </AppLayout>
