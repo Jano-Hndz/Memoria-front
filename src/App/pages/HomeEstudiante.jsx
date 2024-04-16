@@ -72,7 +72,7 @@ export const HomeEstudiante = () => {
                             variant="contained"
                             sx={{ mt: 1, height: "80px" }}
                             onClick={() => {
-                                navigate("/municipalidad/graficas");
+                                navigate("/estudiante/rendimiento");
                             }}
                         >
                             <BarChartIcon sx={{ color: "white", mr: "5px" }} />

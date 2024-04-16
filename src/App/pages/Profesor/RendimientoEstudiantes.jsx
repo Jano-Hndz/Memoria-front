@@ -33,6 +33,30 @@ const RendimientoItem = ({ Data, Estudiante }) => {
     let funcionalidad = 0
     let legibilidad = 0
     let eficiencia = 0
+    console.log(Data);
+    console.log(Data.length);
+
+    if (Data.length < 5){
+        console.log("entro");
+        return (
+            <Accordion key={Estudiante._id} style={{ border: "1px solid #ef7fa0" }}>
+            <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls={`panel-${Estudiante._id}-content`}
+                id={`panel-${Estudiante._id}-header`}
+            >
+                <Box
+                    sx={{ display: "flex", alignItems: "center", my: 2, ml: 3 }}
+                >
+                    <Typography sx={{ ml: 6, fontSize: 23 }}>
+                        {Estudiante.name}
+                    </Typography>
+                </Box>
+            </AccordionSummary>
+            </Accordion>
+        )
+    }else{
+
 
     for (const calificacion of Data) {
         let JSON_Calificaciones = calcularPromedio(calificacion.RespuestaLLM);
@@ -160,7 +184,7 @@ const RendimientoItem = ({ Data, Estudiante }) => {
             </AccordionDetails>
         </Accordion>
     );
-};
+}};
 
 export const RendimientoEstudiantes = () => {
     const navigate = useNavigate();

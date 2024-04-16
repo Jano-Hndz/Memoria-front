@@ -53,12 +53,12 @@ export const GetHistorial = async(data)=>{
     }
 }
 
-export const CrearProblema = async()=>{
+export const Rendimiento_Estudiante = async()=>{
     try {
-        const res = await AppAPI.post(`/estudiante/crear`)
+        const res = await AppAPI.post(`/estudiante/rendimiento`)
 
         if(res.data.ok){
-            return res.data.resp
+            return res.data
         }else{
             return "Error en peticion"
         }
@@ -68,6 +68,7 @@ export const CrearProblema = async()=>{
         Swal.fire('Error al buscar', error.response.data.msg, 'error');
     }
 }
+
 
 
 
@@ -93,6 +94,23 @@ export const ObtenerEjerciciosPropuestosEstudiante = async(data)=>{
 export const ObtenerEjerciciosPropuestosTagEstudiante = async(data)=>{
     try {
         const res = await AppAPI.post(`/estudiante/ejerciciospropuestos/tag`,data)
+
+
+        if(res.data.ok){
+            return res.data
+        }else{
+            return "Error en peticion"
+        }
+        
+    } catch (error) {
+        console.log(error);
+        Swal.fire('Error al buscar', error.response.data.msg, 'error');
+    }
+}
+
+export const Analisis_Rendimiento_Estudiante = async(data)=>{
+    try {
+        const res = await AppAPI.post(`/estudiante/rendimiento/analisis`,data)
 
 
         if(res.data.ok){

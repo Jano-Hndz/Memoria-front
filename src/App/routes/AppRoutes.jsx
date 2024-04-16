@@ -18,6 +18,8 @@ import { EjerciciosPropuestos } from "../pages/Profesor/EjerciciosPropuestos"
 import { EjerciciosTag } from "../pages/Profesor/EjerciciosTag"
 import {RendimientoEP} from "../pages/Profesor/RendimientoEP"
 import {RendimientoEstudiantes} from "../pages/Profesor/RendimientoEstudiantes"
+import { Rendimiento } from "../pages/Estudiante/Rendimiento"
+import { RendimientoResultados } from "../pages/Estudiante/RendimientoResultados"
 
 
 import {Test} from "../pages/Test"
@@ -29,6 +31,8 @@ export const AppRoutes = () => {
 
       
       <Route path="/estudiante/Consulta" element={ <Consulta/> } />
+      <Route path="/estudiante/Rendimiento" element={ <Rendimiento/> } />
+      <Route path="/estudiante/Rendimiento/Resultado" element={ <RendimientoResultados/> } />
       <Route path="/estudiante/Resolucion" element={ <Resolucion/> } />
       <Route path="/estudiante/Retroalimentacion" element={ <Retroalimentacion/> } />
       <Route path="/estudiante/Historial" element={ <Historial/> } />
