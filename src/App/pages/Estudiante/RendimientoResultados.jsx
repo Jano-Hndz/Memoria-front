@@ -1,23 +1,21 @@
 import {
     Box,
-    Typography,
-    Grid,
-    CircularProgress,
     Button,
+    List,
+    ListItem,
+    ListItemText,
     Paper,
-    List, ListItem, ListItemText
+    Typography
 } from "@mui/material";
-import { AppLayout } from "../../layout/AppLayout";
 import { getData } from "../../../helpers/funciones";
-
+import { AppLayout } from "../../layout/AppLayout";
 
 export const RendimientoResultados = () => {
-
     const data = getData();
 
     console.log(data);
 
-    const handleResolverProblema = async() => {
+    const handleResolverProblema = async () => {
         console.log("Problema");
     };
 
@@ -47,6 +45,25 @@ export const RendimientoResultados = () => {
                     alignItems: "center",
                 }}
             >
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "100%",
+                    }}
+                >
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        onClick={handleResolverProblema}
+                        sx={{ width: "20%", marginBottom: "1%" }}
+                    >
+                        Resolver problema generado
+                    </Button>
+
                     <Box
                         sx={{
                             display: "flex",
@@ -56,53 +73,43 @@ export const RendimientoResultados = () => {
                             width: "100%",
                         }}
                     >
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            onClick={handleResolverProblema}
-                            sx={{ width: "20%", marginBottom: "1%" }}
-                        >
-                            Resolver problema generado
-                        </Button>
+                        <Box mt={2} px={4}>
+                            <Typography
+                                sx={{ fontSize: 20, textAlign: "justify" }}
+                            >
+                                {data.retroalimentacion.Retroalimentacion}
+                            </Typography>
 
-                        <Box
-                        sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            width: "100%",
-                        }}>
+                            <Typography sx={{ fontSize: 20 }}>
+                                Los tópicos con los cuales has tenido más
+                                problema son:
+                            </Typography>
 
-                                    <Box mt={2} px={4}>
-                                    <Typography
-                                        sx={{ fontSize: 20, textAlign: 'justify'}}
-                                    >
-                                        {data.retroalimentacion.Retroalimentacion}
-                                    </Typography>
-
-                                    <Typography
-                                        sx={{ fontSize: 20}}
-                                    >                                        
-                                    Los tópicos con los cuales has tenido más problema son:
-                                    </Typography>
-
-                                    <List component="nav">
-                                        {(data.retroalimentacion.lista_topicos).map((item, index) => (
+                            <List component="nav">
+                                {data.retroalimentacion.lista_topicos.map(
+                                    (item, index) => (
                                         <ListItem key={index}>
-                                            <Typography  style={{ fontSize: 20, marginRight: 8 }}>-</Typography>
-                                            <ListItemText primaryTypographyProps={{ style: { fontSize: 20 } }} primary={item}/>
+                                            <Typography
+                                                style={{
+                                                    fontSize: 20,
+                                                    marginRight: 8,
+                                                }}
+                                            >
+                                                -
+                                            </Typography>
+                                            <ListItemText
+                                                primaryTypographyProps={{
+                                                    style: { fontSize: 20 },
+                                                }}
+                                                primary={item}
+                                            />
                                         </ListItem>
-                                        ))}
-                                    </List>
-
-
-                                    </Box>
+                                    )
+                                )}
+                            </List>
                         </Box>
-
-                        
                     </Box>
+                </Box>
             </Paper>
         </AppLayout>
     );

@@ -1,7 +1,7 @@
 import AddIcon from "@mui/icons-material/Add";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import PreviewIcon from '@mui/icons-material/Preview';
+import PreviewIcon from "@mui/icons-material/Preview";
 import {
     Accordion,
     AccordionDetails,
@@ -11,37 +11,40 @@ import {
     Chip,
     CircularProgress,
     Divider,
-    Typography
+    Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { getData } from "../../../helpers/funciones";
-import { ObtenerEjerciciosPropuestos,ObtenerRendimientoEjercicios} from "../../../helpers/profesor_api";
+import { ObtenerEjerciciosPropuestos } from "../../../helpers/profesor_api";
 import { AppLayout } from "../../layout/AppLayout";
 
 const EjercicioItem = ({ Data }) => {
-
     const navigate = useNavigate();
 
-
     const handleChip = (tag) => {
-        navigate("/profesor/EjerciciosTag",{state: {
-            data: tag
-        }});
+        navigate("/profesor/EjerciciosTag", {
+            state: {
+                data: tag,
+            },
+        });
     };
 
     const handleRendimiento = async () => {
-        navigate("/profesor/Ejercicios/Rendimiento",{state: {
-            id:Data._id,
-            data:Data
-        }});
-        
+        navigate("/profesor/Ejercicios/Rendimiento", {
+            state: {
+                id: Data._id,
+                data: Data,
+            },
+        });
     };
 
-
     return (
-        <Accordion key={Data._id} style={{ border: "1px solid #ef7fa0" }}>
+        <Accordion
+            key={Data._id}
+            style={{ border: "1px solid #ef7fa0", width: "75vw" }}
+        >
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls={`panel-${Data.id_retroalimento}-content`}
@@ -64,17 +67,23 @@ const EjercicioItem = ({ Data }) => {
                 }}
             >
                 <Box flexDirection={"column"}>
-                    <Box mb={3} sx={{
+                    <Box
+                        mb={3}
+                        sx={{
                             width: "100%",
                             display: "flex",
                             justifyContent: "center",
-                        }}>
-                    {(Data.Tags).map((tag, index) => (
+                        }}
+                    >
+                        {Data.Tags.map((tag, index) => (
                             <Chip
                                 key={index}
                                 label={tag}
-                                style={{ marginRight: "0.5rem", marginTop:"0.5rem"}}
-                                variant="outlined" 
+                                style={{
+                                    marginRight: "0.5rem",
+                                    marginTop: "0.5rem",
+                                }}
+                                variant="outlined"
                                 onClick={() => handleChip(tag)}
                             />
                         ))}
@@ -95,7 +104,6 @@ const EjercicioItem = ({ Data }) => {
 
                         <Divider />
                     </Box>
-                    
 
                     <Box
                         sx={{
@@ -118,7 +126,6 @@ const EjercicioItem = ({ Data }) => {
                             startIcon={
                                 <PreviewIcon style={{ color: "white" }} />
                             }
-
                         >
                             Ver rendimiento
                         </Button>
@@ -194,40 +201,43 @@ export const EjerciciosPropuestos = () => {
                     Ejercicios Propuestos
                 </Typography>
             </Box>
-            <Box>
-                <Button
-                    variant="contained"
-                    sx={{ mt: 1 }}
-                    onClick={handleAgregar}
-                >
-                    <AddIcon sx={{ color: "white", mr: "5px" }} />
-                    <Typography color="white" fontSize={22}>
-                        Agregar ejercicio
-                    </Typography>
-                </Button>
-            </Box>
 
-            {isLoading ? (
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "100%",
-                    }}
-                >
-                    <CircularProgress />
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "100%",
+                }}
+            >
+                <Box mb={3}>
+                    <Button
+                        variant="contained"
+                        sx={{ mt: 1 }}
+                        onClick={handleAgregar}
+                    >
+                        <AddIcon sx={{ color: "white", mr: "5px" }} />
+                        <Typography color="white" fontSize={22}>
+                            Agregar ejercicio
+                        </Typography>
+                    </Button>
                 </Box>
-            ) : (
-                <div>
-                    {Ejercicios.map((jsonItem, index) => (
-                        <Box key={index} mb={1}>
-                            <EjercicioItem Data={jsonItem} />
-                        </Box>
-                    ))}
-                </div>
-            )}
+
+                {isLoading ? (
+                    <Box>
+                        <CircularProgress />
+                    </Box>
+                ) : (
+                    <div>
+                        {Ejercicios.map((jsonItem, index) => (
+                            <Box key={index} mb={1}>
+                                <EjercicioItem Data={jsonItem} />
+                            </Box>
+                        ))}
+                    </div>
+                )}
+            </Box>
         </AppLayout>
     );
 };

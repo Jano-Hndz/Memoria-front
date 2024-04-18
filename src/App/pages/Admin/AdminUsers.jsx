@@ -31,6 +31,7 @@ const UserAccordion = ({ users }) => {
             key={user.id}
             expanded={expanded === user.id}
             onChange={handleChange(user.id)}
+            style={{ border: "1px solid #ef7fa0", width: '75vw'}}
 
           >
             <AccordionSummary>

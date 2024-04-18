@@ -1,7 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 import { AddUser } from "../pages/Admin/AddUser"
 import { AdminUsers } from "../pages/Admin/AdminUsers"
-import { Contacto } from "../pages/Contacto"
 import { Consulta } from "../pages/Estudiante/Consulta"
 import { EjerciciosPropuestosEstudiante } from "../pages/Estudiante/EjerciciosPropuestosEstudiante"
 import { EjerciciosTagEstudiante } from "../pages/Estudiante/EjerciciosTagEstudiante"
@@ -61,7 +60,6 @@ export const AppRoutes = () => {
       <Route path="/admin/AdminUsers" element={ <AdminUsers/> } />
 
 
-      <Route path="/contacto" element={ <Contacto/> } />
       <Route path="/" element={ <Home/> } />
       <Route path="/*" element={ <Navigate to="/" /> } />
 

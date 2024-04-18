@@ -1,3 +1,4 @@
+import SendIcon from "@mui/icons-material/Send";
 import { Box, Button, Chip, Paper, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -23,7 +24,7 @@ export const AgregarEjercicio = () => {
 
     const handleDelete = (index) => {
         setTags(tags.filter((_, i) => i !== index));
-      };
+    };
 
     const handleTituloChange = (event) => {
         setTitulo(event.target.value);
@@ -34,7 +35,7 @@ export const AgregarEjercicio = () => {
         const respuesta = await Agregar_Ejercicio({
             Titulo: Titulo,
             Problema: inputValue,
-            Tags:tags
+            Tags: tags,
         });
         navigate("/profesor/EjerciciosPropuestos", {
             state: {
@@ -107,8 +108,11 @@ export const AgregarEjercicio = () => {
                             <Chip
                                 key={index}
                                 label={tag}
-                                style={{ marginRight: "0.5rem", marginTop:"0.5rem"}}
-                                variant="outlined" 
+                                style={{
+                                    marginRight: "0.5rem",
+                                    marginTop: "0.5rem",
+                                }}
+                                variant="outlined"
                                 onDelete={() => handleDelete(index)}
                             />
                         ))}
@@ -117,9 +121,8 @@ export const AgregarEjercicio = () => {
                     <TextField
                         id="outlined-multiline-static"
                         label="Agregar etiquetas (presiona Enter para agregar)"
-                        sx={{ width: "100%", marginBottom: "1rem"}}
+                        sx={{ width: "100%", marginBottom: "1rem" }}
                         value={tagInput}
-
                         onChange={handleTagInputChange}
                         onKeyPress={handleTagInputKeyPress}
                     />
@@ -132,6 +135,7 @@ export const AgregarEjercicio = () => {
                         sx={{ width: "100%" }}
                         disabled={!isEnabled}
                     >
+                        <SendIcon sx={{ color: "white", mr: "5px" }} />
                         Enviar
                     </Button>
                 </Box>

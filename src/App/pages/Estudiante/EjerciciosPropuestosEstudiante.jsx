@@ -25,7 +25,7 @@ const EjercicioItem = ({ Data }) => {
                 lista: Data.Respuesta,
                 problema: Data.Problema,
                 id_consulta: Data._id,
-                EJ:true
+                EJ: true,
             },
         });
     };
@@ -39,30 +39,40 @@ const EjercicioItem = ({ Data }) => {
     };
 
     return (
-        <Accordion key={Data._id} style={{ border: "1px solid #ef7fa0" }}>
+        <Accordion
+            key={Data._id}
+            style={{ border: "1px solid #ef7fa0", width: "75vw" }}
+        >
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls={`panel-${Data.id_retroalimento}-content`}
                 id={`panel-${Data.id_retroalimento}-header`}
             >
-                <Box flexDirection={"column"} sx={{
-                            width: "100%",
-                            display: "flex",
-                            justifyContent: "center",
-                            mx:5
-                        }}>
                 <Box
-                    sx={{ display: "flex", width: "100%", alignItems: "center", mt: 2 }}
+                    flexDirection={"column"}
+                    sx={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        mx: 5,
+                    }}
                 >
-                    <Typography sx={{ fontSize: 23 }}>
-                        {Data.Titulo}
-                    </Typography>
-                </Box>
-                <Box
+                    <Box
                         sx={{
                             display: "flex",
                             width: "100%",
-                            
+                            alignItems: "center",
+                            mt: 2,
+                        }}
+                    >
+                        <Typography sx={{ fontSize: 23 }}>
+                            {Data.Titulo}
+                        </Typography>
+                    </Box>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            width: "100%",
                         }}
                     >
                         {Data.Tags.map((tag, index) => (
@@ -79,7 +89,6 @@ const EjercicioItem = ({ Data }) => {
                         ))}
                     </Box>
                 </Box>
-                
             </AccordionSummary>
 
             <AccordionDetails
@@ -89,11 +98,14 @@ const EjercicioItem = ({ Data }) => {
                     alignItems: "center",
                 }}
             >
-                <Box flexDirection={"column"} sx={{
-                            width: "100%",
-                            display: "flex",
-                            justifyContent: "center",
-                        }}>
+                <Box
+                    flexDirection={"column"}
+                    sx={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                    }}
+                >
                     <Box
                         sx={{
                             width: "100%",
@@ -145,29 +157,31 @@ export const EjerciciosPropuestosEstudiante = () => {
     const [Ejercicios, setEjercicios] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isLoading2, setIsLoading2] = useState(false);
-    const [PaginasTotales, setPaginasTotales] = useState(1)
+    const [PaginasTotales, setPaginasTotales] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
 
-    const handlePageChange = async(event, value) => {
+    const handlePageChange = async (event, value) => {
         setCurrentPage(value);
         setIsLoading(true);
-        const respu = await ObtenerEjerciciosPropuestosEstudiante({pag:value});
+        const respu = await ObtenerEjerciciosPropuestosEstudiante({
+            pag: value,
+        });
         setEjercicios(respu.lista);
         setIsLoading(false);
-      };
-
-
+    };
 
     useEffect(() => {
         async function handleBuscarEjerciciosPropuestos() {
             try {
-                const respu = await ObtenerEjerciciosPropuestosEstudiante({pag:1});
+                const respu = await ObtenerEjerciciosPropuestosEstudiante({
+                    pag: 1,
+                });
                 setEjercicios(respu.lista);
                 const division = respu.cantidad / 5;
                 const resultadoRedondeado = Math.ceil(division);
                 setPaginasTotales(resultadoRedondeado);
                 setIsLoading(false);
-                setIsLoading2(true)
+                setIsLoading2(true);
             } catch (error) {
                 console.error(error);
                 setIsLoading(false);
@@ -193,36 +207,40 @@ export const EjerciciosPropuestosEstudiante = () => {
                 </Typography>
             </Box>
 
-            {isLoading ? (
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "100%",
-                    }}
-                >
-                    <CircularProgress />
-                </Box>
-            ) : (
-                <div>
-                    {Ejercicios.map((jsonItem, index) => (
-                        <Box key={index} mb={1}>
-                            <EjercicioItem Data={jsonItem} />
-                        </Box>
-                    ))}
-                </div>
-            )}
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "100%",
+                }}
+            >
+                {isLoading ? (
+                    <Box>
+                        <CircularProgress />
+                    </Box>
+                ) : (
+                    <Box>
+                        {Ejercicios.map((jsonItem, index) => (
+                            <Box key={index} mb={1}>
+                                <EjercicioItem Data={jsonItem} />
+                            </Box>
+                        ))}
+                    </Box>
+                )}
 
-        {isLoading2 && 
-            
-            (<Pagination 
-                count={PaginasTotales}         
-                page={currentPage}
-                onChange={handlePageChange}
-                size="large"
-            />)}
+                {isLoading2 && (
+                    <Box mt={3}>
+                        <Pagination
+                            count={PaginasTotales}
+                            page={currentPage}
+                            onChange={handlePageChange}
+                            size="large"
+                        />
+                    </Box>
+                )}
+            </Box>
         </AppLayout>
     );
 };

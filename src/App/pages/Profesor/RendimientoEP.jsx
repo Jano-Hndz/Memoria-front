@@ -1,38 +1,27 @@
-import AddIcon from "@mui/icons-material/Add";
-import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import PreviewIcon from '@mui/icons-material/Preview';
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
     Accordion,
     AccordionDetails,
     AccordionSummary,
     Box,
     Button,
-    Chip,
     CircularProgress,
-    Divider,
     Grid,
-    Typography
+    Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import { getData } from "../../../helpers/funciones";
-import {ObtenerRendimientoEjercicios} from "../../../helpers/profesor_api";
-import { AppLayout } from "../../layout/AppLayout";
-import Circulo from '../../../helpers/Circulo';
-import { calcularPromedio } from "../../../helpers/funciones";
 import { CircularWithValueLabel } from "../../../helpers/CircularWithValueLabel";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-
+import Circulo from "../../../helpers/Circulo";
+import { calcularPromedio, getData } from "../../../helpers/funciones";
+import { ObtenerRendimientoEjercicios } from "../../../helpers/profesor_api";
+import { AppLayout } from "../../layout/AppLayout";
 
 const RendimientoItem = ({ Data, Problema }) => {
-
     const navigate = useNavigate();
 
-
     const JSON_Calificaciones = calcularPromedio(Data.RespuestaLLM);
-
 
     const handleVerRetoalimentacion = async () => {
         console.log(Problema);
@@ -46,9 +35,11 @@ const RendimientoItem = ({ Data, Problema }) => {
         });
     };
 
-
     return (
-        <Accordion key={Data._id} style={{ border: "1px solid #ef7fa0" }}>
+        <Accordion
+            key={Data._id}
+            style={{ border: "1px solid #ef7fa0", width: "75vw" }}
+        >
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls={`panel-${Data.id_retroalimento}-content`}
@@ -72,7 +63,7 @@ const RendimientoItem = ({ Data, Problema }) => {
                 }}
             >
                 <Box flexDirection={"column"} width={"100%"}>
-                <Grid item xs={12}>
+                    <Grid item xs={12}>
                         <Grid container alignItems="center" spacing={3}>
                             <Grid
                                 item
@@ -176,14 +167,15 @@ const RendimientoItem = ({ Data, Problema }) => {
 export const RendimientoEP = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
-    const [Data, setData] = useState([])
-    const { id,data } = getData();
-
+    const [Data, setData] = useState([]);
+    const { id, data } = getData();
 
     useEffect(() => {
         async function handleRendimientoEjerciciosPropuestos() {
             try {
-                const respu = await ObtenerRendimientoEjercicios({EjercicioPropuestoID:id})
+                const respu = await ObtenerRendimientoEjercicios({
+                    EjercicioPropuestoID: id,
+                });
                 setData(respu);
                 setIsLoading(false);
             } catch (error) {
@@ -193,7 +185,6 @@ export const RendimientoEP = () => {
         }
         handleRendimientoEjerciciosPropuestos();
     }, []);
-
 
     return (
         <AppLayout>
@@ -211,29 +202,33 @@ export const RendimientoEP = () => {
                     Rendimiento alumnos
                 </Typography>
             </Box>
-            
-            {isLoading ? (
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "100%",
-                    }}
-                >
-                    <CircularProgress />
-                </Box>
-            ) : (
-                <div>
-                    {Data.map((jsonItem, index) => (
-                        <Box key={index} mb={1}>
-                            <RendimientoItem Data={jsonItem} Problema={data} />
-                        </Box>
-                    ))}
-                </div>
-            )}
+
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "100%",
+                }}
+            >
+                {isLoading ? (
+                    <Box>
+                        <CircularProgress />
+                    </Box>
+                ) : (
+                    <div>
+                        {Data.map((jsonItem, index) => (
+                            <Box key={index} mb={1}>
+                                <RendimientoItem
+                                    Data={jsonItem}
+                                    Problema={data}
+                                />
+                            </Box>
+                        ))}
+                    </div>
+                )}
+            </Box>
         </AppLayout>
     );
 };
-

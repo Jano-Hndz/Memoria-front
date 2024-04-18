@@ -6,9 +6,9 @@ import {
     Button,
     CircularProgress,
     Grid,
+    Pagination,
     Paper,
     Typography,
-    Pagination
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +18,7 @@ import {
     Get_Retroalimentacion,
 } from "../../../../helpers/foro_api";
 import { AppLayout } from "../../../layout/AppLayout";
+
 
 const ForoItem = ({ Data }) => {
     const navigate = useNavigate();
@@ -144,27 +145,26 @@ export const Foro = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [isLoading2, setIsLoading2] = useState(false);
-    const [PaginasTotales, setPaginasTotales] = useState(1)
+    const [PaginasTotales, setPaginasTotales] = useState(1);
 
-    const handlePageChange = async(event, value) => {
+    const handlePageChange = async (event, value) => {
         setCurrentPage(value);
         setIsLoading(true);
-        const respu = await Get_Foro({pag:value});
+        const respu = await Get_Foro({ pag: value });
         setData(respu.lista);
         setIsLoading(false);
-      };
+    };
 
     useEffect(() => {
         async function handleBuscarForo() {
             try {
-                const respu = await Get_Foro({pag:1});
+                const respu = await Get_Foro({ pag: 1 });
                 setData(respu.lista);
                 const division = respu.cantidad / 5;
                 const resultadoRedondeado = Math.ceil(division);
                 setPaginasTotales(resultadoRedondeado);
                 setIsLoading(false);
-                setIsLoading2(true)
-
+                setIsLoading2(true);
             } catch (error) {
                 console.error(error);
                 setIsLoading(false);
@@ -190,36 +190,40 @@ export const Foro = () => {
                 </Typography>
             </Box>
 
-            {isLoading ? (
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "100%",
-                    }}
-                >
-                    <CircularProgress />
-                </Box>
-            ) : (
-                <div>
-                    {Data.map((jsonItem, index) => (
-                        <Box key={index} mb={1}>
-                            <ForoItem Data={jsonItem} />
-                        </Box>
-                    ))}
-                </div>
-            )}
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "100%",
+                }}
+            >
+                {isLoading ? (
+                    <Box>
+                        <CircularProgress />
+                    </Box>
+                ) : (
+                    <div>
+                        {Data.map((jsonItem, index) => (
+                            <Box key={index} mb={1}>
+                                <ForoItem Data={jsonItem} />
+                            </Box>
+                        ))}
+                    </div>
+                )}
 
-            {isLoading2 && 
-            
-            (<Pagination 
-                count={PaginasTotales}         
-                page={currentPage}
-                onChange={handlePageChange}
-                size="large"
-            />)}
+                {isLoading2 && (
+                    <Box mt={3}>
+                        <Pagination
+                            count={PaginasTotales}
+                            page={currentPage}
+                            onChange={handlePageChange}
+                            size="large"
+                        />
+                    </Box>
+                )}
+            </Box>
         </AppLayout>
     );
 };

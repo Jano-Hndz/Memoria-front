@@ -28,7 +28,7 @@ const EjercicioItem = ({ Data }) => {
     };
 
     return (
-        <Accordion key={Data._id} style={{ border: "1px solid #ef7fa0" }}>
+        <Accordion key={Data._id} style={{ border: "1px solid #ef7fa0", width: '75vw' }}>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls={`panel-${Data.id_retroalimento}-content`}

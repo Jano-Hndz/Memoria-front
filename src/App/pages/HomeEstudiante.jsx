@@ -122,24 +122,6 @@ export const HomeEstudiante = () => {
                             </Typography>
                         </Button>
                     </Box>
-
-                    <Box width={"60%"} mb={6}>
-                        <Button
-                            fullWidth
-                            variant="contained"
-                            onClick={() => {
-                                navigate("/contacto");
-                            }}
-                            sx={{ mt: 1, height: "80px" }}
-                        >
-                            <ReportProblemIcon
-                                sx={{ color: "white", mr: "5px" }}
-                            />
-                            <Typography color="white" fontSize={22}>
-                                Notificar Problema
-                            </Typography>
-                        </Button>
-                    </Box>
                 </Box>
             </Box>
         </AppLayout>

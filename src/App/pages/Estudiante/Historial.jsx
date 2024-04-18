@@ -11,8 +11,8 @@ import {
     CircularProgress,
     Divider,
     Grid,
+    Pagination,
     Typography,
-    Pagination
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -68,7 +68,10 @@ const AccordionItem = ({ Data }) => {
     };
 
     return (
-        <Accordion key={Data._id} style={{ border: "1px solid #ef7fa0" }}>
+        <Accordion
+            key={Data._id}
+            style={{ border: "1px solid #ef7fa0", width: "75vw" }}
+        >
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls={`panel-${Data.id_retroalimento}-content`}
@@ -249,30 +252,29 @@ const AccordionItem = ({ Data }) => {
 export const Historial = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isLoading2, setIsLoading2] = useState(false);
-    const [PaginasTotales, setPaginasTotales] = useState(1)
+    const [PaginasTotales, setPaginasTotales] = useState(1);
 
     const [DataHistorial, setDataHistorial] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
 
-    const handlePageChange = async(event, value) => {
+    const handlePageChange = async (event, value) => {
         setCurrentPage(value);
         setIsLoading(true);
-        const respu = await GetHistorial({pag:value});
+        const respu = await GetHistorial({ pag: value });
         setDataHistorial(respu.historial);
         setIsLoading(false);
-      };
-
+    };
 
     useEffect(() => {
         async function handleHistorial() {
             try {
-                const respu = await GetHistorial({pag:1});
+                const respu = await GetHistorial({ pag: 1 });
                 setDataHistorial(respu.historial);
                 const division = respu.cantidad / 5;
                 const resultadoRedondeado = Math.ceil(division);
                 setPaginasTotales(resultadoRedondeado);
                 setIsLoading(false);
-                setIsLoading2(true)
+                setIsLoading2(true);
             } catch (error) {
                 console.error(error);
                 setIsLoading(false);
@@ -297,38 +299,41 @@ export const Historial = () => {
                     Historial
                 </Typography>
             </Box>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "100%",
+                }}
+            >
+                {isLoading ? (
+                    <Box>
+                        <CircularProgress />
+                    </Box>
+                ) : (
+                    <div>
+                        {DataHistorial.map((jsonItem, index) => (
+                            <Box key={index} mt={1}>
+                                <AccordionItem Data={jsonItem} />
+                            </Box>
+                        ))}
+                    </div>
+                )}
 
-            {isLoading ? (
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "100%",
-                    }}
-                >
-                    <CircularProgress />
-                </Box>
-            ) : (
-                <div>
-                    {DataHistorial.map((jsonItem, index) => (
-                        <Box key={index} mt={1}>
-                            <AccordionItem Data={jsonItem} />
-                        </Box>
-                    ))}
-                </div>
-            )}
-
-            {isLoading2 && 
-            
-            (<Pagination 
-                count={PaginasTotales}         
-                page={currentPage}
-                onChange={handlePageChange}
-                size="large"
-            />)}
-
+                {isLoading2 && (
+                    <Box mt={3}>
+                        {" "}
+                        <Pagination
+                            count={PaginasTotales}
+                            page={currentPage}
+                            onChange={handlePageChange}
+                            size="large"
+                        />
+                    </Box>
+                )}
+            </Box>
         </AppLayout>
     );
 };
