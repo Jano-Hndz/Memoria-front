@@ -228,6 +228,16 @@ export const RendimientoEP = () => {
                         ))}
                     </div>
                 )}
+                <Box mt={10}>
+                    {Data.length == 0 && (
+                        <Typography
+                            variant="h2"
+                            fontSize={20}
+                        >
+                            Nadie a renpondido el ejercicio propuesto
+                        </Typography>
+                    )}
+                </Box>
             </Box>
         </AppLayout>
     );

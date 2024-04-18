@@ -1,6 +1,6 @@
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import PreviewIcon from '@mui/icons-material/Preview';
+import PreviewIcon from "@mui/icons-material/Preview";
 import {
     Accordion,
     AccordionDetails,
@@ -10,7 +10,7 @@ import {
     Chip,
     CircularProgress,
     Divider,
-    Typography
+    Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -19,16 +19,17 @@ import { ObtenerEjerciciosPropuestosTag } from "../../../helpers/profesor_api";
 import { AppLayout } from "../../layout/AppLayout";
 
 const EjercicioItem = ({ Data }) => {
-
     const navigate = useNavigate();
-
 
     const handleChip = (tag) => {
         console.log(tag);
     };
 
     return (
-        <Accordion key={Data._id} style={{ border: "1px solid #ef7fa0", width: '75vw' }}>
+        <Accordion
+            key={Data._id}
+            style={{ border: "1px solid #ef7fa0", width: "75vw" }}
+        >
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls={`panel-${Data.id_retroalimento}-content`}
@@ -50,18 +51,31 @@ const EjercicioItem = ({ Data }) => {
                     alignItems: "center",
                 }}
             >
-                <Box flexDirection={"column"}>
-                    <Box mb={3} sx={{
+                <Box
+                    flexDirection={"column"}
+                    sx={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                    }}
+                >
+                    <Box
+                        mb={3}
+                        sx={{
                             width: "100%",
                             display: "flex",
                             justifyContent: "center",
-                        }}>
-                    {(Data.Tags).map((tag, index) => (
+                        }}
+                    >
+                        {Data.Tags.map((tag, index) => (
                             <Chip
                                 key={index}
                                 label={tag}
-                                style={{ marginRight: "0.5rem", marginTop:"0.5rem"}}
-                                variant="outlined" 
+                                style={{
+                                    marginRight: "0.5rem",
+                                    marginTop: "0.5rem",
+                                }}
+                                variant="outlined"
                                 onClick={() => handleChip(tag)}
                             />
                         ))}
@@ -82,7 +96,6 @@ const EjercicioItem = ({ Data }) => {
 
                         <Divider />
                     </Box>
-                    
 
                     <Box
                         sx={{
@@ -104,7 +117,6 @@ const EjercicioItem = ({ Data }) => {
                             startIcon={
                                 <PreviewIcon style={{ color: "white" }} />
                             }
-
                         >
                             Ver rendimiento
                         </Button>
@@ -135,11 +147,12 @@ export const EjerciciosTag = () => {
     const [isLoading, setIsLoading] = useState(true);
     const data = getData();
 
-
     useEffect(() => {
         async function handleBuscarEjerciciosPropuestos() {
             try {
-                const respu = await ObtenerEjerciciosPropuestosTag({Tag:data.data});
+                const respu = await ObtenerEjerciciosPropuestosTag({
+                    Tag: data.data,
+                });
                 setEjercicios(respu);
                 setIsLoading(false);
                 console.log(respu);
@@ -150,7 +163,6 @@ export const EjerciciosTag = () => {
         }
         handleBuscarEjerciciosPropuestos();
     }, []);
-
 
     return (
         <AppLayout>
@@ -178,27 +190,29 @@ export const EjerciciosTag = () => {
                 </Typography>
             </Box>
 
-            {isLoading ? (
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "100%",
-                    }}
-                >
-                    <CircularProgress />
-                </Box>
-            ) : (
-                <div>
-                    {Ejercicios.map((jsonItem, index) => (
-                        <Box key={index} mb={1}>
-                            <EjercicioItem Data={jsonItem} />
-                        </Box>
-                    ))}
-                </div>
-            )}
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "100%",
+                }}
+            >
+                {isLoading ? (
+                    <Box>
+                        <CircularProgress />
+                    </Box>
+                ) : (
+                    <div>
+                        {Ejercicios.map((jsonItem, index) => (
+                            <Box key={index} mb={1}>
+                                <EjercicioItem Data={jsonItem} />
+                            </Box>
+                        ))}
+                    </div>
+                )}
+            </Box>
         </AppLayout>
     );
 };

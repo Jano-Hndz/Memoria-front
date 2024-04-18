@@ -45,13 +45,11 @@ export const Post_Foro = () => {
     const [isEnabled, setIsEnabled] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
     const [ComentariosForo, setComentariosForo] = useState([])
-    console.log(Data);
     
     const handleRehacer = async (input) => {
         const respu= await GetEjercicio({
             id_consulta:Data.RetroalimentacionID
         })
-        console.log(respu);
 
         if (respu.Propuesto) {
             navigate("/estudiante/EjerciciosPropuestos/Resolucion", {
@@ -83,6 +81,10 @@ export const Post_Foro = () => {
             const respu = await PostForo({
                 id_foro:Data._id
             });
+            console.log("ñññññññ");
+            console.log(respu);
+            console.log("ñññññññ");
+
             setComentariosForo(respu);
             setIsLoading(false);
           } catch (error) {
@@ -130,6 +132,9 @@ export const Post_Foro = () => {
             },
         });
     };
+    console.log("____---");
+    console.log(ComentariosForo);
+    console.log("____---");
 
     return (
         <AppLayout>
@@ -228,7 +233,7 @@ export const Post_Foro = () => {
                         Comentar
                     </Button>
 
-                    {isLoading ? (
+                    {/* {isLoading ? (
                     <Box sx = {{display:"flex", flexDirection:'column' ,alignItems: "center", justifyContent: "center", width: "100%"}} >
                         <CircularProgress />
                     </Box>
@@ -240,7 +245,7 @@ export const Post_Foro = () => {
                         </Box>
                     ))}
                     </div>
-                    )}
+                    )} */}
 
                     
 

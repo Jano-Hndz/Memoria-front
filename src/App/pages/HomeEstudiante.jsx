@@ -23,7 +23,7 @@ export const HomeEstudiante = () => {
     return (
         <AppLayout>
             <Box
-                mt={6}
+                mt={10}
                 display="flex"
                 flexDirection={{ xs: "column", md: "row" }}
             >
@@ -87,11 +87,10 @@ export const HomeEstudiante = () => {
                 <Box
                     width={{ xs: "100%", md: "50%" }}
                     alignItems="center"
-                    justifyContent="center"
                     display="flex"
                     flexDirection="column"
                 >
-                    <Box width={"60%"} my={6}>
+                    <Box width={"60%"} mb={6}>
                         <Button
                             fullWidth
                             variant="contained"

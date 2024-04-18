@@ -17,10 +17,16 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { getData } from "../../../helpers/funciones";
-import { ObtenerEjerciciosPropuestos } from "../../../helpers/profesor_api";
+import {
+    ObtenerEjerciciosPropuestos,
+    EliminarEjercicio,
+} from "../../../helpers/profesor_api";
 import { AppLayout } from "../../layout/AppLayout";
 
-const EjercicioItem = ({ Data }) => {
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
+const EjercicioItem = ({ Data, Actualizar }) => {
     const navigate = useNavigate();
 
     const handleChip = (tag) => {
@@ -38,6 +44,11 @@ const EjercicioItem = ({ Data }) => {
                 data: Data,
             },
         });
+    };
+
+    const handleEliminar = async () => {
+        await EliminarEjercicio({ ID: Data._id });
+        Actualizar();
     };
 
     return (
@@ -66,7 +77,14 @@ const EjercicioItem = ({ Data }) => {
                     alignItems: "center",
                 }}
             >
-                <Box flexDirection={"column"}>
+                <Box
+                    flexDirection={"column"}
+                    sx={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                    }}
+                >
                     <Box
                         mb={3}
                         sx={{
@@ -130,6 +148,7 @@ const EjercicioItem = ({ Data }) => {
                             Ver rendimiento
                         </Button>
                         <Button
+                            onClick={handleEliminar}
                             variant="contained"
                             color="primary"
                             sx={{
@@ -155,18 +174,19 @@ export const EjerciciosPropuestos = () => {
     const [Ejercicios, setEjercicios] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        async function handleBuscarEjerciciosPropuestos() {
-            try {
-                const respu = await ObtenerEjerciciosPropuestos({});
-                setEjercicios(respu);
-                setIsLoading(false);
-                console.log(respu);
-            } catch (error) {
-                console.error(error);
-                setIsLoading(false);
-            }
+    async function handleBuscarEjerciciosPropuestos() {
+        try {
+            const respu = await ObtenerEjerciciosPropuestos({});
+            setEjercicios(respu);
+            setIsLoading(false);
+            console.log(respu);
+        } catch (error) {
+            console.error(error);
+            setIsLoading(false);
         }
+    }
+
+    useEffect(() => {
         handleBuscarEjerciciosPropuestos();
     }, []);
 
@@ -175,15 +195,14 @@ export const EjerciciosPropuestos = () => {
     };
 
     const { mostrar } = getData();
+    const [openAgregado, setOpenAgregado] = useState(mostrar);
 
-    if (mostrar) {
-        Swal.fire({
-            icon: "success",
-            title: "Éxito!",
-            text: "El ejercicio se ha agregado correctamente.",
-            confirmButtonText: "Aceptar",
-        });
-    }
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+        setOpenAgregado(false);
+    };
 
     return (
         <AppLayout>
@@ -232,11 +251,32 @@ export const EjerciciosPropuestos = () => {
                     <div>
                         {Ejercicios.map((jsonItem, index) => (
                             <Box key={index} mb={1}>
-                                <EjercicioItem Data={jsonItem} />
+                                <EjercicioItem
+                                    Data={jsonItem}
+                                    Actualizar={
+                                        handleBuscarEjerciciosPropuestos
+                                    }
+                                />
                             </Box>
                         ))}
                     </div>
                 )}
+
+                <Snackbar
+                    open={openAgregado}
+                    autoHideDuration={6000}
+                    onClose={handleCloseSnackbar}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                >
+                    <MuiAlert
+                        elevation={6}
+                        variant="filled"
+                        onClose={handleCloseSnackbar}
+                        severity="success"
+                    >
+                        Ejercicio agregado correctamente
+                    </MuiAlert>
+                </Snackbar>
             </Box>
         </AppLayout>
     );

@@ -202,7 +202,7 @@ export const RendimientoEstudiantes = () => {
         }
         handleRendimiento();
     }, []);
-
+    
     return (
         <AppLayout>
             <Box
