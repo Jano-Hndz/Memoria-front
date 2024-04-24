@@ -110,9 +110,9 @@ export const ObtenerRendimientoAlmunos = async()=>{
     }
 }
 
-export const CrearCuentasAlumnos = async()=>{
+export const CrearCuentasAlumnos = async(data)=>{
     try {
-        const res = await AppAPI.post(`/profesor/crearcuentas`)
+        const res = await AppAPI.post(`/profesor/crearcuentas`,data)
 
 
         if(res.data.ok){

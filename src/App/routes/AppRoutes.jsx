@@ -19,6 +19,9 @@ import {RendimientoEP} from "../pages/Profesor/RendimientoEP"
 import {RendimientoEstudiantes} from "../pages/Profesor/RendimientoEstudiantes"
 import { Rendimiento } from "../pages/Estudiante/Rendimiento"
 import { RendimientoResultados } from "../pages/Estudiante/RendimientoResultados"
+import {AdminCuentas} from "../pages/Profesor/AdminCuentas"
+import {CrearCuentas} from "../pages/Profesor/CrearCuentas"
+
 
 
 import {Test} from "../pages/Test"
@@ -50,6 +53,9 @@ export const AppRoutes = () => {
       <Route path="/profesor/EjerciciosTag" element={ <EjerciciosTag/> } />
       <Route path="/profesor/Ejercicios/Rendimiento" element={ <RendimientoEP/> } />
       <Route path="/profesor/Rendimiento" element={ <RendimientoEstudiantes/> } />
+      <Route path="/profesor/AdminCuentas" element={ <AdminCuentas/> } />
+      <Route path="/profesor/CrearCuentas" element={ <CrearCuentas/> } />
+
 
 
 

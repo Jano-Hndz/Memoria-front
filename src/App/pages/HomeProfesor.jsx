@@ -1,11 +1,11 @@
 import ForumIcon from "@mui/icons-material/Forum";
 import HistoryIcon from "@mui/icons-material/History";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
-import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { CrearCuentasAlumnos } from "../../helpers/profesor_api";
 import { AppLayout } from "../layout/AppLayout";
+import { Box, Button, Typography } from "@mui/material";
+import PersonIcon from '@mui/icons-material/Person';
 
 export const HomeProfesor = () => {
     const navigate = useNavigate();
@@ -20,11 +20,6 @@ export const HomeProfesor = () => {
 
     const handleForo = async () => {
         navigate("/estudiante/Foro");
-    };
-
-    const handleCrearCuenta = async () => {
-        const resp = await CrearCuentasAlumnos();
-        console.log(resp);
     };
 
     return (
@@ -95,18 +90,21 @@ export const HomeProfesor = () => {
                         </Button>
                     </Box>
 
-                    <Box width={"60%"}>
+                    
+
+
+                    <Box width={"60%"} mb={6}>
                         <Button
-                            fullWidt
+                            fullWidth
                             variant="contained"
                             sx={{ mt: 1, height: "80px" }}
-                            onClick={handleCrearCuenta}
+                            onClick={() => {
+                                navigate("/profesor/adminCuentas");
+                            }}
                         >
-                            <PersonAddAlt1Icon
-                                sx={{ color: "white", mr: "5px" }}
-                            />
+                            <PersonIcon sx={{ color: "white", mr: "5px" }} />
                             <Typography color="white" fontSize={22}>
-                                Crear Cuentas Alumnos
+                            Administrar Cuentas Alumnos
                             </Typography>
                         </Button>
                     </Box>
