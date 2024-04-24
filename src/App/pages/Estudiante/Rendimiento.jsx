@@ -222,6 +222,14 @@ export const Rendimiento = () => {
     return (
         <AppLayout>
             <Box
+            display="flex"
+            alignItems="center"
+            flexDirection= "column"
+
+            justifyContent="center">
+
+            
+            <Box
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
@@ -235,6 +243,9 @@ export const Rendimiento = () => {
                     Mi Rendimiento
                 </Typography>
             </Box>
+            <Box style={{width: "80vw" }}>
+
+            
 
             <Paper
                 sx={{
@@ -454,6 +465,8 @@ export const Rendimiento = () => {
                     </Box>
                 )}
             </Paper>
+            </Box>
+            </Box>
         </AppLayout>
     );
 };

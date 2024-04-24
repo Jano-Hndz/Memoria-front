@@ -9,6 +9,7 @@ import {
     Pagination,
     Paper,
     Typography,
+    Tab,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,9 +17,12 @@ import {
     GetEjercicio,
     Get_Foro,
     Get_Retroalimentacion,
+    Get_post_usuario,
 } from "../../../../helpers/foro_api";
 import { AppLayout } from "../../../layout/AppLayout";
-
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
 
 const ForoItem = ({ Data }) => {
     const navigate = useNavigate();
@@ -147,6 +151,16 @@ export const Foro = () => {
     const [isLoading2, setIsLoading2] = useState(false);
     const [PaginasTotales, setPaginasTotales] = useState(1);
 
+    const [Data2, setData2] = useState([]);
+    const [PaginasTotales2, setPaginasTotales2] = useState(1);
+    const [currentPage2, setCurrentPage2] = useState(1);
+
+    const [Pestana, setPestana] = useState("1");
+
+    const handleChange = (event, newValue) => {
+        setPestana(newValue);
+    };
+
     const handlePageChange = async (event, value) => {
         setCurrentPage(value);
         setIsLoading(true);
@@ -155,14 +169,30 @@ export const Foro = () => {
         setIsLoading(false);
     };
 
+    const handlePageChange2 = async (event, value) => {
+        setCurrentPage2(value);
+        setIsLoading(true);
+        const respu = await Get_post_usuario({ pag: value });
+        setData2(respu.lista);
+        setIsLoading(false);
+    };
+
     useEffect(() => {
         async function handleBuscarForo() {
             try {
+                Get_post_usuario;
                 const respu = await Get_Foro({ pag: 1 });
                 setData(respu.lista);
                 const division = respu.cantidad / 5;
                 const resultadoRedondeado = Math.ceil(division);
                 setPaginasTotales(resultadoRedondeado);
+
+                const respu2 = await Get_post_usuario({ pag: 1 });
+                setData2(respu2.lista);
+                const division2 = respu2.cantidad / 5;
+                const resultadoRedondeado2 = Math.ceil(division2);
+                setPaginasTotales2(resultadoRedondeado2);
+
                 setIsLoading(false);
                 setIsLoading2(true);
             } catch (error) {
@@ -199,30 +229,89 @@ export const Foro = () => {
                     width: "100%",
                 }}
             >
-                {isLoading ? (
-                    <Box>
-                        <CircularProgress />
+                <TabContext value={Pestana}>
+                    <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                        <TabList
+                            onChange={handleChange}
+                            aria-label="lab API tabs example"
+                        >
+                            <Tab label="General" value="1" sx={{ minWidth: '30vh' }}/>
+                            <Tab label="Mis publicaciones" value="2" sx={{ minWidth: '30vh' }}/>
+                        </TabList>
                     </Box>
-                ) : (
-                    <div>
-                        {Data.map((jsonItem, index) => (
-                            <Box key={index} mb={1}>
-                                <ForoItem Data={jsonItem} />
-                            </Box>
-                        ))}
-                    </div>
-                )}
+                    <TabPanel value="1">
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                width: "100%",
+                            }}
+                        >
+                            {isLoading ? (
+                                <Box>
+                                    <CircularProgress />
+                                </Box>
+                            ) : (
+                                <div>
+                                    {Data.map((jsonItem, index) => (
+                                        <Box key={index} mb={1}>
+                                            <ForoItem Data={jsonItem} />
+                                        </Box>
+                                    ))}
+                                </div>
+                            )}
 
-                {isLoading2 && (
-                    <Box mt={3}>
-                        <Pagination
-                            count={PaginasTotales}
-                            page={currentPage}
-                            onChange={handlePageChange}
-                            size="large"
-                        />
-                    </Box>
-                )}
+                            {isLoading2 && (
+                                <Box mt={3}>
+                                    <Pagination
+                                        count={PaginasTotales2}
+                                        page={currentPage2}
+                                        onChange={handlePageChange2}
+                                        size="large"
+                                    />
+                                </Box>
+                            )}
+                        </Box>
+                    </TabPanel>
+                    <TabPanel value="2">
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                width: "100%",
+                            }}
+                        >
+                            {isLoading ? (
+                                <Box>
+                                    <CircularProgress />
+                                </Box>
+                            ) : (
+                                <div>
+                                    {Data2.map((jsonItem, index) => (
+                                        <Box key={index} mb={1}>
+                                            <ForoItem Data={jsonItem} />
+                                        </Box>
+                                    ))}
+                                </div>
+                            )}
+
+                            {isLoading2 && (
+                                <Box mt={3}>
+                                    <Pagination
+                                        count={PaginasTotales2}
+                                        page={currentPage2}
+                                        onChange={handlePageChange2}
+                                        size="large"
+                                    />
+                                </Box>
+                            )}
+                        </Box>
+                    </TabPanel>
+                </TabContext>
             </Box>
         </AppLayout>
     );

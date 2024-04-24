@@ -1,34 +1,30 @@
-import BarChartIcon from "@mui/icons-material/BarChart";
 import ForumIcon from "@mui/icons-material/Forum";
 import HistoryIcon from "@mui/icons-material/History";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
-import ReportProblemIcon from "@mui/icons-material/ReportProblem";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Get_Foro } from "../../helpers/foro_api";
+import { CrearCuentasAlumnos } from "../../helpers/profesor_api";
 import { AppLayout } from "../layout/AppLayout";
-
-
 
 export const HomeProfesor = () => {
     const navigate = useNavigate();
 
     const handleEjerciciosPropuestos = async () => {
-        navigate("/profesor/EjerciciosPropuestos",{
+        navigate("/profesor/EjerciciosPropuestos", {
             state: {
-                mostrar: false
+                mostrar: false,
             },
         });
     };
 
     const handleForo = async () => {
-        const resp = await Get_Foro ()
-        navigate("/estudiante/Foro",{
-            state: {
-                Data: resp
-            },
-        });
+        navigate("/estudiante/Foro");
+    };
+
+    const handleCrearCuenta = async () => {
+        const resp = await CrearCuentasAlumnos();
+        console.log(resp);
     };
 
     return (
@@ -37,8 +33,6 @@ export const HomeProfesor = () => {
                 mt={10}
                 display="flex"
                 flexDirection={{ xs: "column", md: "row" }}
-
-                
             >
                 <Box
                     width={{ xs: "100%", md: "50%" }}
@@ -47,7 +41,6 @@ export const HomeProfesor = () => {
                     display="flex"
                     flexDirection="column"
                 >
-
                     <Box width={"60%"} mb={6}>
                         <Button
                             fullWidth
@@ -64,7 +57,6 @@ export const HomeProfesor = () => {
                         </Button>
                     </Box>
 
-                    
                     <Box width={"60%"} mb={6}>
                         <Button
                             fullWidth
@@ -78,18 +70,16 @@ export const HomeProfesor = () => {
                             </Typography>
                         </Button>
                     </Box>
-
                 </Box>
 
                 {/* Segunda columna */}
                 <Box
                     width={{ xs: "100%", md: "50%" }}
                     alignItems="center"
-
                     display="flex"
                     flexDirection="column"
                 >
-                    <Box width={"60%"} >
+                    <Box width={"60%"} mb={6}>
                         <Button
                             fullWidth
                             variant="contained"
@@ -105,6 +95,21 @@ export const HomeProfesor = () => {
                         </Button>
                     </Box>
 
+                    <Box width={"60%"}>
+                        <Button
+                            fullWidt
+                            variant="contained"
+                            sx={{ mt: 1, height: "80px" }}
+                            onClick={handleCrearCuenta}
+                        >
+                            <PersonAddAlt1Icon
+                                sx={{ color: "white", mr: "5px" }}
+                            />
+                            <Typography color="white" fontSize={22}>
+                                Crear Cuentas Alumnos
+                            </Typography>
+                        </Button>
+                    </Box>
                 </Box>
             </Box>
         </AppLayout>

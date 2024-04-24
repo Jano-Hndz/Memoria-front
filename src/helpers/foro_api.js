@@ -36,6 +36,23 @@ export const Get_Foro = async(data)=>{
     }
 }
 
+export const Get_post_usuario = async(data)=>{
+    try {
+        const res = await AppAPI.post(`/estudiante/foro/get/user`,data)
+
+
+        if(res.data.ok){
+            return res.data
+        }else{
+            return "Error en peticion"
+        }
+        
+    } catch (error) {
+        console.log(error);
+        Swal.fire('Error al buscar', error.response.data.msg, 'error');
+    }
+}
+
 
 export const Get_Retroalimentacion = async(data)=>{
     try {

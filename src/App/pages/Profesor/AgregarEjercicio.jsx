@@ -2,7 +2,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { Box, Button, Chip, Paper, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Agregar_Ejercicio } from "../../../helpers/profesor_api";
+import { Agregar_Ejercicio} from "../../../helpers/profesor_api";
 import { AppLayout } from "../../layout/AppLayout";
 
 export const AgregarEjercicio = () => {

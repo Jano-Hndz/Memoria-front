@@ -109,3 +109,20 @@ export const ObtenerRendimientoAlmunos = async()=>{
         Swal.fire('Error al buscar', error.response.data.msg, 'error');
     }
 }
+
+export const CrearCuentasAlumnos = async()=>{
+    try {
+        const res = await AppAPI.post(`/profesor/crearcuentas`)
+
+
+        if(res.data.ok){
+            return res.data
+        }else{
+            return "Error en peticion"
+        }
+        
+    } catch (error) {
+        console.log(error);
+        Swal.fire('Error al buscar', error.response.data.msg, 'error');
+    }
+}
