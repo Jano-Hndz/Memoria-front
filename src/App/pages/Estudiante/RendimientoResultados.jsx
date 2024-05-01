@@ -9,14 +9,25 @@ import {
 } from "@mui/material";
 import { getData } from "../../../helpers/funciones";
 import { AppLayout } from "../../layout/AppLayout";
+import { useNavigate } from "react-router-dom";
+
+
 
 export const RendimientoResultados = () => {
     const data = getData();
+    const navigate = useNavigate();
 
     console.log(data);
 
     const handleResolverProblema = async () => {
-        console.log("Problema");
+        navigate("/estudiante/EjerciciosPropuestos/Resolucion", {
+            state: {
+                lista: data.lista_problemas,
+                problema: data.problema.Problema,
+                id_consulta: data.ID_Ejercicio_Propuesto,
+                EJ: true,
+            },
+        });
     };
 
     return (

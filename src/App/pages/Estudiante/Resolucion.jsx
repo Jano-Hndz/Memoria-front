@@ -9,13 +9,14 @@ import {
     Paper,
     TextField,
     Tooltip,
-    Typography
+    Typography,
 } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Revision_ChatGPT } from "../../../helpers/estudiante_api";
 import { getData } from "../../../helpers/funciones";
 import { AppLayout } from "../../layout/AppLayout";
+import Swal from "sweetalert2";
 
 export const Resolucion = () => {
     const [inputs, setInputs] = useState({});
@@ -36,29 +37,36 @@ export const Resolucion = () => {
     };
 
     const data_get = getData();
-    const lista_funciones =data_get.lista;
+    const lista_funciones = data_get.lista;
     console.log(data_get.id_consulta);
 
-
     const handleSubmit = async (event) => {
-        setIsEnabled(false);
-        const respuesta = await Revision_ChatGPT({
-            requested: data_get.lista,
-            responded: inputs,
-            id_consulta: data_get.id_consulta,
-            titulo:Titulo,
-            EJ:data_get.EJ
-        });
-        setIsEnabled(true);
-        
-        navigate("/estudiante/retroalimentacion", {
-            state: {
-                inputs: inputs,
-                retroalimentacion: respuesta,
-                lista_funciones: lista_funciones,
-                problema: data_get.problema,
-            },
-        });
+        if (Titulo == "") {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Por favor, crea un título antes de enviar a corregir",
+            });
+        } else {
+            setIsEnabled(false);
+            const respuesta = await Revision_ChatGPT({
+                requested: data_get.lista,
+                responded: inputs,
+                id_consulta: data_get.id_consulta,
+                titulo: Titulo,
+                EJ: data_get.EJ,
+            });
+            setIsEnabled(true);
+
+            navigate("/estudiante/retroalimentacion", {
+                state: {
+                    inputs: inputs,
+                    retroalimentacion: respuesta,
+                    lista_funciones: lista_funciones,
+                    problema: data_get.problema,
+                },
+            });
+        }
     };
 
     return (
@@ -88,7 +96,6 @@ export const Resolucion = () => {
                     alignItems: "center",
                 }}
             >
-                
                 <TextField
                     id="outlined-multiline-static"
                     label="Escriba un titulo para el problema"
@@ -107,7 +114,6 @@ export const Resolucion = () => {
                         ),
                     }}
                 />
-
 
                 <Box sx={{ border: 1, borderColor: "primary.main", p: 2 }}>
                     {data_get.problema}

@@ -150,27 +150,33 @@ export const Rendimiento = () => {
     const [IsLoadingPaginado1, setIsLoadingPaginado1] = useState(false);
     const [PaginasTotales, setPaginasTotales] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
-
+    const [MostrarRetro, setMostrarRetro] = useState(true)
     const [DataRendimiento, setDataRendimiento] = useState([]);
-
+    const [Texto, setTexto] = useState("")
     const [Data, setData] = useState([]);
     const [isEnabled, setIsEnabled] = useState(true);
-
+    
     let funcionalidad = 0;
     let legibilidad = 0;
     let eficiencia = 0;
-
-    for (const calificacion of Data) {
-        let JSON_Calificaciones = calcularPromedio(calificacion.RespuestaLLM);
-        funcionalidad = funcionalidad + JSON_Calificaciones.Funcionalidad;
-        legibilidad = legibilidad + JSON_Calificaciones.Legibilidad;
-        eficiencia = eficiencia + JSON_Calificaciones.Eficiencia;
+    
+    if (Data.length > 0) {
+        for (const calificacion of Data) {
+            let JSON_Calificaciones = calcularPromedio(calificacion.RespuestaLLM);
+            funcionalidad = funcionalidad + JSON_Calificaciones.Funcionalidad;
+            legibilidad = legibilidad + JSON_Calificaciones.Legibilidad;
+            eficiencia = eficiencia + JSON_Calificaciones.Eficiencia;
+        }
+    
+        funcionalidad = funcionalidad / Data.length;
+        legibilidad = legibilidad / Data.length;
+        eficiencia = eficiencia / Data.length;
+    
+    
     }
+    
 
-    funcionalidad = funcionalidad / Data.length;
-    legibilidad = legibilidad / Data.length;
-    eficiencia = eficiencia / Data.length;
-
+    
     let Promedio_Estudiante =
         ((funcionalidad + legibilidad + eficiencia) * 10) / 3;
 
@@ -187,8 +193,17 @@ export const Rendimiento = () => {
             try {
                 const respu = await Rendimiento_Estudiante();
                 const respuGET = await GET_Rendimiento_Estudiante({ pag: 1 });
-                setPaginasTotales(respuGET.cantidad);
+                const division = respuGET.cantidad / 5;
+                const resultadoRedondeado = Math.ceil(division);
+                setPaginasTotales(resultadoRedondeado);
                 setDataRendimiento(respuGET.lista);
+                
+                if (respuGET.lista.length == 0) {
+                    setTexto("No se han encontrado registro de que se haya hecho un analisis anteriormente")
+                }else{
+                    setTexto(respuGET.lista[respuGET.lista.length - 1].Retroalimentacion)
+                }
+                
                 setData(respu.lista);
                 setIsLoading(false);
             } catch (error) {
@@ -202,21 +217,26 @@ export const Rendimiento = () => {
 
     const handleAnalizar = async () => {
         setIsEnabled(false);
-        let lista_data = [];
-        for (const elemento of Data) {
-            for (const Item of elemento.RespuestaLLM) {
-                lista_data.push(Item.Retroalimentación);
+        if (Data.length < 5) {
+            console.log("tiene menos de 5 elementos");
+            setIsEnabled(true);
+        }else{
+            let lista_data = [];
+            for (const elemento of Data) {
+                for (const Item of elemento.RespuestaLLM) {
+                    lista_data.push(Item.Retroalimentación);
+                }
             }
+            const respuesta = await Analisis_Rendimiento_Estudiante({
+                Rendimiento: lista_data,
+            });
+            navigate("/estudiante/Rendimiento/Resultado", {
+                state: {
+                    ...respuesta,
+                },
+            });
         }
-        const respuesta = await Analisis_Rendimiento_Estudiante({
-            Rendimiento: lista_data,
-        });
-        navigate("/estudiante/Rendimiento/Resultado", {
-            state: {
-                ...respuesta,
-            },
-        });
-        setIsEnabled(true);
+        
     };
 
     return (
@@ -389,6 +409,24 @@ export const Rendimiento = () => {
                                     />
                                 </Box>
                             </Box>
+                        </Box>
+                        <Box
+                            mt={5}
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                width: "100%",
+                            }}
+                        >
+                                <Typography
+                                sx={{ fontSize: 18 ,width: "70%", textAlign: "justify"}}
+                                variant="body1"
+                            >
+                                {Texto}
+                            </Typography>
+                            
+
                         </Box>
 
                         <Box

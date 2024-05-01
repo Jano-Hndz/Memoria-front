@@ -126,3 +126,54 @@ export const CrearCuentasAlumnos = async(data)=>{
         Swal.fire('Error al buscar', error.response.data.msg, 'error');
     }
 }
+
+export const CrearCuentasAlumnosHistorial = async(data)=>{
+    try {
+        const res = await AppAPI.post(`/profesor/crearcuentas/historial`,data)
+
+
+        if(res.data.ok){
+            return res.data
+        }else{
+            return "Error en peticion"
+        }
+        
+    } catch (error) {
+        console.log(error);
+        Swal.fire('Error al buscar', error.response.data.msg, 'error');
+    }
+}
+
+export const DesactivarCuentasAlumnos = async(data)=>{
+    try {
+        const res = await AppAPI.post(`/profesor/cuentas/desactivar`,data)
+
+
+        if(res.data.ok){
+            return res.data
+        }else{
+            return "Error en peticion"
+        }
+        
+    } catch (error) {
+        console.log(error);
+        Swal.fire('Error al buscar', error.response.data.msg, 'error');
+    }
+}
+
+export const ActivarCuentasAlumnos = async(data)=>{
+    try {
+        const res = await AppAPI.post(`/profesor/cuentas/activar`,data)
+
+
+        if(res.data.ok){
+            return res.data
+        }else{
+            return "Error en peticion"
+        }
+        
+    } catch (error) {
+        console.log(error);
+        Swal.fire('Error al buscar', error.response.data.msg, 'error');
+    }
+}
