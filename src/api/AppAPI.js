@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 const AppAPI = axios.create({
-    baseURL: 'https://memoria-back.vercel.app/api'
+    baseURL: 'https://memoria-back-ebon.vercel.app/api'
 });
 
 // Todo: configurar interceptores
