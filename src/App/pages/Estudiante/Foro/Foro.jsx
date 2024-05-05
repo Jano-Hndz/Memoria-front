@@ -185,8 +185,11 @@ export const Foro = () => {
                 Get_post_usuario;
                 const respu = await Get_Foro({ pag: 1 });
                 setData(respu.lista);
+
                 const division = respu.cantidad / 5;
+
                 const resultadoRedondeado = Math.ceil(division);
+
                 setPaginasTotales(resultadoRedondeado);
 
                 const respu2 = await Get_post_usuario({ pag: 1 });
@@ -289,9 +292,9 @@ export const Foro = () => {
                             {isLoading2 && (
                                 <Box mt={3}>
                                     <Pagination
-                                        count={PaginasTotales2}
-                                        page={currentPage2}
-                                        onChange={handlePageChange2}
+                                        count={PaginasTotales}
+                                        page={currentPage}
+                                        onChange={handlePageChange}
                                         size="large"
                                     />
                                 </Box>
