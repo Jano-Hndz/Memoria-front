@@ -159,6 +159,7 @@ export const EjerciciosPropuestosEstudiante = () => {
     const [isLoading2, setIsLoading2] = useState(false);
     const [PaginasTotales, setPaginasTotales] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
+    const navigate = useNavigate();
 
     const handlePageChange = async (event, value) => {
         setCurrentPage(value);
@@ -197,7 +198,20 @@ export const EjerciciosPropuestosEstudiante = () => {
                 alignItems="center"
                 justifyContent="center"
                 my={5}
+                position="relative"
             >
+                <Button
+                    onClick={() => navigate("/")}
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        fontSize: '1rem',
+                        padding: '12px 24px',
+                        color: 'black' 
+                    }}
+                >
+                    Volver
+                </Button>
                 <Typography
                     variant="h2"
                     fontWeight={500}
@@ -206,6 +220,8 @@ export const EjerciciosPropuestosEstudiante = () => {
                     Ejercicios Propuestos
                 </Typography>
             </Box>
+
+           
 
             <Box
                 sx={{

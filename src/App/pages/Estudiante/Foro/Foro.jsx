@@ -145,6 +145,8 @@ const ForoItem = ({ Data }) => {
 };
 
 export const Foro = () => {
+    const navigate = useNavigate();
+
     const [Data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
@@ -210,7 +212,20 @@ export const Foro = () => {
                 alignItems="center"
                 justifyContent="center"
                 my={5}
+                position="relative"
             >
+                <Button
+                    onClick={() => navigate("/")}
+                    style={{
+                        position: "absolute",
+                        left: 0,
+                        fontSize: "1rem",
+                        padding: "12px 24px",
+                        color: "black",
+                    }}
+                >
+                    Volver
+                </Button>
                 <Typography
                     variant="h2"
                     fontWeight={500}
@@ -235,8 +250,16 @@ export const Foro = () => {
                             onChange={handleChange}
                             aria-label="lab API tabs example"
                         >
-                            <Tab label="General" value="1" sx={{ minWidth: '30vh' }}/>
-                            <Tab label="Mis publicaciones" value="2" sx={{ minWidth: '30vh' }}/>
+                            <Tab
+                                label="General"
+                                value="1"
+                                sx={{ minWidth: "30vh" }}
+                            />
+                            <Tab
+                                label="Mis publicaciones"
+                                value="2"
+                                sx={{ minWidth: "30vh" }}
+                            />
                         </TabList>
                     </Box>
                     <TabPanel value="1">

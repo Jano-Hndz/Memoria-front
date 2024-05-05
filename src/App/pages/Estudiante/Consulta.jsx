@@ -34,7 +34,20 @@ export const Consulta = () => {
                 alignItems="center"
                 justifyContent="center"
                 my={5}
+                position="relative"
             >
+                <Button
+                    onClick={() => navigate("/")}
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        fontSize: '1rem', // Ajustar tamaño del texto del botón
+                        padding: '12px 24px',
+                        color: 'black' // Ajustar espacio alrededor del texto del botón
+                    }}
+                >
+                    Volver
+                </Button>
                 <Typography
                     variant="h2"
                     fontWeight={500}

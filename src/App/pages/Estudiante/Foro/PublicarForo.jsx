@@ -72,7 +72,20 @@ export const PublicarForo = () => {
                 alignItems="center"
                 justifyContent="center"
                 my={5}
+                position="relative"
             >
+                <Button
+                    onClick={() => navigate("/estudiante/historial")}
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        fontSize: '1rem',
+                        padding: '12px 24px',
+                        color: 'black' 
+                    }}
+                >
+                    Volver
+                </Button>
                 <Typography
                     variant="h2"
                     fontWeight={500}
