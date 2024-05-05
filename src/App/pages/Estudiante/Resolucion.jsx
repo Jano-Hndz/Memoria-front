@@ -76,7 +76,20 @@ export const Resolucion = () => {
                 alignItems="center"
                 justifyContent="center"
                 my={5}
+                position="relative"
             >
+                <Button
+                    onClick={() => navigate("/")}
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        fontSize: '1rem',
+                        padding: '12px 24px',
+                        color: 'black' 
+                    }}
+                >
+                    Volver
+                </Button>
                 <Typography
                     variant="h2"
                     fontWeight={500}
@@ -85,6 +98,7 @@ export const Resolucion = () => {
                     Manos a la Obra
                 </Typography>
             </Box>
+            
 
             <Paper
                 sx={{

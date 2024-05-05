@@ -195,9 +195,21 @@ export const EjerciciosTagEstudiante = () => {
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
-                flexDirection="column"
                 my={5}
+                position="relative"
             >
+                <Button
+                    onClick={() => navigate("/estudiante/EjerciciosPropuestos")}
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        fontSize: '1rem',
+                        padding: '12px 24px',
+                        color: 'black' 
+                    }}
+                >
+                    Volver
+                </Button>
                 <Typography
                     variant="h2"
                     fontWeight={500}
@@ -214,6 +226,9 @@ export const EjerciciosTagEstudiante = () => {
                     ({Titulo})
                 </Typography>
             </Box>
+
+
+          
 
             <Box
                 sx={{

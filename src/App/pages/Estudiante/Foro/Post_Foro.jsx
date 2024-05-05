@@ -39,13 +39,17 @@ const ComentarioItem = ({ Data }) => {
 
 
 export const Post_Foro = () => {
+
     const Data = getData();
     const {user } = useAuthStore();
     const [inputValue, setInputValue] = useState("");
     const [isEnabled, setIsEnabled] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
     const [ComentariosForo, setComentariosForo] = useState([])
-    
+    const navigate = useNavigate();
+
+
+
     const handleRehacer = async (input) => {
         const respu= await GetEjercicio({
             id_consulta:Data.RetroalimentacionID
@@ -98,7 +102,6 @@ export const Post_Foro = () => {
       }, []);
 
 
-    const navigate = useNavigate();
 
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
@@ -132,9 +135,6 @@ export const Post_Foro = () => {
             },
         });
     };
-    console.log("____---");
-    console.log(ComentariosForo);
-    console.log("____---");
 
     return (
         <AppLayout>
@@ -143,7 +143,20 @@ export const Post_Foro = () => {
                 alignItems="center"
                 justifyContent="center"
                 my={5}
+                position="relative"
             >
+                <Button
+                    onClick={() => navigate("/estudiante/foro")}
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        fontSize: '1rem',
+                        padding: '12px 24px',
+                        color: 'black' 
+                    }}
+                >
+                    Volver
+                </Button>
                 <Typography
                     variant="h2"
                     fontWeight={500}

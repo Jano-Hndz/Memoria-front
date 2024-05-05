@@ -2,6 +2,8 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import { AddUser } from "../pages/Admin/AddUser"
 import { AdminUsers } from "../pages/Admin/AdminUsers"
 import { Consulta } from "../pages/Estudiante/Consulta"
+import { Configuraciones } from "../pages/Estudiante/Configuraciones"
+
 import { EjerciciosPropuestosEstudiante } from "../pages/Estudiante/EjerciciosPropuestosEstudiante"
 import { EjerciciosTagEstudiante } from "../pages/Estudiante/EjerciciosTagEstudiante"
 import { Foro } from "../pages/Estudiante/Foro/Foro"
@@ -33,6 +35,7 @@ export const AppRoutes = () => {
 
       
       <Route path="/estudiante/Consulta" element={ <Consulta/> } />
+      <Route path="/estudiante/Configuraciones" element={ <Configuraciones/> } />
       <Route path="/estudiante/Rendimiento" element={ <Rendimiento/> } />
       <Route path="/estudiante/Rendimiento/Resultado" element={ <RendimientoResultados/> } />
       <Route path="/estudiante/Resolucion" element={ <Resolucion/> } />

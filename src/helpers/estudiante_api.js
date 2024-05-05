@@ -141,3 +141,16 @@ export const GET_Rendimiento_Estudiante = async(data)=>{
         Swal.fire('Error al buscar', error.response.data.msg, 'error');
     }
 }
+
+export const CambiarContrasena = async(data)=>{
+    try {
+        const res = await AppAPI.post(`/estudiante/contrasena`,data)
+        
+        return res.data
+
+        
+    } catch (error) {
+        console.log(error);
+        Swal.fire('Error al buscar', error.response.data.msg, 'error');
+    }
+}

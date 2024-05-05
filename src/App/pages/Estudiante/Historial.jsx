@@ -253,6 +253,7 @@ export const Historial = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isLoading2, setIsLoading2] = useState(false);
     const [PaginasTotales, setPaginasTotales] = useState(1);
+    const navigate = useNavigate();
 
     const [DataHistorial, setDataHistorial] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -290,7 +291,20 @@ export const Historial = () => {
                 alignItems="center"
                 justifyContent="center"
                 my={5}
+                position="relative"
             >
+                <Button
+                    onClick={() => navigate("/")}
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        fontSize: '1rem',
+                        padding: '12px 24px',
+                        color: 'black' 
+                    }}
+                >
+                    Volver
+                </Button>
                 <Typography
                     variant="h2"
                     fontWeight={500}
@@ -299,6 +313,7 @@ export const Historial = () => {
                     Historial
                 </Typography>
             </Box>
+            
             <Box
                 sx={{
                     display: "flex",

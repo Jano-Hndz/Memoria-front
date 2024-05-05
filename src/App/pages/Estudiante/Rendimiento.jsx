@@ -242,19 +242,24 @@ export const Rendimiento = () => {
     return (
         <AppLayout>
             <Box
-            display="flex"
-            alignItems="center"
-            flexDirection= "column"
-
-            justifyContent="center">
-
-            
-            <Box
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
                 my={5}
+                position="relative"
             >
+                <Button
+                    onClick={() => navigate("/")}
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        fontSize: '1rem',
+                        padding: '12px 24px',
+                        color: 'black' 
+                    }}
+                >
+                    Volver
+                </Button>
                 <Typography
                     variant="h2"
                     fontWeight={500}
@@ -263,6 +268,15 @@ export const Rendimiento = () => {
                     Mi Rendimiento
                 </Typography>
             </Box>
+            <Box
+            display="flex"
+            alignItems="center"
+            flexDirection= "column"
+
+            justifyContent="center">
+
+
+           
             <Box style={{width: "80vw" }}>
 
             

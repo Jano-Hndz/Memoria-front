@@ -5,20 +5,23 @@ import {
     Grid,
     Paper,
     Rating,
-    Typography
+    Typography,
+    Button,
 } from "@mui/material";
 import { calcularPromedio, getData } from "../../../helpers/funciones";
 import { AppLayout } from "../../layout/AppLayout";
-import {CircularWithValueLabel} from "../../../helpers/CircularWithValueLabel"
-
+import { CircularWithValueLabel } from "../../../helpers/CircularWithValueLabel";
+import { useNavigate } from "react-router-dom";
+import HomeIcon from "@mui/icons-material/Home";
 
 export const Retroalimentacion = () => {
     const data_get = getData();
     const inputs = data_get.inputs;
+    const navigate = useNavigate();
+
     const retroalimentaciones = data_get.retroalimentacion;
     const lista_funciones = data_get.lista_funciones;
     let json_retro = null;
-    
 
     function buscarPorNombre(nombre) {
         for (let i = 0; i < retroalimentaciones.length; i++) {
@@ -31,7 +34,6 @@ export const Retroalimentacion = () => {
 
     const JSON_Calificaciones = calcularPromedio(retroalimentaciones);
 
-
     return (
         <AppLayout>
             <Box
@@ -39,7 +41,20 @@ export const Retroalimentacion = () => {
                 alignItems="center"
                 justifyContent="center"
                 my={5}
+                position="relative"
             >
+                <Button
+                    onClick={() => navigate("/")}
+                    style={{
+                        position: "absolute",
+                        left: 0,
+                        fontSize: "1rem",
+                        padding: "12px 24px",
+                        color: "black",
+                    }}
+                >
+                    Volver
+                </Button>
                 <Typography
                     variant="h2"
                     fontWeight={500}
@@ -167,64 +182,81 @@ export const Retroalimentacion = () => {
                                 />
                             </Box>
                             <Box width={"100%"} my={"3%"}>
-                            <Grid item xs={12}>
-                        <Grid container alignItems="center" spacing={3}>
-                            <Grid
-                                item
-                                xs={12}
-                                sm={4}
-                                sx={{ textAlign: "center" }}
-                            >
-                                <Typography
-                                    sx={{ fontSize: 20 }}
-                                    variant="body1"
-                                >
-                                    Funcionalidad
-                                </Typography>
+                                <Grid item xs={12}>
+                                    <Grid
+                                        container
+                                        alignItems="center"
+                                        spacing={3}
+                                    >
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            sm={4}
+                                            sx={{ textAlign: "center" }}
+                                        >
+                                            <Typography
+                                                sx={{ fontSize: 20 }}
+                                                variant="body1"
+                                            >
+                                                Funcionalidad
+                                            </Typography>
 
-                                <Box mt={2}>
-                                <CircularWithValueLabel value={json_retro.Funcionalidad*10} size={70}/>
-          
-                                </Box>
-                                
-                            </Grid>
-                            <Grid
-                                item
-                                xs={12}
-                                sm={4}
-                                sx={{ textAlign: "center" }}
-                            >
-                                <Typography
-                                    sx={{ fontSize: 20 }}
-                                    variant="body1"
-                                >
-                                    Legibilidad
-                                </Typography>
-                                <Box mt={2}>
-                                <CircularWithValueLabel value={json_retro.Legibilidad*10} size={70}/>
-
-                                </Box>
-                            </Grid>
-                            <Grid
-                                item
-                                xs={12}
-                                sm={4}
-                                sx={{ textAlign: "center" }}
-                            >
-                                <Typography
-                                    sx={{ fontSize: 20 }}
-                                    variant="body1"
-                                >
-                                    Eficiencia
-                                </Typography>
-                                <Box mt={2}>
-                                    <CircularWithValueLabel value={json_retro.Eficiencia*10} size={70}/>
-                                </Box>
-
-                            </Grid>
-                        </Grid>
-                    </Grid>
-
+                                            <Box mt={2}>
+                                                <CircularWithValueLabel
+                                                    value={
+                                                        json_retro.Funcionalidad *
+                                                        10
+                                                    }
+                                                    size={70}
+                                                />
+                                            </Box>
+                                        </Grid>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            sm={4}
+                                            sx={{ textAlign: "center" }}
+                                        >
+                                            <Typography
+                                                sx={{ fontSize: 20 }}
+                                                variant="body1"
+                                            >
+                                                Legibilidad
+                                            </Typography>
+                                            <Box mt={2}>
+                                                <CircularWithValueLabel
+                                                    value={
+                                                        json_retro.Legibilidad *
+                                                        10
+                                                    }
+                                                    size={70}
+                                                />
+                                            </Box>
+                                        </Grid>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            sm={4}
+                                            sx={{ textAlign: "center" }}
+                                        >
+                                            <Typography
+                                                sx={{ fontSize: 20 }}
+                                                variant="body1"
+                                            >
+                                                Eficiencia
+                                            </Typography>
+                                            <Box mt={2}>
+                                                <CircularWithValueLabel
+                                                    value={
+                                                        json_retro.Eficiencia *
+                                                        10
+                                                    }
+                                                    size={70}
+                                                />
+                                            </Box>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
 
                                 <Grid container spacing={2} mt={2}>
                                     <Grid item xs={12}>
@@ -252,83 +284,77 @@ export const Retroalimentacion = () => {
                         </Container>
                     );
                 })}
-                
-            <Box my={10} mb={5} sx={{textAlign:"center"}}>
-            <Typography
-                    variant="h2"
-                    fontWeight={500}
-                    fontSize={{ xs: 30, md: 50 }}
-                >
-                    Calificación final
-                </Typography>
-            </Box>
-            
-            <Grid container alignItems="center" spacing={3}>
-            <Grid
-                                item
-                                xs={12}
-                                sm={4}
-                                sx={{ textAlign: "center" }}
-                            >
-                                <Typography
-                                    sx={{ fontSize: 20 }}
-                                    variant="body1"
-                                >
-                                    Funcionalidad
-                                </Typography>
-                                <Box mt={2}>
-                                    <CircularWithValueLabel value={JSON_Calificaciones.Funcionalidad*10} size={80}/>
-                                </Box>
 
-                            </Grid>
-                            <Grid
-                                item
-                                xs={12}
-                                sm={4}
-                                sx={{ textAlign: "center" }}
+                <Box my={10} mb={5} sx={{ textAlign: "center" }}>
+                    <Typography
+                        variant="h2"
+                        fontWeight={500}
+                        fontSize={{ xs: 30, md: 50 }}
+                    >
+                        Calificación final
+                    </Typography>
+                </Box>
 
-                            >
-                                <Typography
-                                    sx={{ fontSize: 20 }}
-                                    variant="body1"
-                                >
-                                    Legibilidad
-                                </Typography>
-
-                                <Box mt={2}>
-                                <CircularWithValueLabel value={JSON_Calificaciones.Legibilidad*10} size={80}/>
-          
-                                </Box>
-                                
-                            </Grid>
-                            <Grid
-                                item
-                                xs={12}
-                                sm={4}
-                                sx={{ textAlign: "center" }}
-                                
->
-                                <Typography
-                                    sx={{ fontSize: 20 }}
-                                    variant="body1"
-                                >
-                                    Eficiencia
-                                </Typography>
-
-                                <Box mt={2}>
-                                <CircularWithValueLabel value={JSON_Calificaciones.Eficiencia*10} size={80}/>
-          
-                                </Box>
-                                
-                            </Grid>
-                            
+                <Grid container alignItems="center" spacing={3}>
+                    <Grid item xs={12} sm={4} sx={{ textAlign: "center" }}>
+                        <Typography sx={{ fontSize: 20 }} variant="body1">
+                            Funcionalidad
+                        </Typography>
+                        <Box mt={2}>
+                            <CircularWithValueLabel
+                                value={JSON_Calificaciones.Funcionalidad * 10}
+                                size={80}
+                            />
+                        </Box>
                     </Grid>
+                    <Grid item xs={12} sm={4} sx={{ textAlign: "center" }}>
+                        <Typography sx={{ fontSize: 20 }} variant="body1">
+                            Legibilidad
+                        </Typography>
 
-                
+                        <Box mt={2}>
+                            <CircularWithValueLabel
+                                value={JSON_Calificaciones.Legibilidad * 10}
+                                size={80}
+                            />
+                        </Box>
+                    </Grid>
+                    <Grid item xs={12} sm={4} sx={{ textAlign: "center" }}>
+                        <Typography sx={{ fontSize: 20 }} variant="body1">
+                            Eficiencia
+                        </Typography>
 
-
-                
-            
+                        <Box mt={2}>
+                            <CircularWithValueLabel
+                                value={JSON_Calificaciones.Eficiencia * 10}
+                                size={80}
+                            />
+                        </Box>
+                    </Grid>
+                </Grid>
+                <Box
+                    mt={5}
+                    width={"100%"}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                >
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => navigate("/home")}
+                        style={{
+                            fontSize: "1rem",
+                            padding: "12px 24px",
+                            display: "flex",
+                            alignItems: "center",
+                            width: "30%",
+                        }}
+                    >
+                        <HomeIcon />
+                        <span style={{ marginLeft: "5px" }}>Volver</span>
+                    </Button>
+                </Box>
             </Paper>
         </AppLayout>
     );
