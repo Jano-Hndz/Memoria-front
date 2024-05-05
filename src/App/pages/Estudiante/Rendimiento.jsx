@@ -27,6 +27,9 @@ import { calcularPromedio } from "../../../helpers/funciones";
 import { AppLayout } from "../../layout/AppLayout";
 import CreateIcon from "@mui/icons-material/Create";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
+import Swal from "sweetalert2";
+
+
 
 const AccordionItem = ({ Data }) => {
     const navigate = useNavigate();
@@ -218,7 +221,12 @@ export const Rendimiento = () => {
     const handleAnalizar = async () => {
         setIsEnabled(false);
         if (Data.length < 5) {
-            console.log("tiene menos de 5 elementos");
+            
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Debido a que no ha resuelto los problemas mínimos para  hacer un análisis.",
+            });
             setIsEnabled(true);
         }else{
             let lista_data = [];
