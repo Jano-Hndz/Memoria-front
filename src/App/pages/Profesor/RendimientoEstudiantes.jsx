@@ -30,7 +30,7 @@ const RendimientoItem = ({ Data, Estudiante }) => {
         return (
             <Accordion
                 key={Estudiante._id}
-                style={{ border: "1px solid #ef7fa0" }}
+                style={{ border: "1px solid #ef7fa0", width: "75vw"  }}
             >
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
