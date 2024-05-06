@@ -179,7 +179,6 @@ export const EjerciciosPropuestos = () => {
             const respu = await ObtenerEjerciciosPropuestos({});
             setEjercicios(respu);
             setIsLoading(false);
-            console.log(respu);
         } catch (error) {
             console.error(error);
             setIsLoading(false);

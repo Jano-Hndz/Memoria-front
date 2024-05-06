@@ -31,7 +31,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const AccordionItem = ({ Data }) => {
     const navigate = useNavigate();
-    console.log(Data);
 
     const [ActivaCuentas, setActivaCuentas] = useState(Data.Estado);
 
@@ -44,11 +43,9 @@ const AccordionItem = ({ Data }) => {
     const fechaFormateada = `  ${dia}-${mes}-${año}`;
 
     const handleDesactivar = async () => {
-        console.log(Data._id);
         const respu = await DesactivarCuentasAlumnos({
             id_creacion: Data._id,
         });
-        console.log(respu);
         Swal.fire({
             icon: "success",
             title: "Cuentas desactivadas",
@@ -58,11 +55,9 @@ const AccordionItem = ({ Data }) => {
     };
 
     const handleActivar = async () => {
-        console.log(Data._id);
         const respu = await ActivarCuentasAlumnos({
             id_creacion: Data._id,
         });
-        console.log(respu);
         Swal.fire({
             icon: "success",
             title: "Cuentas activadas",
@@ -210,7 +205,6 @@ export const AdminCuentas = () => {
             cancelButtonText: "No, cancelar",
         }).then((result) => {
             if (result.isConfirmed) {
-                console.log(file);
                 navigate("/profesor/CrearCuentas", {
                     state: {
                         data: file,

@@ -40,7 +40,6 @@ export const Resolucion = () => {
 
     const data_get = getData();
     const lista_funciones = data_get.lista;
-    console.log(data_get.id_consulta);
 
     const handleSubmit = async (event) => {
         if (Titulo == "") {

@@ -174,7 +174,6 @@ export const EjerciciosTagEstudiante = () => {
                 Tag: tag,
                 pag: 1,
             });
-            console.log(respu);
             const division = respu.cantidad / 5;
             const resultadoRedondeado = Math.ceil(division);
             setPaginasTotales(resultadoRedondeado);

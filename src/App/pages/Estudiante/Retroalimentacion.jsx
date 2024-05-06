@@ -86,7 +86,6 @@ export const Retroalimentacion = () => {
                 </Box>
                 {lista_funciones.map((jsonItem, index) => {
                     json_retro = buscarPorNombre(jsonItem.Nombre);
-                    console.log(json_retro);
                     return (
                         <Container
                             key={jsonItem.Nombre}

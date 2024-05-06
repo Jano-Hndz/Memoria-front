@@ -40,7 +40,6 @@ export const AddUser = () => {
             return;
         }
     
-        console.log({ name: registerName, email: registerEmail, password: registerPassword });
     }
     
     

@@ -19,7 +19,6 @@ export const Test = () => {
       });
 
       if (response.ok) {
-        console.log('Archivo subido exitosamente');
       } else {
         console.error('Error al subir archivo');
       }

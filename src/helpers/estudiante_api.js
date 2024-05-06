@@ -3,7 +3,6 @@ import Swal from 'sweetalert2';
 
 export const Consulta_ChatGPT = async(data)=>{
     try {
-        // console.log(data);
         const res = await AppAPI.post(`/estudiante/consulta`,data)
 
 
@@ -21,9 +20,7 @@ export const Consulta_ChatGPT = async(data)=>{
 
 export const Revision_ChatGPT = async(data)=>{
     try {
-        // console.log(data);
         const res = await AppAPI.post(`/estudiante/revision`,data)
-        console.log(data);
 
         if(res.data.ok){
             return res.data.resp
@@ -75,7 +72,6 @@ export const Rendimiento_Estudiante = async()=>{
 
 export const ObtenerEjerciciosPropuestosEstudiante = async(data)=>{
     try {
-        console.log("entro");
         const res = await AppAPI.post(`/estudiante/ejerciciospropuestos`,data)
 
         if(res.data.ok){

@@ -24,7 +24,6 @@ export const PublicarForo = () => {
     const navigate = useNavigate();
     const { Data } = getData();
     const { user } = useAuthStore();
-    console.log(Data);
 
     const [option1Checked, setOption1Checked] = useState(false);
 

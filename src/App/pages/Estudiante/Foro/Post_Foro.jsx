@@ -86,7 +86,6 @@ export const Post_Foro = () => {
             const respu = await PostForo({
                 id_foro:Data._id
             });
-            console.log(respu);
 
             setComentariosForo(respu.data);
             setIsLoading(false);

@@ -22,7 +22,6 @@ const EjercicioItem = ({ Data }) => {
     const navigate = useNavigate();
 
     const handleChip = (tag) => {
-        console.log(tag);
     };
 
     return (
@@ -155,7 +154,6 @@ export const EjerciciosTag = () => {
                 });
                 setEjercicios(respu);
                 setIsLoading(false);
-                console.log(respu);
             } catch (error) {
                 console.error(error);
                 setIsLoading(false);

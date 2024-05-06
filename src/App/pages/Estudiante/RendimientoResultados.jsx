@@ -18,7 +18,6 @@ export const RendimientoResultados = () => {
     const data = getData();
     const navigate = useNavigate();
 
-    console.log(data);
 
     const handleResolverProblema = async () => {
         navigate("/estudiante/EjerciciosPropuestos/Resolucion", {
