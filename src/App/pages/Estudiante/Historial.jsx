@@ -95,7 +95,7 @@ const AccordionItem = ({ Data }) => {
                     alignItems: "center",
                 }}
             >
-                <Box flexDirection={"column"}>
+                <Box flexDirection={"column"} width= {"100%"} >
                     <Box
                         sx={{
                             width: "100%",

@@ -44,7 +44,7 @@ export const Post_Foro = () => {
     const Data = getData();
     const {user } = useAuthStore();
     const [inputValue, setInputValue] = useState("");
-    const [isEnabled, setIsEnabled] = useState(true);
+    const [isEnabled, setIsEnabled] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [ComentariosForo, setComentariosForo] = useState([])
     const navigate = useNavigate();
@@ -101,9 +101,11 @@ export const Post_Foro = () => {
       }, []);
 
 
-
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
+        if(inputValue != ""){
+            setIsEnabled(true)
+        }
     };
 
     const handleSubmit = async (event) => {
@@ -122,6 +124,7 @@ export const Post_Foro = () => {
         const nuevaLista=[...ComentariosForo, jsonAgregar]
         setComentariosForo(nuevaLista)
         setInputValue("")
+        setIsEnabled(false)
     };
 
     const handleVer_ejercicio = async (event) => {
