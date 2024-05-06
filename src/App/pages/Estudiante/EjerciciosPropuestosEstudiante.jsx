@@ -16,6 +16,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ObtenerEjerciciosPropuestosEstudiante } from "../../../helpers/estudiante_api";
 import { AppLayout } from "../../layout/AppLayout";
+import VeraMono from '../../../fonts/VeraMono.ttf'
+
 
 const EjercicioItem = ({ Data }) => {
     const navigate = useNavigate();
@@ -207,7 +209,8 @@ export const EjerciciosPropuestosEstudiante = () => {
                         left: 0,
                         fontSize: '1rem',
                         padding: '12px 24px',
-                        color: 'black' 
+                        color: 'black',
+                        fontFamily: {VeraMono}
                     }}
                 >
                     Volver
@@ -216,6 +219,11 @@ export const EjerciciosPropuestosEstudiante = () => {
                     variant="h2"
                     fontWeight={500}
                     fontSize={{ xs: 30, md: 50 }}
+                    sx={
+                        {
+                            fontFamily: {VeraMono}
+                        }
+                    }
                 >
                     Ejercicios Propuestos
                 </Typography>

@@ -9,6 +9,7 @@ import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import { useNavigate } from "react-router-dom";
 import { AppLayout } from "../layout/AppLayout";
 import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
+import VeraMono from '../../fonts/VeraMono.ttf'
 
 
 export const HomeEstudiante = () => {
@@ -34,6 +35,12 @@ export const HomeEstudiante = () => {
                     variant="h2"
                     fontWeight={500}
                     fontSize={{ xs: 30, md: 50 }}
+                    sx={
+                        {
+                            fontFamily: {VeraMono}
+                        }
+                    }
+
                 >
                     PrograGPT
                 </Typography>

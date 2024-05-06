@@ -28,7 +28,7 @@ import { AppLayout } from "../../layout/AppLayout";
 import CreateIcon from "@mui/icons-material/Create";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import Swal from "sweetalert2";
-
+import VeraMono from '../../../fonts/VeraMono.ttf'
 
 
 const AccordionItem = ({ Data }) => {
@@ -263,7 +263,8 @@ export const Rendimiento = () => {
                         left: 0,
                         fontSize: '1rem',
                         padding: '12px 24px',
-                        color: 'black' 
+                        color: 'black' ,
+                        fontFamily: {VeraMono}
                     }}
                 >
                     Volver
@@ -272,6 +273,11 @@ export const Rendimiento = () => {
                     variant="h2"
                     fontWeight={500}
                     fontSize={{ xs: 30, md: 50 }}
+                    sx={
+                        {
+                            fontFamily: {VeraMono}
+                        }
+                    }
                 >
                     Mi Rendimiento
                 </Typography>

@@ -1,11 +1,9 @@
 import axios from 'axios';
 
-const key = (import.meta.env.MODE === 'development') ?
-    'http://localhost:3500/api' :
-    'https://anima-backend.azurewebsites.net/api';
 
 const AppAPI = axios.create({
-    baseURL: 'http://localhost:4000/api'
+    baseURL: 'https://memoria-back-ebon.vercel.app/api'
+    // baseURL: 'http://localhost:4000/api'
 });
 
 // Todo: configurar interceptores

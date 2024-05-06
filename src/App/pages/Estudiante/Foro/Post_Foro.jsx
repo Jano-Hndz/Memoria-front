@@ -9,6 +9,7 @@ import { ComentarForo,Get_Retroalimentacion,PostForo,GetEjercicio} from "../../.
 import ChatIcon from "@mui/icons-material/Chat";
 import {useAuthStore} from "../../../../hooks/useAuthStore"
 import CreateIcon from "@mui/icons-material/Create";
+import VeraMono from '../../../../fonts/VeraMono.ttf'
 
 
 
@@ -43,7 +44,7 @@ export const Post_Foro = () => {
     const Data = getData();
     const {user } = useAuthStore();
     const [inputValue, setInputValue] = useState("");
-    const [isEnabled, setIsEnabled] = useState(true);
+    const [isEnabled, setIsEnabled] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [ComentariosForo, setComentariosForo] = useState([])
     const navigate = useNavigate();
@@ -85,11 +86,8 @@ export const Post_Foro = () => {
             const respu = await PostForo({
                 id_foro:Data._id
             });
-            console.log("ñññññññ");
-            console.log(respu);
-            console.log("ñññññññ");
 
-            setComentariosForo(respu);
+            setComentariosForo(respu.data);
             setIsLoading(false);
           } catch (error) {
             console.error(error);
@@ -102,9 +100,11 @@ export const Post_Foro = () => {
       }, []);
 
 
-
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
+        if(inputValue != ""){
+            setIsEnabled(true)
+        }
     };
 
     const handleSubmit = async (event) => {
@@ -123,6 +123,7 @@ export const Post_Foro = () => {
         const nuevaLista=[...ComentariosForo, jsonAgregar]
         setComentariosForo(nuevaLista)
         setInputValue("")
+        setIsEnabled(false)
     };
 
     const handleVer_ejercicio = async (event) => {
@@ -152,7 +153,8 @@ export const Post_Foro = () => {
                         left: 0,
                         fontSize: '1rem',
                         padding: '12px 24px',
-                        color: 'black' 
+                        color: 'black',
+                        fontFamily: {VeraMono}
                     }}
                 >
                     Volver
@@ -161,6 +163,11 @@ export const Post_Foro = () => {
                     variant="h2"
                     fontWeight={500}
                     fontSize={{ xs: 30, md: 50 }}
+                    sx={
+                        {
+                            fontFamily: {VeraMono}
+                        }
+                    }
                 >
                     Foro
                 </Typography>
@@ -246,7 +253,7 @@ export const Post_Foro = () => {
                         Comentar
                     </Button>
 
-                    {/* {isLoading ? (
+                    {isLoading ? (
                     <Box sx = {{display:"flex", flexDirection:'column' ,alignItems: "center", justifyContent: "center", width: "100%"}} >
                         <CircularProgress />
                     </Box>
@@ -258,7 +265,7 @@ export const Post_Foro = () => {
                         </Box>
                     ))}
                     </div>
-                    )} */}
+                    )}
 
                     
 

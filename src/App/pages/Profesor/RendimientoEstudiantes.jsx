@@ -22,11 +22,8 @@ const RendimientoItem = ({ Data, Estudiante }) => {
     let funcionalidad = 0;
     let legibilidad = 0;
     let eficiencia = 0;
-    console.log(Data);
-    console.log(Data.length);
 
     if (Data.length < 5) {
-        console.log("entro");
         return (
             <Accordion
                 key={Estudiante._id}

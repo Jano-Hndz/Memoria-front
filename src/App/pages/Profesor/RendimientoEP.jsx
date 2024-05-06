@@ -24,7 +24,6 @@ const RendimientoItem = ({ Data, Problema }) => {
     const JSON_Calificaciones = calcularPromedio(Data.RespuestaLLM);
 
     const handleVerRetoalimentacion = async () => {
-        console.log(Problema);
         navigate("/estudiante/retroalimentacion", {
             state: {
                 inputs: Data.RespuestaEstudiante,

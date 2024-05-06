@@ -19,8 +19,7 @@ import {CrearCuentasAlumnos} from "../../../helpers/profesor_api"
 
 export const CrearCuentas = () => {
     const data = getData();
-    console.log("-----------------");
-    console.log(data.data);
+
 
     async function handleSubirArchivo() {
         try {
@@ -28,7 +27,6 @@ export const CrearCuentas = () => {
             formData.append('file', data.data);
 
             const respu = await CrearCuentasAlumnos(formData);
-            console.log(respu);
         } catch (error) {
             console.error(error);
             setIsLoading(false);

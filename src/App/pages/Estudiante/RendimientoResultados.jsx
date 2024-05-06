@@ -10,6 +10,7 @@ import {
 import { getData } from "../../../helpers/funciones";
 import { AppLayout } from "../../layout/AppLayout";
 import { useNavigate } from "react-router-dom";
+import VeraMono from '../../../fonts/VeraMono.ttf'
 
 
 
@@ -17,7 +18,6 @@ export const RendimientoResultados = () => {
     const data = getData();
     const navigate = useNavigate();
 
-    console.log(data);
 
     const handleResolverProblema = async () => {
         navigate("/estudiante/EjerciciosPropuestos/Resolucion", {
@@ -46,7 +46,8 @@ export const RendimientoResultados = () => {
                         left: 0,
                         fontSize: '1rem',
                         padding: '12px 24px',
-                        color: 'black' 
+                        color: 'black',
+                        fontFamily: {VeraMono}
                     }}
                 >
                     Volver
@@ -55,6 +56,11 @@ export const RendimientoResultados = () => {
                     variant="h2"
                     fontWeight={500}
                     fontSize={{ xs: 30, md: 50 }}
+                    sx={
+                        {
+                            fontFamily: {VeraMono}
+                        }
+                    }
                 >
                     Resultado analisis de rendimiento
                 </Typography>

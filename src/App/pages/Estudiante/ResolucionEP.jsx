@@ -17,6 +17,8 @@ import { Revision_ChatGPT } from "../../../helpers/estudiante_api";
 import { getData } from "../../../helpers/funciones";
 import { AppLayout } from "../../layout/AppLayout";
 import Swal from "sweetalert2";
+import VeraMono from '../../../fonts/VeraMono.ttf'
+
 
 export const ResolucionEP = () => {
     const [inputs, setInputs] = useState({});
@@ -85,6 +87,7 @@ export const ResolucionEP = () => {
                         fontSize: "1rem",
                         padding: "12px 24px",
                         color: "black",
+                        fontFamily: {VeraMono}
                     }}
                 >
                     Volver
@@ -93,6 +96,11 @@ export const ResolucionEP = () => {
                     variant="h2"
                     fontWeight={500}
                     fontSize={{ xs: 30, md: 50 }}
+                    sx={
+                        {
+                            fontFamily: {VeraMono}
+                        }
+                    }
                 >
                     Manos a la Obra
                 </Typography>

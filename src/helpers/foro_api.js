@@ -94,11 +94,11 @@ export const ComentarForo = async(data)=>{
 export const PostForo = async(data)=>{
     try {
 
-        const res = await AppAPI.post(`/estudiante/foro/get`,data)
+        const res = await AppAPI.post(`/estudiante/foro/comentarios`,data)
 
 
         if(res.data.ok){
-            return res.data.data
+            return res.data
         }else{
             return "Error en peticion"
         }

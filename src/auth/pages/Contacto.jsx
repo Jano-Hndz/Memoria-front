@@ -21,7 +21,6 @@ export const Contacto = () => {
   
     const sendEmail = (e) => {
       e.preventDefault();
-      console.log(form.current);
 
       emailjs
         .sendForm(

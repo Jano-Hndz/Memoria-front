@@ -20,6 +20,8 @@ import { CircularWithValueLabel } from "../../../helpers/CircularWithValueLabel"
 import { GetHistorial } from "../../../helpers/estudiante_api";
 import { calcularPromedio } from "../../../helpers/funciones";
 import { AppLayout } from "../../layout/AppLayout";
+import VeraMono from '../../../fonts/VeraMono.ttf'
+
 
 const AccordionItem = ({ Data }) => {
     const navigate = useNavigate();
@@ -93,7 +95,7 @@ const AccordionItem = ({ Data }) => {
                     alignItems: "center",
                 }}
             >
-                <Box flexDirection={"column"}>
+                <Box flexDirection={"column"} width= {"100%"} >
                     <Box
                         sx={{
                             width: "100%",
@@ -300,7 +302,8 @@ export const Historial = () => {
                         left: 0,
                         fontSize: '1rem',
                         padding: '12px 24px',
-                        color: 'black' 
+                        color: 'black',
+                        fontFamily: {VeraMono}
                     }}
                 >
                     Volver
@@ -309,6 +312,11 @@ export const Historial = () => {
                     variant="h2"
                     fontWeight={500}
                     fontSize={{ xs: 30, md: 50 }}
+                    sx={
+                        {
+                            fontFamily: {VeraMono}
+                        }
+                    }
                 >
                     Historial
                 </Typography>
