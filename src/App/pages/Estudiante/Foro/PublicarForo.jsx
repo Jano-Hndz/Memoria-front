@@ -16,6 +16,7 @@ import { getData } from "../../../../helpers/funciones";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Publicar_Foro } from "../../../../helpers/foro_api";
 import { useAuthStore } from "../../../../hooks/useAuthStore";
+import VeraMono from '../../../../fonts/VeraMono.ttf'
 
 export const PublicarForo = () => {
     const [inputValue, setInputValue] = useState("");
@@ -81,7 +82,8 @@ export const PublicarForo = () => {
                         left: 0,
                         fontSize: '1rem',
                         padding: '12px 24px',
-                        color: 'black' 
+                        color: 'black',
+                        fontFamily: {VeraMono}
                     }}
                 >
                     Volver
@@ -90,6 +92,11 @@ export const PublicarForo = () => {
                     variant="h2"
                     fontWeight={500}
                     fontSize={{ xs: 30, md: 50 }}
+                    sx={
+                        {
+                            fontFamily: {VeraMono}
+                        }
+                    }
                 >
                     Publicar en Foro
                 </Typography>

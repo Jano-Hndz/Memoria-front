@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Consulta_ChatGPT } from "../../../helpers/estudiante_api";
 import { AppLayout } from "../../layout/AppLayout";
+import VeraMono from '../../../fonts/VeraMono.ttf'
+
 
 export const Consulta = () => {
     const [inputValue, setInputValue] = useState("");
@@ -43,7 +45,8 @@ export const Consulta = () => {
                         left: 0,
                         fontSize: '1rem', // Ajustar tamaño del texto del botón
                         padding: '12px 24px',
-                        color: 'black' // Ajustar espacio alrededor del texto del botón
+                        color: 'black', 
+                        fontFamily: {VeraMono}
                     }}
                 >
                     Volver
@@ -52,6 +55,11 @@ export const Consulta = () => {
                     variant="h2"
                     fontWeight={500}
                     fontSize={{ xs: 30, md: 50 }}
+                    sx={
+                        {
+                            fontFamily: {VeraMono}
+                        }
+                    }
                 >
                     Consulta
                 </Typography>

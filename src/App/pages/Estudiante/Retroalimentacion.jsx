@@ -13,6 +13,7 @@ import { AppLayout } from "../../layout/AppLayout";
 import { CircularWithValueLabel } from "../../../helpers/CircularWithValueLabel";
 import { useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
+import VeraMono from '../../../fonts/VeraMono.ttf'
 
 export const Retroalimentacion = () => {
     const data_get = getData();
@@ -51,6 +52,7 @@ export const Retroalimentacion = () => {
                         fontSize: "1rem",
                         padding: "12px 24px",
                         color: "black",
+                        fontFamily: {VeraMono}
                     }}
                 >
                     Volver
@@ -59,6 +61,11 @@ export const Retroalimentacion = () => {
                     variant="h2"
                     fontWeight={500}
                     fontSize={{ xs: 30, md: 50 }}
+                    sx={
+                        {
+                            fontFamily: {VeraMono}
+                        }
+                    }
                 >
                     Retroalimentación
                 </Typography>

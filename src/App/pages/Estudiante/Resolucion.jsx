@@ -17,6 +17,8 @@ import { Revision_ChatGPT } from "../../../helpers/estudiante_api";
 import { getData } from "../../../helpers/funciones";
 import { AppLayout } from "../../layout/AppLayout";
 import Swal from "sweetalert2";
+import VeraMono from '../../../fonts/VeraMono.ttf'
+
 
 export const Resolucion = () => {
     const [inputs, setInputs] = useState({});
@@ -85,7 +87,8 @@ export const Resolucion = () => {
                         left: 0,
                         fontSize: '1rem',
                         padding: '12px 24px',
-                        color: 'black' 
+                        color: 'black',
+                        fontFamily: {VeraMono}
                     }}
                 >
                     Volver
@@ -94,6 +97,11 @@ export const Resolucion = () => {
                     variant="h2"
                     fontWeight={500}
                     fontSize={{ xs: 30, md: 50 }}
+                    sx={
+                        {
+                            fontFamily: {VeraMono}
+                        }
+                    }
                 >
                     Manos a la Obra
                 </Typography>
@@ -112,7 +120,7 @@ export const Resolucion = () => {
             >
                 <TextField
                     id="outlined-multiline-static"
-                    label="Escriba un titulo para el problema"
+                    label="Escriba un título para el problema"
                     multiline
                     rows={1}
                     sx={{ width: "60%", marginBottom: "1rem" }}
@@ -121,7 +129,7 @@ export const Resolucion = () => {
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
-                                <Tooltip title="Este titulo sera util para poder identificar cada consulta en la sección del historial.">
+                                <Tooltip title="Este título será útil para poder identificar cada consulta en la sección del historial.">
                                     <InfoIcon />
                                 </Tooltip>
                             </InputAdornment>

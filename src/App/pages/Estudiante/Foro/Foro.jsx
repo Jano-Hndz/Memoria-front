@@ -23,6 +23,7 @@ import { AppLayout } from "../../../layout/AppLayout";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
+import VeraMono from "../../../../fonts/VeraMono.ttf";
 
 const ForoItem = ({ Data }) => {
     const navigate = useNavigate();
@@ -225,6 +226,7 @@ export const Foro = () => {
                         fontSize: "1rem",
                         padding: "12px 24px",
                         color: "black",
+                        fontFamily: { VeraMono },
                     }}
                 >
                     Volver
@@ -233,6 +235,9 @@ export const Foro = () => {
                     variant="h2"
                     fontWeight={500}
                     fontSize={{ xs: 30, md: 50 }}
+                    sx={{
+                        fontFamily: { VeraMono },
+                    }}
                 >
                     Foro
                 </Typography>

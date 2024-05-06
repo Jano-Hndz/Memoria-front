@@ -6,6 +6,7 @@ import { CambiarContrasena } from "../../../helpers/estudiante_api";
 import { AppLayout } from "../../layout/AppLayout";
 import Swal from "sweetalert2";
 import { TrendingUp } from "@mui/icons-material";
+import VeraMono from '../../../fonts/VeraMono.ttf'
 
 export const Configuraciones = () => {
     const navigate = useNavigate();
@@ -78,6 +79,7 @@ export const Configuraciones = () => {
                         fontSize: "1rem", // Ajustar tamaño del texto del botón
                         padding: "12px 24px",
                         color: "black", // Ajustar espacio alrededor del texto del botón
+                        fontFamily: {VeraMono},
                     }}
                 >
                     Volver
@@ -86,6 +88,11 @@ export const Configuraciones = () => {
                     variant="h2"
                     fontWeight={500}
                     fontSize={{ xs: 30, md: 50 }}
+                    sx={
+                        {
+                            fontFamily: {VeraMono}
+                        }
+                    }
                 >
                     Configuraciones
                 </Typography>
