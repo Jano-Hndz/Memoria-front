@@ -25,7 +25,6 @@ import VeraMono from '../../../fonts/VeraMono.ttf'
 
 const AccordionItem = ({ Data }) => {
     const navigate = useNavigate();
-
     const JSON_Calificaciones = calcularPromedio(Data.Retroalimentacion);
 
     const handleVerRetoalimentacion = async () => {
@@ -41,21 +40,23 @@ const AccordionItem = ({ Data }) => {
 
     const handleRehacer = async (input) => {
         if (Data.Propuesto) {
-            navigate("/estudiante/EjerciciosPropuestos/Resolucion", {
+            navigate("/estudiante/EjerciciosPropuestos/Rehacer", {
                 state: {
                     lista: Data.RespuestaSubojetivos,
                     problema: Data.Problema,
                     id_consulta: Data.id_EjercicioPropuesto,
                     EJ: true,
+                    Respuesta_Estudiante:Data.Respuesta_Estudiante
                 },
             });
         } else {
-            navigate("/estudiante/resolucion", {
+            navigate("/estudiante/Rehacer", {
                 state: {
                     lista: Data.RespuestaSubojetivos,
                     problema: Data.Problema,
                     id_consulta: Data.id_consulta,
                     EJ: false,
+                    Respuesta_Estudiante:Data.Respuesta_Estudiante
                 },
             });
         }
