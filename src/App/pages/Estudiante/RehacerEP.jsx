@@ -17,18 +17,13 @@ import { Revision_ChatGPT } from "../../../helpers/estudiante_api";
 import { getData } from "../../../helpers/funciones";
 import { AppLayout } from "../../layout/AppLayout";
 import Swal from "sweetalert2";
-import VeraMono from "../../../fonts/VeraMono.ttf";
+import VeraMono from '../../../fonts/VeraMono.ttf'
 
-export const ResolucionEP = () => {
+
+export const RehacerEP = () => {
     const data_get = getData();
     const lista_funciones = data_get.lista;
-    let json_input = {};
-    for (const variable of lista_funciones) {
-        const texto_input = `def ${variable.Nombre}():\r\n    # Escriba la función correspondiente aquí, además agregue las variables correspondientes a \r\n    # la firma de la función. Por favor, borre estos comentarios para no afectar su calificación en la LLM\r\n`;
-        json_input = { ...json_input, [variable.Nombre]: texto_input };
-    }
-
-    const [inputs, setInputs] = useState(json_input);
+    const [inputs, setInputs] = useState(data_get.Respuesta_Estudiante);
     const [isEnabled, setIsEnabled] = useState(true);
     const [Titulo, setTitulo] = useState("");
 
@@ -84,14 +79,14 @@ export const ResolucionEP = () => {
                 position="relative"
             >
                 <Button
-                    onClick={() => navigate("/")}
+                    onClick={() => navigate("/estudiante/historial")}
                     style={{
                         position: "absolute",
                         left: 0,
                         fontSize: "1rem",
                         padding: "12px 24px",
                         color: "black",
-                        fontFamily: { VeraMono },
+                        fontFamily: {VeraMono}
                     }}
                 >
                     Volver
@@ -100,9 +95,11 @@ export const ResolucionEP = () => {
                     variant="h2"
                     fontWeight={500}
                     fontSize={{ xs: 30, md: 50 }}
-                    sx={{
-                        fontFamily: { VeraMono },
-                    }}
+                    sx={
+                        {
+                            fontFamily: {VeraMono}
+                        }
+                    }
                 >
                     Manos a la Obra
                 </Typography>

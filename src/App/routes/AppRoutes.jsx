@@ -11,6 +11,8 @@ import { Post_Foro } from "../pages/Estudiante/Foro/Post_Foro"
 import { PublicarForo } from "../pages/Estudiante/Foro/PublicarForo"
 import { Historial } from "../pages/Estudiante/Historial"
 import { Resolucion } from "../pages/Estudiante/Resolucion"
+import { RehacerEP } from "../pages/Estudiante/RehacerEP"
+import { Rehacer } from "../pages/Estudiante/Rehacer"
 import { ResolucionEP } from "../pages/Estudiante/ResolucionEP"
 import { Retroalimentacion } from "../pages/Estudiante/Retroalimentacion"
 import { Home } from "../pages/Home"
@@ -39,6 +41,8 @@ export const AppRoutes = () => {
       <Route path="/estudiante/Rendimiento" element={ <Rendimiento/> } />
       <Route path="/estudiante/Rendimiento/Resultado" element={ <RendimientoResultados/> } />
       <Route path="/estudiante/Resolucion" element={ <Resolucion/> } />
+      <Route path="/estudiante/Rehacer" element={ <Rehacer/> } />
+
       <Route path="/estudiante/Retroalimentacion" element={ <Retroalimentacion/> } />
       <Route path="/estudiante/Historial" element={ <Historial/> } />
       <Route path="/estudiante/Foro/Publicar" element={ <PublicarForo/> } />
@@ -46,6 +50,7 @@ export const AppRoutes = () => {
       <Route path="/estudiante/Post_Foro" element={ <Post_Foro/> } />
       <Route path="/estudiante/EjerciciosPropuestos" element={ <EjerciciosPropuestosEstudiante/> } />
       <Route path="/estudiante/EjerciciosPropuestos/Resolucion" element={ <ResolucionEP/> } />
+      <Route path="/estudiante/EjerciciosPropuestos/Rehacer" element={ <RehacerEP/> } />
       <Route path="/estudiante/EjerciciosPropuestos/tag" element={ <EjerciciosTagEstudiante/> } />
 
 
