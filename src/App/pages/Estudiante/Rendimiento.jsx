@@ -29,6 +29,7 @@ import CreateIcon from "@mui/icons-material/Create";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import Swal from "sweetalert2";
 import VeraMono from '../../../fonts/VeraMono.ttf'
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 
 
 const AccordionItem = ({ Data }) => {
@@ -247,6 +248,10 @@ export const Rendimiento = () => {
         
     };
 
+    const handleVideoRedirect = () => {
+        window.open("https://youtu.be/l22712R_Lo0", "_blank");
+    };
+
     return (
         <AppLayout>
             <Box
@@ -304,6 +309,24 @@ export const Rendimiento = () => {
                     alignItems: "center",
                 }}
             >
+
+<Box
+                    mb={5}
+                    sx={{
+                        width: "95%",
+                        display: "flex",
+                        justifyContent: "center",
+                    }}
+                >
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={handleVideoRedirect}
+                    >
+                        <PlayCircleIcon sx={{ color: "white", mr: "5px" }} />
+                        Ver Video Tutorial
+                    </Button>
+                </Box>
                 {isLoading ? (
                     <Box
                         sx={{

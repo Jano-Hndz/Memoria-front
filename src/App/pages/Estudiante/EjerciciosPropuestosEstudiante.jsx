@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { ObtenerEjerciciosPropuestosEstudiante } from "../../../helpers/estudiante_api";
 import { AppLayout } from "../../layout/AppLayout";
 import VeraMono from '../../../fonts/VeraMono.ttf'
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 
 
 const EjercicioItem = ({ Data }) => {
@@ -193,6 +194,10 @@ export const EjerciciosPropuestosEstudiante = () => {
         handleBuscarEjerciciosPropuestos();
     }, []);
 
+    const handleVideoRedirect = () => {
+        window.open("https://youtu.be/GQQPmXu84B0", "_blank");
+    };
+
     return (
         <AppLayout>
             <Box
@@ -240,6 +245,24 @@ export const EjerciciosPropuestosEstudiante = () => {
                     width: "100%",
                 }}
             >
+
+<Box
+                    mb={5}
+                    sx={{
+                        width: "95%",
+                        display: "flex",
+                        justifyContent: "center",
+                    }}
+                >
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={handleVideoRedirect}
+                    >
+                        <PlayCircleIcon sx={{ color: "white", mr: "5px" }} />
+                        Ver Video Tutorial
+                    </Button>
+                </Box>
                 {isLoading ? (
                     <Box>
                         <CircularProgress />

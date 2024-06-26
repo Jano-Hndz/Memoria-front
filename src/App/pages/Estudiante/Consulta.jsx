@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Consulta_ChatGPT } from "../../../helpers/estudiante_api";
 import { AppLayout } from "../../layout/AppLayout";
 import VeraMono from '../../../fonts/VeraMono.ttf'
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
 
 export const Consulta = () => {
@@ -27,6 +28,10 @@ export const Consulta = () => {
                 Propuesto: false,
             },
         });
+    };
+
+    const handleVideoRedirect = () => {
+        window.open('https://youtu.be/ljqiwA1pPq4', '_blank');
     };
 
     return (
@@ -74,6 +79,7 @@ export const Consulta = () => {
                     alignItems: "center",
                 }}
             >
+
                 <Box
                     width={"70%"}
                     sx={{
@@ -104,6 +110,16 @@ export const Consulta = () => {
                         <SendIcon sx={{ color: "white", mr: "5px" }} />
                         Enviar
                     </Button>
+
+                    <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleVideoRedirect}
+                    sx={{ width: "100%" }}
+                >
+                    <PlayCircleIcon sx={{ color: "white", mr: "5px" }} />
+                    Ver Video Tutorial
+                </Button>
                 </Box>
             </Paper>
         </AppLayout>
