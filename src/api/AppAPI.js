@@ -7,6 +7,7 @@ const AppAPI = axios.create({
 });
 
 
+
 // Todo: configurar interceptores
 AppAPI.interceptors.request.use( config => {
 
