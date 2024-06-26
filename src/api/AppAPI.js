@@ -6,6 +6,7 @@ const AppAPI = axios.create({
     // baseURL: 'http://localhost:4000/api'
 });
 
+
 // Todo: configurar interceptores
 AppAPI.interceptors.request.use( config => {
 
