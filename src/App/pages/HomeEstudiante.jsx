@@ -293,7 +293,7 @@ export const HomeEstudiante = () => {
                         >
                             <SettingsApplicationsIcon sx={{ color: "white", mr: "5px" }} />
                             <Typography color="white" fontSize={22}>
-                                Configuraciones
+                                Cambiar Contraseña
                             </Typography>
                         </Button>
                     </Box>

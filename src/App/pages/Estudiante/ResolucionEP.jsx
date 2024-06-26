@@ -18,6 +18,7 @@ import { getData } from "../../../helpers/funciones";
 import { AppLayout } from "../../layout/AppLayout";
 import Swal from "sweetalert2";
 import VeraMono from "../../../fonts/VeraMono.ttf";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 
 export const ResolucionEP = () => {
     const data_get = getData();
@@ -74,6 +75,10 @@ export const ResolucionEP = () => {
         }
     };
 
+    const handleVideoRedirect = () => {
+        window.open("https://youtu.be/pQuOI7MfoLw", "_blank");
+    };
+
     return (
         <AppLayout>
             <Box
@@ -118,6 +123,24 @@ export const ResolucionEP = () => {
                     alignItems: "center",
                 }}
             >
+                <Box
+                    mb={5}
+                    sx={{
+                        width: "95%",
+                        display: "flex",
+                        justifyContent: "center",
+                    }}
+                >
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={handleVideoRedirect}
+                    >
+                        <PlayCircleIcon sx={{ color: "white", mr: "5px" }} />
+                        Ver Video Tutorial
+                    </Button>
+                </Box>
+
                 <TextField
                     id="outlined-multiline-static"
                     label="Escriba un titulo para el problema"
