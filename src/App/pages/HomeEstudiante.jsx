@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { AppLayout } from "../layout/AppLayout";
 import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
 import VeraMono from '../../fonts/VeraMono.ttf'
-
+import PollIcon from '@mui/icons-material/Poll';
 
 export const HomeEstudiante = () => {
     const navigate = useNavigate();
@@ -22,9 +22,15 @@ export const HomeEstudiante = () => {
     const handleForo = async () => {
         navigate("/estudiante/Foro");
     };
+    const handleEncuesta = () => {
+        window.open("https://forms.gle/A61UtsUDySgqJGyf6", "_blank");
+    };
+
+
 
     return (
         <AppLayout>
+    
             <Box
                 display="flex"
                 alignItems="center"
@@ -44,6 +50,8 @@ export const HomeEstudiante = () => {
                 >
                     PrograGPT
                 </Typography>
+
+             
             </Box>
             <Box
                 display="flex"
@@ -183,7 +191,6 @@ export const HomeEstudiante = () => {
                 <Box
                     width={{ xs: "100%", md: "33%" }}
                     alignItems="center"
-                    justifyContent="center"
                     display="flex"
                     flexDirection="column"
                 >
@@ -220,7 +227,6 @@ export const HomeEstudiante = () => {
                     </Box>
                 </Box>
 
-                {/* Segunda columna */}
                 <Box
                     width={{ xs: "100%", md: "33%" }}
                     alignItems="center"
@@ -258,6 +264,22 @@ export const HomeEstudiante = () => {
                             </Typography>
                         </Button>
                     </Box>
+
+                    
+                    <Box width={"80%"} mb={6}>
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 1, height: "80px" }}
+                            onClick={handleEncuesta}
+                        >
+                            <PollIcon sx={{ color: "white", mr: "5px" }} />
+                            <Typography color="white" fontSize={22}>
+                                Encuesta
+                            </Typography>
+                        </Button>
+                    </Box>
+                    
                 </Box>
 
                 <Box
